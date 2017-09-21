@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E0E88BB1F73F44A00EB4471 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0E88BA1F73F44A00EB4471 /* CanvasView.swift */; };
 		8E64A01E1F72C32B00F2844C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64A01D1F72C32B00F2844C /* AppDelegate.swift */; };
 		8E64A0201F72C32B00F2844C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64A01F1F72C32B00F2844C /* FirstViewController.swift */; };
 		8E64A0221F72C32B00F2844C /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64A0211F72C32B00F2844C /* SecondViewController.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8E0E88BA1F73F44A00EB4471 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		8E64A01A1F72C32B00F2844C /* MultipleHDMMapView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultipleHDMMapView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E64A01D1F72C32B00F2844C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E64A01F1F72C32B00F2844C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 		8E64A01C1F72C32B00F2844C /* MultipleHDMMapView */ = {
 			isa = PBXGroup;
 			children = (
+				8EDB103A1F73F2CF005DF488 /* DrawHandler */,
 				8EDB102A1F73BEDB005DF488 /* MapController */,
 				8E64A01D1F72C32B00F2844C /* AppDelegate.swift */,
 				8E64A01F1F72C32B00F2844C /* FirstViewController.swift */,
@@ -99,6 +102,14 @@
 				8EDB10311F73E7D1005DF488 /* MapView.swift */,
 			);
 			path = MapController;
+			sourceTree = "<group>";
+		};
+		8EDB103A1F73F2CF005DF488 /* DrawHandler */ = {
+			isa = PBXGroup;
+			children = (
+				8E0E88BA1F73F44A00EB4471 /* CanvasView.swift */,
+			);
+			path = DrawHandler;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +188,7 @@
 			files = (
 				8E64A0221F72C32B00F2844C /* SecondViewController.swift in Sources */,
 				8E64A01E1F72C32B00F2844C /* AppDelegate.swift in Sources */,
+				8E0E88BB1F73F44A00EB4471 /* CanvasView.swift in Sources */,
 				8EDB10321F73E7D1005DF488 /* MapView.swift in Sources */,
 				8EDB10291F73BED4005DF488 /* BaseMapViewController.swift in Sources */,
 				8E64A0201F72C32B00F2844C /* FirstViewController.swift in Sources */,

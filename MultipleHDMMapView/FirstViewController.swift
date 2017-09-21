@@ -46,10 +46,6 @@ class FirstViewController: BaseMapViewController {
         self.view.bringSubview(toFront: EditContainer)
         setMenuToggle(isMenuShow)
         
-        
-        
-        self.view.bringSubview(toFront: canvasView)
-        
         //add button to view
         //self.view.addSubview(drawRectButton)
         //self.view.addSubview(confirmButton)
@@ -72,7 +68,8 @@ class FirstViewController: BaseMapViewController {
         setMenuToggle(!isMenuShow)
     }
     @IBAction func AddGeoFence(_ sender: Any) {
-        
+        self.view.bringSubview(toFront: canvasView)
+        bringMostViewToFront()
     }
     
     
@@ -82,7 +79,10 @@ class FirstViewController: BaseMapViewController {
         //UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationCurve, animations: (self.view.layoutIfNeeded()), completion: ())
             
         }
-    
+    func bringMostViewToFront(){
+        self.view.bringSubview(toFront: More)
+        self.view.bringSubview(toFront: EditContainer)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

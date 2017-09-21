@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E0E88BB1F73F44A00EB4471 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0E88BA1F73F44A00EB4471 /* CanvasView.swift */; };
+		8E645D2F1F74188300395E5F /* HDMMapCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8E645D2E1F74188200395E5F /* HDMMapCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8E64A01E1F72C32B00F2844C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64A01D1F72C32B00F2844C /* AppDelegate.swift */; };
 		8E64A0201F72C32B00F2844C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64A01F1F72C32B00F2844C /* FirstViewController.swift */; };
 		8E64A0221F72C32B00F2844C /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64A0211F72C32B00F2844C /* SecondViewController.swift */; };
@@ -16,7 +17,6 @@
 		8E64A02A1F72C32B00F2844C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E64A0281F72C32B00F2844C /* LaunchScreen.storyboard */; };
 		8EDB10271F73B395005DF488 /* DeepMap.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8EDB10261F73B203005DF488 /* DeepMap.zip */; };
 		8EDB10291F73BED4005DF488 /* BaseMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB10281F73BED4005DF488 /* BaseMapViewController.swift */; };
-		8EDB10301F73D09C005DF488 /* HDMMapCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8EDB102F1F73D09C005DF488 /* HDMMapCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8EDB10321F73E7D1005DF488 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB10311F73E7D1005DF488 /* MapView.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,7 +27,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8EDB10301F73D09C005DF488 /* HDMMapCore.framework in Embed Frameworks */,
+				8E645D2F1F74188300395E5F /* HDMMapCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -36,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		8E0E88BA1F73F44A00EB4471 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		8E645D2E1F74188200395E5F /* HDMMapCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HDMMapCore.framework; sourceTree = "<group>"; };
 		8E64A01A1F72C32B00F2844C /* MultipleHDMMapView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultipleHDMMapView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E64A01D1F72C32B00F2844C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E64A01F1F72C32B00F2844C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -46,7 +47,6 @@
 		8E64A02B1F72C32B00F2844C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EDB10261F73B203005DF488 /* DeepMap.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = DeepMap.zip; sourceTree = "<group>"; };
 		8EDB10281F73BED4005DF488 /* BaseMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMapViewController.swift; sourceTree = "<group>"; };
-		8EDB102F1F73D09C005DF488 /* HDMMapCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HDMMapCore.framework; path = ../../Downloads/HDMMapCore.framework; sourceTree = "<group>"; };
 		8EDB10311F73E7D1005DF488 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,7 +64,7 @@
 		8E64A0111F72C32B00F2844C = {
 			isa = PBXGroup;
 			children = (
-				8EDB102F1F73D09C005DF488 /* HDMMapCore.framework */,
+				8E645D2E1F74188200395E5F /* HDMMapCore.framework */,
 				8E64A01C1F72C32B00F2844C /* MultipleHDMMapView */,
 				8E64A01B1F72C32B00F2844C /* Products */,
 			);

@@ -1,0 +1,464 @@
+/*feature text { */
+/*    text-size: 5; */
+/*    visibility: visible; */
+/*    text-align: text-center; */
+/*    text-vertical-align: text-top; */
+/*    text-anchor: text-anchor-center; */
+/*    letter-spacing: 1.0; */
+/*    line-height: 1.0; */
+/*    text-font: "DejaVu.ttf"; */
+/*    text-rotation: text-rotation-rotate; */
+/*    text-rotate: 0.0; */
+/*    text-offset: [0.0m , 0.0m, 0.0m]; */
+/*    text-color: #FFFFFF; */
+/*    text-outline-color: #000000; */
+/*    text-label-spacing: 50.0; */
+/*    floor-selectable: true; */
+/*} */
+
+feature polygon {
+    fill-color: #d0d0d0;
+    /*fill-outline-color: #ffffff;*/
+    /*fill-outline-width: 0.0;*/
+    /*fill-outline-offset: 0.0;*/
+    /*fill-translate: [0.1m, 0.1m, 0.1m];*/
+    /*fill-pattern: "pattern123.png";*/
+    visibility: visible;
+    floor-selectable: true;
+}
+
+feature line {
+    visibility: visible;
+    line-color: #f8e9aa;
+    line-translate:[0,0,0];
+    line-width: 7.0m;
+    line-blur: 0.0;
+    line-cap: cap-butt;
+    line-join: join-round;
+    line-gap-width: 0.0m;
+    floor-selectable: true;
+}
+feature icon {
+    icon-size: 8.0;
+    icon-scaling: icon-scaling-fixed;
+    icon-rotation: icon-rotation-rotate;
+    icon-rotate: 0;
+    floor-selectable: true;
+}
+
+/* no-map elements */
+feature routing.line:line {
+    visibility: visible;
+    line-color: #ea857d;
+    line-width: 1.0m;
+	floor-selectable: true;
+}
+
+feature pin.start:polygon {
+    fill-color: #81bf97;
+}
+feature pin.end:polygon {
+    fill-color: #ea857d;
+}
+/* END no-map elements */
+
+
+
+
+feature visibility_in_building_icon:icon{
+        visibility: none;
+        text-visibility: none;
+}
+
+feature visibility_building_polygon:polygon{}
+
+feature visibility_in_building_polygon:polygon{
+        visibility: none;
+        text-visibility: none;
+}
+
+feature osm.highway.cycleway:line {
+    line-color: #F4F4F4FF;
+    text-color: #000000FF;
+    text-size: 12;
+    line-width: 2.0;
+}
+
+feature osm.highway.footway:line {
+    line-color: #F4F4F4FF;
+    text-color: #000000FF;
+    text-size: 12;
+    line-width: 2.0;
+}
+
+feature osm.highway.pedestrian:line {
+    line-color: #F4F4F4FF;
+    text-color: #000000FF;
+    text-size: 12;
+    line-width: 2.0;
+}
+
+feature osm.highway.residential:line {
+    line-color: #FFFFFFFF;
+    text-color: #000000FF;
+    text-size: 12;
+    line-width: 3.0;
+}
+
+feature osm.highway.service:line {
+    line-color: #F4F4F4FF;
+    text-color: #000000FF;
+    text-size: 12;
+    line-width: 2.0;
+}
+
+feature osm.highway.tertiary:line {
+    line-color: #FFFFFFFF;
+    text-color: #000000FF;
+    text-size: 12;
+    line-width: 5.0;
+}
+
+feature osm.highway.track:line {
+    line-color: #F4F4F4FF;
+    text-color: #000000FF;
+    text-size: 12;
+    line-width: 2.0;
+}
+
+feature background:polygon {
+    fill-outline-color: #F1EEE8FF;
+    text-color: #000000FF;
+    fill-color: #F1EEE8FF;
+    text-size: 12;
+    fill-outline-width: 0.1;
+}
+
+feature building:visibility_building_polygon {
+    fill-outline-color: #000000FF;
+    text-color: #666666FF;
+    fill-color: #D7DEE3FF;
+    text-size: 14;
+    fill-outline-width: 0.1;
+}
+
+feature fg_polygons:visibility_in_building_polygon {
+    fill-outline-color: #AAAAAAFF;
+    text-color: #000000FF;
+    fill-color: #FFFFFFFF;
+    text-size: 12;
+    fill-outline-width: 0.1;
+}
+
+feature fg_walls:visibility_in_building_polygon {
+    fill-outline-color: #FFFFFFFF;
+    text-color: #000000FF;
+    fill-color: #FFFFFFFF;
+    text-size: 12;
+    fill-outline-width: 0.2;
+}
+
+feature osm.amenity.college:polygon {
+    fill-outline-color: #E5E5E5FF;
+    text-color: #000000FF;
+    fill-color: #E5E5E5FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.amenity.parking:polygon {
+    fill-outline-color: #D4D4D4FF;
+    text-color: #000000FF;
+    fill-color: #D4D4D4FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.amenity.school:polygon {
+    fill-outline-color: #E5E5E5FF;
+    text-color: #000000FF;
+    fill-color: #E5E5E5FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.amenity.university:polygon {
+    fill-outline-color: #E5E5E5FF;
+    text-color: #000000FF;
+    fill-color: #E5E5E5FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.building:polygon {
+    fill-outline-color: #C8C8C8FF;
+    text-color: #000000FF;
+    fill-color: #C8C8C8FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.landuse.construction:polygon {
+    fill-outline-color: #E5E5E5FF;
+    text-color: #000000FF;
+    fill-color: #E5E5E5FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.landuse.farmland:polygon {
+    fill-outline-color: #E3DFD0FF;
+    text-color: #000000FF;
+    fill-color: #E3DFD0FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.landuse.grass:polygon {
+    fill-outline-color: #B2D6A0FF;
+    text-color: #000000FF;
+    fill-color: #B2D6A0FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.landuse.industrial:polygon {
+    fill-outline-color: #E5E5E5FF;
+    text-color: #000000FF;
+    fill-color: #E5E5E5FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.landuse.meadow:polygon {
+    fill-outline-color: #B2D6A0FF;
+    text-color: #000000FF;
+    fill-color: #B2D6A0FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.landuse.residential:polygon {
+    fill-outline-color: #E5E5E5FF;
+    text-color: #000000FF;
+    fill-color: #E5E5E5FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.leisure.garden:polygon {
+    fill-outline-color: #B2D6A0FF;
+    text-color: #000000FF;
+    fill-color: #B2D6A0FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.leisure.park:polygon {
+    fill-outline-color: #B2D6A0FF;
+    text-color: #000000FF;
+    fill-color: #B2D6A0FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.leisure.pitch:polygon {
+    fill-outline-color: #BFE8ACFF;
+    text-color: #000000FF;
+    fill-color: #BFE8ACFF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.leisure.playground:polygon {
+    fill-outline-color: #BFE8ACFF;
+    text-color: #000000FF;
+    fill-color: #BFE8ACFF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.leisure.sports_centre:polygon {
+    fill-outline-color: #BFE8ACFF;
+    text-color: #000000FF;
+    fill-color: #BFE8ACFF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.natural.water:polygon {
+    fill-outline-color: #9EB4D6FF;
+    text-color: #000000FF;
+    fill-color: #7CBBE6FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.natural.wood:polygon {
+    fill-outline-color: #94C687FF;
+    text-color: #000000FF;
+    fill-color: #94C687FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.tourism.zoo:polygon {
+    fill-outline-color: #E5E5E5FF;
+    text-color: #000000FF;
+    fill-color: #E5E5E5FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature osm.waterway:polygon {
+    fill-outline-color: #9EB4D6FF;
+    text-color: #000000FF;
+    fill-color: #7CBBE6FF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
+feature stand:visibility_in_building_polygon {
+    fill-outline-color: #AAAAAAFF;
+    text-color: #333333FF;
+    fill-color: #FFFFFFFF;
+    text-size: 12;
+    fill-outline-width: 0.1;
+}
+
+feature stand_rooms:visibility_in_building_polygon {
+    fill-outline-color: #B9B9B9FF;
+    text-color: #000000FF;
+    fill-color: #C3C3C3FF;
+    text-size: 12;
+    fill-outline-width: 0.1;
+}
+
+feature stand_tables:visibility_in_building_polygon {
+    fill-outline-color: #B9B9B9FF;
+    text-color: #000000FF;
+    fill-color: #F4E4BEFF;
+    text-size: 12;
+    fill-outline-width: 0.05;
+}
+
+feature elevator:visibility_in_building_icon {
+    icon-size: 3.0;
+    icon-rotate: 0;
+}
+
+feature entry:visibility_in_building_icon {
+    icon-size: 3.0;
+    icon-rotate: 0;
+}
+
+feature entry_90:visibility_in_building_icon {
+    icon-size: 3.0;
+    icon-rotate: 0;
+}
+
+feature icon_atm:visibility_in_building_icon {
+    icon-size: 1.4;
+    icon-rotate: 0;
+}
+
+feature icon_atm_outdoor:visibility_in_building_icon {
+    icon-size: 1.4;
+    icon-rotate: 0;
+}
+
+feature icon_bus:visibility_in_building_icon {
+    icon-size: 1.4;
+    icon-rotate: 0;
+}
+
+feature icon_cafe:visibility_in_building_icon {
+    icon-size: 1.4;
+    icon-rotate: 0;
+}
+
+feature icon_firstaid:visibility_in_building_icon {
+    icon-size: 1.4;
+    icon-rotate: 0;
+}
+
+feature icon_firstaid_outdoor:visibility_in_building_icon {
+    icon-size: 1.4;
+    icon-rotate: 0;
+}
+
+feature icon_meeting:visibility_in_building_icon {
+    icon-size: 1.4;
+    icon-rotate: 0;
+}
+
+feature icon_parking:visibility_in_building_icon {
+    icon-size: 1.4;
+    icon-rotate: 0;
+}
+
+feature icon_phone:visibility_in_building_icon {
+    icon-size: 1.4;
+    icon-rotate: 0;
+}
+
+feature icon_toilet:visibility_in_building_icon {
+    icon-size: 1.4;
+    icon-rotate: 0;
+}
+
+feature icon_toilet_m:visibility_in_building_icon {
+    icon-size: 1.4;
+    icon-rotate: 0;
+}
+
+feature icon_toilet_w:visibility_in_building_icon {
+    icon-size: 1.4;
+    icon-rotate: 0;
+}
+
+feature icon_tram:visibility_in_building_icon {
+    icon-size: 1.4;
+    icon-rotate: 0;
+}
+
+feature icon_wifi:visibility_in_building_icon {
+    icon-size: 1.4;
+    icon-rotate: 0;
+}
+
+feature stair:visibility_in_building_icon {
+    icon-size: 3.0;
+    icon-rotate: 0;
+}
+
+rule building_SelectRule(building) ["isSelected()"] {
+    fill-color: #FFF200;
+}
+ 
+rule osm.building_SelectRule(osm.building) ["isSelected()"] {
+    fill-color: #FFF200;
+}
+ 
+rule stand_SelectRule(stand) ["isSelected()"] {
+    fill-color: #FFF200;
+}
+ 
+rule stand_rooms_SelectRule(stand_rooms) ["isSelected()"] {
+    fill-color: #FFF200;
+}
+ 
+rule stand_tables_SelectRule(stand_tables) ["isSelected()"] {
+    fill-color: #FFF200;
+}
+ rule buildingRule(visibility_building_polygon) ["distance() < 200 "] {
+    rule standRule(visibility_in_building_polygon){
+        visibility: visible;
+        text-visibility: visible;
+    }
+    rule iconsRule(visibility_in_building_icon){
+        visibility: visible;
+        text-visibility: visible;
+    }
+    text-visibility: none;
+}

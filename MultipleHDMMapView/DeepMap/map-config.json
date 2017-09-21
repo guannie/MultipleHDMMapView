@@ -1,0 +1,15 @@
+{
+    "camera-angle-high": 90.0,
+    "camera-angle-low": 80.60002136230469,
+    "camera-distance": 205.37171936035157,
+    "camera-distance-high": 20000.0,
+    "camera-distance-low": 1.0,
+    "camera-easing": "cubic in out",
+    "camera-smoothing": 0.1,
+    "camera-target": [
+        8.666051864624024,
+        49.4177360534668,
+        0.0
+    ],
+    "camera-bearing": 0.0;
+}

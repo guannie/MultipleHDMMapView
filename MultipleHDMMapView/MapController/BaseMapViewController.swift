@@ -33,6 +33,8 @@ class BaseMapViewController:  HDMMapViewController, HDMMapViewControllerDelegate
         super.viewDidLoad()
         self.view.autoresizesSubviews = true
         self.view.clipsToBounds = true
+        self.mapView.set3DMode(false, animated: false)
+        //self.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {

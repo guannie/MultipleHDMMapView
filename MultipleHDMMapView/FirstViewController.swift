@@ -15,11 +15,10 @@ protocol NotifyTouchEvents:class {
     func touchMoved(touch:UITouch)
 }
 
-class FirstViewController: BaseMapViewController {
+class FirstViewController: UIViewController {
 
     
     //MARK: UIItems
-    @IBOutlet weak var EditContainer: UIStackView!
     @IBOutlet weak var More: UIButton!
     @IBOutlet weak var Delete: UIButton!
     @IBOutlet weak var Add: UIButton!
@@ -38,13 +37,14 @@ class FirstViewController: BaseMapViewController {
         
         // set this view as delegate for the hdmmapview
         // this way we receive events for tapAtPoint etc.
-        self.mapView.set3DMode(false, animated: false)
-        self.delegate = self
+        //self.mapView.set3DMode(false, animated: false)
+        //self.delegate = self
         
         
-        self.view.bringSubview(toFront: More)
-        self.view.bringSubview(toFront: EditContainer)
-        setMenuToggle(isMenuShow)
+        //self.view.bringSubview(toFront: ModificationMenuView)
+        //self.view.bringSubview(toFront: More)
+        //self.view.bringSubview(toFront: EditContainer)
+        //setMenuToggle(isMenuShow)
         
         //add button to view
         //self.view.addSubview(drawRectButton)
@@ -53,7 +53,7 @@ class FirstViewController: BaseMapViewController {
         
         //self.confirmButton?.isHidden = true
         //disable user interaction when draw button is not click
-        self.mapView.tapEnabled = false
+        //self.mapView.tapEnabled = false
     
         // Mark: notes
         // Trying to add the view as a subview but failed
@@ -61,28 +61,6 @@ class FirstViewController: BaseMapViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-
-    
-    //MARK: UIActions
-    @IBAction func ShowHideMenu(_ sender: Any) {
-        setMenuToggle(!isMenuShow)
-    }
-    @IBAction func AddGeoFence(_ sender: Any) {
-        self.view.bringSubview(toFront: canvasView)
-        bringMostViewToFront()
-    }
-    
-    
-    func setMenuToggle(_ menuStatus: Bool){
-        isMenuShow = menuStatus
-        EditContainer.isHidden = isMenuShow
-        //UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationCurve, animations: (self.view.layoutIfNeeded()), completion: ())
-            
-        }
-    func bringMostViewToFront(){
-        self.view.bringSubview(toFront: More)
-        self.view.bringSubview(toFront: EditContainer)
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

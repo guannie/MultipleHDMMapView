@@ -31,7 +31,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
                     <connections>
-                        <outlet property="Add" destination="w4b-k7-kSq" id="rQR-Ga-Zfh"/>
                         <outlet property="Delete" destination="pM3-K1-e8h" id="GfY-6N-sdO"/>
                         <outlet property="More" destination="3nw-3W-Qhl" id="K2f-dH-xDC"/>
                     </connections>
@@ -48,38 +47,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BAt-th-52S">
-                                <rect key="frame" x="80" y="160" width="240" height="128"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d8a-Kv-VJz">
+                                <rect key="frame" x="67" y="98" width="240" height="420"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="iCJ-9P-rdJ" kind="embed" id="034-n2-tqK"/>
+                                </connections>
+                            </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f6h-ik-iRa">
+                                <rect key="frame" x="164" y="542" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="First View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zE8-Jk-mDn">
-                                        <rect key="frame" x="31" y="43" width="150.5" height="43"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.93333333330000001" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.93333333330000001" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DNO-S7-tsD">
-                                <rect key="frame" x="80" y="346" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="8ob-hk-jea">
-                                        <rect key="frame" x="20" y="43" width="202" height="43"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.32117177330000002" green="0.22224183850000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.32117177330000002" green="0.22224183850000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="h14-f3-jf0" kind="show" id="aqT-G7-U8v"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
@@ -88,7 +70,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="360"/>
+            <point key="canvasLocation" x="-1052" y="798.35082458770626"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -134,9 +116,7 @@
                                                 <viewLayoutGuide key="safeArea" id="jTO-Hs-G2R"/>
                                                 <state key="normal" image="icons8-Plus Math-64"/>
                                                 <connections>
-                                                    <action selector="AddGeoFence:" destination="9pv-A4-QxB" eventType="touchUpInside" id="4y4-jC-93d"/>
-                                                    <action selector="AddGeoFence:" destination="K3S-xs-RLT" eventType="touchUpInside" id="Zu7-ky-ozd"/>
-                                                    <segue destination="k3r-1M-avg" kind="presentation" id="Rwg-Io-aDl"/>
+                                                    <segue destination="k3r-1M-avg" kind="presentation" id="hGj-Nf-qA3"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VdO-NZ-0RG">
@@ -166,6 +146,11 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <view hidden="YES" alpha="0.55000001192092896" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QeF-wv-6Nk" customClass="CanvasView" customModule="MultipleHDMMapView" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="32" width="375" height="586"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -174,12 +159,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="Add" destination="w4b-k7-kSq" id="EKV-vF-6sb"/>
                         <outlet property="Delete" destination="pM3-K1-e8h" id="MYF-Tg-r39"/>
                         <outlet property="InnerStackView" destination="AIz-5n-Agi" id="xFT-aY-KU3"/>
                         <outlet property="More" destination="3nw-3W-Qhl" id="pi8-Yj-crp"/>
                         <outlet property="OuterStackView" destination="ol5-pF-Pku" id="uZg-Fc-c1U"/>
                         <outlet property="Update" destination="VdO-NZ-0RG" id="8XK-xE-iz2"/>
+                        <outlet property="canvasView" destination="QeF-wv-6Nk" id="DvT-f7-Gxb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2zh-QZ-Tnz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -314,19 +299,59 @@
             </objects>
             <point key="canvasLocation" x="1470" y="1247"/>
         </scene>
-        <!--Base Map View Controller-->
+        <!--Test Map View Controller-->
         <scene sceneID="2lJ-MA-tI8">
             <objects>
-                <viewController id="nhw-M0-ZHF" customClass="BaseMapViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nhw-M0-ZHF" customClass="TestMapViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7ki-CU-Myd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XTY-is-cUz">
+                                <rect key="frame" x="293" y="34" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="switch3dAction:" destination="nhw-M0-ZHF" eventType="valueChanged" id="BTo-WV-9xu"/>
+                                </connections>
+                            </switch>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="switch3d" destination="XTY-is-cUz" id="CtC-NB-Oe6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l6B-pd-bdR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2337" y="-415"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="PZD-5C-WLT">
+            <objects>
+                <viewController id="iCJ-9P-rdJ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mp2-ot-IgJ">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="420"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="l6B-pd-bdR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mba-5v-pPE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2208" y="-309"/>
+            <point key="canvasLocation" x="-160" y="717"/>
+        </scene>
+        <!--Base Map View Controller-->
+        <scene sceneID="RHS-Tv-Vnc">
+            <objects>
+                <viewController id="h14-f3-jf0" customClass="BaseMapViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2w7-uc-Ngt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lPG-G1-zJH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-146" y="1253"/>
         </scene>
     </scenes>
     <resources>

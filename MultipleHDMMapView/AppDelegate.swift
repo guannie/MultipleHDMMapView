@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import HDMMapCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    private(set) var mapViewController: HDMMapViewController?
+    private(set) var fullscreenController: UIViewController?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

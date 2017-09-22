@@ -16,6 +16,7 @@ class ModificationMenuView: UIViewController {
     @IBOutlet weak var More: UIButton!
     @IBOutlet weak var OuterStackView: UIStackView!
     @IBOutlet weak var InnerStackView: UIStackView!
+    @IBOutlet weak var canvasView: CanvasView!
     
     
     var isMenuShow:Bool = true
@@ -28,17 +29,15 @@ class ModificationMenuView: UIViewController {
         self.view.bringSubview(toFront: More)
     }
     
-    
-    
     //MARK: UIActions
     @IBAction func ShowHideMenu(_ sender: Any) {
         setMenuToggle(!isMenuShow)
     }
-    @IBAction func AddGeoFence(_ sender: Any) {
-        //self.view.bringSubview(toFront: canvasView)
-        bringMostViewToFront()
-    }
-    
+//    @IBAction func AddGeoFence(_ sender: Any) {
+//        //self.view.bringSubview(toFront: canvasView)
+//        bringMostViewToFront()
+//    }
+//    
     
     func setMenuToggle(_ menuStatus: Bool){
         isMenuShow = menuStatus

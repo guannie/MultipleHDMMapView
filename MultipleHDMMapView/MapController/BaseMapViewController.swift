@@ -11,12 +11,12 @@ import HDMMapCore
 
 class BaseMapViewController:  HDMMapViewController, HDMMapViewControllerDelegate{
     
-    private var mapViewController: HDMMapViewController?
+    var mapViewController: HDMMapViewController?
     
     //MARK: Initialization and Deinit
-    override init(){
-        super.init()
-    }
+//    override init(){
+//        super.init()
+//    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -33,17 +33,20 @@ class BaseMapViewController:  HDMMapViewController, HDMMapViewControllerDelegate
         super.viewDidLoad()
         self.view.autoresizesSubviews = true
         self.view.clipsToBounds = true
-        self.mapView.set3DMode(false, animated: false)
+        
+        configureMap()
         //self.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         self.mapViewController?.delegate = self
         self.mapViewController?.view.frame = CGRect(x:0, y:0, width:self.view.frame.size.width, height:self.view.frame.size.height)
-        //        self.view = self.mapViewController?.view
-        //      self.view.addSubview((self.mapViewController?.view)!)
+        self.mapViewController?.view.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.RawValue(UInt8(UIViewAutoresizing.flexibleWidth.rawValue) | UInt8(UIViewAutoresizing.flexibleHeight.rawValue)))
+        //self.view.addSubview((self.mapViewController?.view)!)
         //self.addChildViewController(self.mapViewController!)
+        
+   
         
         
         //MARK: fortesting
@@ -60,21 +63,33 @@ class BaseMapViewController:  HDMMapViewController, HDMMapViewControllerDelegate
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
+        
         self.mapViewController?.removeFromParentViewController()
         self.mapViewController?.view.removeFromSuperview()
     }
     
-    func configureMap(){}
+    func configureMap(){
+        //initialise the original location
+        self.mapView.setRegion(HDMMapCoordinateRegionMake(49.418317, 8.675541, 0, 0.000255, 0.000255), animated: true)
+        self.mapView.set3DMode(false, animated: false)
+    }
     
-    func setVisibleMapRegion(mapRegion: HDMMapRegion, animated animate:Bool){}
+    func setVisibleMapRegion(mapRegion: HDMMapRegion, animated animate:Bool){
+        
+    }
+    
+    func shouldAutorotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation) -> Bool
+    {
+        return true
+    }
     
     //MARK: MapViewController Delegate
-    func mapViewControllerDidStart(controller: HDMMapViewController){
+    func mapViewControllerWillStart(_ controller: HDMMapViewController){
         self.configureMap()
     }
     
-    func mapViewControllerDidStart(_ controller: HDMMapViewController, error: NSError) {
-        NSLog("Map start error: ", error)
-    }
+//    func mapViewControllerDidStart(_ controller: HDMMapViewController, error: NSError) {
+//        NSLog("Map start error: ", error)
+//    }
 }

@@ -27,6 +27,8 @@
 		8EA117A41F7538A1009F409A /* DrawingGeoFenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA117A31F7538A1009F409A /* DrawingGeoFenceViewController.swift */; };
 		8EA117A71F753EF2009F409A /* UpdateListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA117A61F753EF2009F409A /* UpdateListTableViewController.swift */; };
 		8EA117A91F753F10009F409A /* DeleteListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA117A81F753F10009F409A /* DeleteListTableViewController.swift */; };
+		8EA117AB1F755375009F409A /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA117AA1F755375009F409A /* TestViewController.swift */; };
+		8EA117AF1F7569F4009F409A /* TestMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA117AE1F7569F4009F409A /* TestMapViewController.swift */; };
 		8EDB10271F73B395005DF488 /* DeepMap.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8EDB10261F73B203005DF488 /* DeepMap.zip */; };
 		8EDB10291F73BED4005DF488 /* BaseMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB10281F73BED4005DF488 /* BaseMapViewController.swift */; };
 		8EDB10321F73E7D1005DF488 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB10311F73E7D1005DF488 /* MapView.swift */; };
@@ -68,6 +70,8 @@
 		8EA117A31F7538A1009F409A /* DrawingGeoFenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingGeoFenceViewController.swift; sourceTree = "<group>"; };
 		8EA117A61F753EF2009F409A /* UpdateListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListTableViewController.swift; sourceTree = "<group>"; };
 		8EA117A81F753F10009F409A /* DeleteListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteListTableViewController.swift; sourceTree = "<group>"; };
+		8EA117AA1F755375009F409A /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		8EA117AE1F7569F4009F409A /* TestMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMapViewController.swift; sourceTree = "<group>"; };
 		8EDB10261F73B203005DF488 /* DeepMap.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = DeepMap.zip; sourceTree = "<group>"; };
 		8EDB10281F73BED4005DF488 /* BaseMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMapViewController.swift; sourceTree = "<group>"; };
 		8EDB10311F73E7D1005DF488 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 				8EDB10261F73B203005DF488 /* DeepMap.zip */,
 				8E64A0281F72C32B00F2844C /* LaunchScreen.storyboard */,
 				8E64A02B1F72C32B00F2844C /* Info.plist */,
+				8EA117AA1F755375009F409A /* TestViewController.swift */,
 			);
 			path = MultipleHDMMapView;
 			sourceTree = "<group>";
@@ -149,7 +154,11 @@
 			children = (
 				8EDB10281F73BED4005DF488 /* BaseMapViewController.swift */,
 				8EDB10311F73E7D1005DF488 /* MapView.swift */,
+<<<<<<< HEAD
 				88C832141F7BA6BA001F4657 /* MainViewController.swift */,
+=======
+				8EA117AE1F7569F4009F409A /* TestMapViewController.swift */,
+>>>>>>> b0e33354f9436e96ac31931e51a9d9483c533e0c
 			);
 			path = MapController;
 			sourceTree = "<group>";
@@ -240,15 +249,20 @@
 				8EA117A21F750710009F409A /* ModificationMenuView.swift in Sources */,
 				886BDFE91F75635600457B94 /* putPlace.swift in Sources */,
 				8E64A0221F72C32B00F2844C /* SecondViewController.swift in Sources */,
+<<<<<<< HEAD
 				886BDFEB1F7563FC00457B94 /* DataHandler.swift in Sources */,
 				886BDFE51F75633900457B94 /* Place.swift in Sources */,
 				885D5E481F7BF3C6002715B0 /* UpdateViewController.swift in Sources */,
 				886BDFE71F75634300457B94 /* getPlace.swift in Sources */,
+=======
+				8EA117AB1F755375009F409A /* TestViewController.swift in Sources */,
+>>>>>>> b0e33354f9436e96ac31931e51a9d9483c533e0c
 				8EA117A91F753F10009F409A /* DeleteListTableViewController.swift in Sources */,
 				88C832151F7BA6BA001F4657 /* MainViewController.swift in Sources */,
 				8E64A01E1F72C32B00F2844C /* AppDelegate.swift in Sources */,
 				8EA117A71F753EF2009F409A /* UpdateListTableViewController.swift in Sources */,
 				8E0E88BB1F73F44A00EB4471 /* CanvasView.swift in Sources */,
+				8EA117AF1F7569F4009F409A /* TestMapViewController.swift in Sources */,
 				8EDB10321F73E7D1005DF488 /* MapView.swift in Sources */,
 				8EA117A41F7538A1009F409A /* DrawingGeoFenceViewController.swift in Sources */,
 				8EDB10291F73BED4005DF488 /* BaseMapViewController.swift in Sources */,

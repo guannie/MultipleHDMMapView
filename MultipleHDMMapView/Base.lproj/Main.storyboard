@@ -302,9 +302,6 @@
                                                 <constraint firstItem="Pxh-2Y-YcB" firstAttribute="leading" secondItem="ITk-NT-UKY" secondAttribute="leading" constant="286" id="vTK-rV-NMN"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="vfu-M3-PjK" kind="show" id="uBb-Fe-Lbk"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -342,11 +339,11 @@
             <objects>
                 <viewController storyboardIdentifier="UpdateViewController" id="yDp-QS-4gV" customClass="UpdateViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YI1-Jn-H2W">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1317"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update Geofence" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YTJ-iw-2v8">
-                                <rect key="frame" x="0.0" y="84" width="1024" height="139.5"/>
+                                <rect key="frame" x="0.0" y="40" width="1024" height="139.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="YTJ-iw-2v8" secondAttribute="height" multiplier="125:17" id="gQ8-5x-9gv"/>
                                 </constraints>
@@ -355,7 +352,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Place's Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fvh-UW-XO7">
-                                <rect key="frame" x="8" y="231.5" width="1008" height="30"/>
+                                <rect key="frame" x="8" y="187.5" width="1008" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -364,7 +361,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Beacon's ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dyj-Tz-u6i">
-                                <rect key="frame" x="8" y="291.5" width="1008" height="30"/>
+                                <rect key="frame" x="8" y="247.5" width="1008" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -373,13 +370,13 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="testing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1J-p3-sgx">
-                                <rect key="frame" x="0.0" y="261.5" width="1024" height="150"/>
+                                <rect key="frame" x="0.0" y="217.5" width="1024" height="150"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" red="1" green="0.25633434634483443" blue="0.15825124623928088" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="highlightedColor" red="1" green="0.1659329853" blue="0.36391735180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Key Value 1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C01-Z1-OUU">
-                                <rect key="frame" x="8" y="351.5" width="1008" height="30"/>
+                                <rect key="frame" x="8" y="307.5" width="1008" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -388,7 +385,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpp-P5-CBw">
-                                <rect key="frame" x="0.0" y="471.5" width="1024" height="81.5"/>
+                                <rect key="frame" x="0.0" y="427.5" width="1024" height="81.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="gpp-P5-CBw" secondAttribute="height" multiplier="25:2" id="RuQ-A8-nK1"/>
                                 </constraints>
@@ -398,7 +395,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tz4-lM-Ca7">
-                                <rect key="frame" x="0.0" y="603" width="1024" height="82"/>
+                                <rect key="frame" x="0.0" y="559" width="1024" height="82"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Tz4-lM-Ca7" secondAttribute="height" multiplier="25:2" id="H7K-J1-6ID"/>
                                 </constraints>
@@ -408,7 +405,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Key Value 2" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="js5-1o-QA9">
-                                <rect key="frame" x="8" y="411.5" width="1008" height="30"/>
+                                <rect key="frame" x="8" y="367.5" width="1008" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
@@ -521,115 +518,34 @@
             </objects>
             <point key="canvasLocation" x="1470" y="1247"/>
         </scene>
-<<<<<<< HEAD
         <!--Main View Controller-->
         <scene sceneID="2lJ-MA-tI8">
             <objects>
                 <viewController storyboardIdentifier="MainViewController" id="nhw-M0-ZHF" customClass="MainViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
-=======
-        <!--Test Map View Controller-->
-        <scene sceneID="2lJ-MA-tI8">
-            <objects>
-                <viewController id="nhw-M0-ZHF" customClass="TestMapViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
->>>>>>> b0e33354f9436e96ac31931e51a9d9483c533e0c
                     <view key="view" contentMode="scaleToFill" id="7ki-CU-Myd">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1317"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-<<<<<<< HEAD
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="amY-Qf-fKh">
-                                <rect key="frame" x="489" y="30" width="46" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="amY-Qf-fKh" secondAttribute="height" multiplier="23:15" id="Yu3-LB-lus"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="doneAction:" destination="nhw-M0-ZHF" eventType="touchUpInside" id="ehA-s7-CD5"/>
-                                </connections>
-                            </button>
-=======
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XTY-is-cUz">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XTY-is-cUz">
                                 <rect key="frame" x="293" y="34" width="49" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="switch3dAction:" destination="nhw-M0-ZHF" eventType="valueChanged" id="BTo-WV-9xu"/>
                                 </connections>
                             </switch>
->>>>>>> b0e33354f9436e96ac31931e51a9d9483c533e0c
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="amY-Qf-fKh" firstAttribute="top" secondItem="GGv-ck-Rki" secondAttribute="top" constant="10" id="SMZ-Xy-XCV"/>
+                            <constraint firstItem="XTY-is-cUz" firstAttribute="leading" secondItem="GGv-ck-Rki" secondAttribute="leading" constant="293" id="Y3O-Pe-hwD"/>
+                            <constraint firstItem="XTY-is-cUz" firstAttribute="top" secondItem="GGv-ck-Rki" secondAttribute="top" constant="14" id="asQ-bh-fwH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GGv-ck-Rki"/>
                     </view>
                     <connections>
-<<<<<<< HEAD
-                        <outlet property="doneBtn" destination="amY-Qf-fKh" id="HIC-Ta-iGh"/>
-=======
                         <outlet property="switch3d" destination="XTY-is-cUz" id="CtC-NB-Oe6"/>
->>>>>>> b0e33354f9436e96ac31931e51a9d9483c533e0c
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l6B-pd-bdR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-<<<<<<< HEAD
-            <point key="canvasLocation" x="2594" y="-408"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="fRP-i2-tYu">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vfu-M3-PjK" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3NB-a3-QhH">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="yDp-QS-4gV" kind="relationship" relationship="rootViewController" id="51U-LP-I3h"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wqj-of-zOu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4247" y="1155"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="syh-Jo-v2q">
-            <objects>
-                <viewController id="wVk-0d-1jY" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Wvw-Df-1OZ">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gih-is-CPS">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="67"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yeF-Qs-629">
-                                        <rect key="frame" x="63" y="37" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Gih-is-CPS" firstAttribute="height" secondItem="Wvw-Df-1OZ" secondAttribute="height" id="01o-cr-UjJ"/>
-                            <constraint firstItem="Gih-is-CPS" firstAttribute="width" secondItem="Wvw-Df-1OZ" secondAttribute="width" id="2FV-5y-20m"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="gJP-wX-9sb"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iHB-xa-z91" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3354.4921875" y="-441.43484626647142"/>
-=======
             <point key="canvasLocation" x="2337" y="-415"/>
         </scene>
         <!--View Controller-->
@@ -640,6 +556,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="240" height="420"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="PC6-NV-HOn"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mba-5v-pPE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -651,15 +568,15 @@
             <objects>
                 <viewController id="h14-f3-jf0" customClass="BaseMapViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2w7-uc-Ngt">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="dKj-QJ-Zf2"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lPG-G1-zJH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-146" y="1253"/>
->>>>>>> b0e33354f9436e96ac31931e51a9d9483c533e0c
         </scene>
     </scenes>
     <resources>

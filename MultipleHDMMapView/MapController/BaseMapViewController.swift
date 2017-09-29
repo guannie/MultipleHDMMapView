@@ -11,12 +11,7 @@ import HDMMapCore
 
 class BaseMapViewController:  HDMMapViewController, HDMMapViewControllerDelegate{
     
-<<<<<<< HEAD
-    private var mapViewController: HDMMapViewController?
-
-=======
     var mapViewController: HDMMapViewController?
->>>>>>> b0e33354f9436e96ac31931e51a9d9483c533e0c
     
     //MARK: Initialization and Deinit
 //    override init(){
@@ -39,13 +34,10 @@ class BaseMapViewController:  HDMMapViewController, HDMMapViewControllerDelegate
         super.viewDidLoad()
         self.view.autoresizesSubviews = true
         self.view.clipsToBounds = true
-<<<<<<< HEAD
         self.mapView.set3DMode(false, animated: false)
-        
-=======
+
         
         configureMap()
->>>>>>> b0e33354f9436e96ac31931e51a9d9483c533e0c
         //self.delegate = self
     }
     
@@ -57,14 +49,7 @@ class BaseMapViewController:  HDMMapViewController, HDMMapViewControllerDelegate
         self.mapViewController?.view.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.RawValue(UInt8(UIViewAutoresizing.flexibleWidth.rawValue) | UInt8(UIViewAutoresizing.flexibleHeight.rawValue)))
         //self.view.addSubview((self.mapViewController?.view)!)
         //self.addChildViewController(self.mapViewController!)
-<<<<<<< HEAD
-       
-=======
         
-   
-        
-        
->>>>>>> b0e33354f9436e96ac31931e51a9d9483c533e0c
         //MARK: fortesting
 //        var test:UIView = UIView.init()
 //        var test2:UIView  = UIView.init()
@@ -105,16 +90,4 @@ class BaseMapViewController:  HDMMapViewController, HDMMapViewControllerDelegate
         self.configureMap()
     }
     
-<<<<<<< HEAD
-    func mapViewControllerDidStart(_ controller: HDMMapViewController, error: NSError) {
-        NSLog("Map start error: ", error)
-    }
-    
-
-
-=======
-//    func mapViewControllerDidStart(_ controller: HDMMapViewController, error: NSError) {
-//        NSLog("Map start error: ", error)
-//    }
->>>>>>> b0e33354f9436e96ac31931e51a9d9483c533e0c
 }

@@ -104,7 +104,6 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
                         var ring0 : [Any] = []
                         
                         for (x,y) in zip(latitude,longitude){
-                            
                             ring0.append(HDMPoint.init(x, y: y, z: 0))
                         }
                         

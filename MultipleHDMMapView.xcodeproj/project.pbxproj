@@ -154,11 +154,11 @@
 			children = (
 				8EDB10281F73BED4005DF488 /* BaseMapViewController.swift */,
 				8EDB10311F73E7D1005DF488 /* MapView.swift */,
-<<<<<<< HEAD
+
 				88C832141F7BA6BA001F4657 /* MainViewController.swift */,
-=======
+
 				8EA117AE1F7569F4009F409A /* TestMapViewController.swift */,
->>>>>>> b0e33354f9436e96ac31931e51a9d9483c533e0c
+
 			);
 			path = MapController;
 			sourceTree = "<group>";
@@ -249,14 +249,13 @@
 				8EA117A21F750710009F409A /* ModificationMenuView.swift in Sources */,
 				886BDFE91F75635600457B94 /* putPlace.swift in Sources */,
 				8E64A0221F72C32B00F2844C /* SecondViewController.swift in Sources */,
-<<<<<<< HEAD
+
 				886BDFEB1F7563FC00457B94 /* DataHandler.swift in Sources */,
 				886BDFE51F75633900457B94 /* Place.swift in Sources */,
 				885D5E481F7BF3C6002715B0 /* UpdateViewController.swift in Sources */,
 				886BDFE71F75634300457B94 /* getPlace.swift in Sources */,
-=======
+
 				8EA117AB1F755375009F409A /* TestViewController.swift in Sources */,
->>>>>>> b0e33354f9436e96ac31931e51a9d9483c533e0c
 				8EA117A91F753F10009F409A /* DeleteListTableViewController.swift in Sources */,
 				88C832151F7BA6BA001F4657 /* MainViewController.swift in Sources */,
 				8E64A01E1F72C32B00F2844C /* AppDelegate.swift in Sources */,

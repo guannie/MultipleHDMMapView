@@ -7,82 +7,144 @@
 //
 
 import UIKit
+import HDMMapCore
 
-class DeleteListTableViewController: UIViewController {
-
+class DeleteListTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+    
+    var nameArray = [String] ()
+    var key1Array = [String] ()
+    var key2Array = [String] ()
+    var urlArray = [String] ()
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style:UITableViewCellStyle.default, reuseIdentifier: "cell")
+        
+        cell.textLabel?.text = self.nameArray[indexPath.row]
+        
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.nameArray.count
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        let name = self.nameArray[indexPath.row]
+        
+        
+        let alertController = UIAlertController(title: "Manage Geofence", message: "Do you wish to Update or Delete \(name)?", preferredStyle: .alert)
+        
+        let updateAction = UIAlertAction(title: "Update", style: UIAlertActionStyle.default, handler: {(action) -> Void in
+            
+            alertController.dismiss(animated: true, completion: nil)
+            
+            let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "UpdateViewController") as? UpdateViewController
+            
+            naviController?.name = self.nameArray[indexPath.row]
+            naviController?.url = self.urlArray[indexPath.row]
+            naviController?.key1 = self.key1Array[indexPath.row]
+            naviController?.key2 = self.key2Array[indexPath.row]
+            
+            self.navigationController?.pushViewController(naviController!, animated: true)
+        })
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+            
+            let data = DataHandler()
+            data.deletePlace(self.urlArray[indexPath.row], (self.nameArray[indexPath.row]))
+            
+            self.nameArray.remove(at: indexPath.row)
+            self.urlArray.remove(at: indexPath.row)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        alertController.addAction(updateAction)
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+ 
+        /*
+        let alert = UIAlertController(title: "Present Controller B", message: "Do you want to preset controller B?", preferredStyle: .alert)
+        
+        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action) -> Void in
+            
+            alert.dismiss(animated: true, completion: nil)
+            
+            let controllerB = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UpdateViewController") as? UpdateViewController
+            
+            self.navigationController?.pushViewController(controllerB!, animated: true)
+            
+        })
+        
+        alert.addAction(defaultAction)
+        
+        self.present(alert, animated: true, completion: nil)
+ */
+        
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    @IBAction func deleteGeofence(_ sender: UIButton) {
+     
+     
+        let point = tableView.convert(CGPoint.zero, from: sender)
+        if let indexPath = tableView.indexPathForRow(at: point) {
+                let name = self.nameArray[indexPath.row]
+     
+                let alertController = UIAlertController(title: "Delete Geofence", message: "Are you sure you want to remove \(name)?", preferredStyle: .alert)
+     
+                let confirmAction = UIAlertAction(title: "Yes", style: .default) { (_) in
+     
+                    let data = DataHandler()
+                    data.deletePlace(self.urlArray[indexPath.row], (self.nameArray[indexPath.row]))
+     
+                    self.nameArray.remove(at: indexPath.row)
+                    self.urlArray.remove(at: indexPath.row)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+                let cancelAction = UIAlertAction(title: "No", style: .cancel) { (_) in }
+     
+                alertController.addAction(confirmAction)
+                alertController.addAction(cancelAction)
+     
+                self.present(alertController, animated: true, completion: nil)
+     
+            }
+     
     }
-    */
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let testdata = DataHandler()
+        testdata.testCoordinates(){
+            (place) in
+            
+            self.nameArray.append((place?.place.name)!)
+            self.urlArray.append((place?.place.url)!)
+            self.key1Array.append((place?.place.attributes?.key1) ?? "")
+            self.key2Array.append((place?.place.attributes?.key2) ?? "")
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+

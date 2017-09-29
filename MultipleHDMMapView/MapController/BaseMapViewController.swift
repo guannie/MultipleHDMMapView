@@ -12,6 +12,7 @@ import HDMMapCore
 class BaseMapViewController:  HDMMapViewController, HDMMapViewControllerDelegate{
     
     private var mapViewController: HDMMapViewController?
+
     
     //MARK: Initialization and Deinit
     override init(){
@@ -30,22 +31,24 @@ class BaseMapViewController:  HDMMapViewController, HDMMapViewControllerDelegate
     
     //MARK: View Lifecycle
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.view.autoresizesSubviews = true
         self.view.clipsToBounds = true
         self.mapView.set3DMode(false, animated: false)
+        
         //self.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.mapViewController?.delegate = self
+        self.mapView.tapEnabled = true
         self.mapViewController?.view.frame = CGRect(x:0, y:0, width:self.view.frame.size.width, height:self.view.frame.size.height)
         //        self.view = self.mapViewController?.view
         //      self.view.addSubview((self.mapViewController?.view)!)
         //self.addChildViewController(self.mapViewController!)
-        
-        
+       
         //MARK: fortesting
 //        var test:UIView = UIView.init()
 //        var test2:UIView  = UIView.init()
@@ -77,4 +80,7 @@ class BaseMapViewController:  HDMMapViewController, HDMMapViewControllerDelegate
     func mapViewControllerDidStart(_ controller: HDMMapViewController, error: NSError) {
         NSLog("Map start error: ", error)
     }
+    
+
+
 }

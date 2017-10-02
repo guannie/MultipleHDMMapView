@@ -12,7 +12,9 @@ import HDMMapCore
 class DeleteListTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBAction func cancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
+        
+        self.navigationController?.pushViewController(naviController!, animated: true)
     }
     
     var nameArray = [String] ()
@@ -44,7 +46,7 @@ class DeleteListTableViewController: UIViewController, UITableViewDataSource, UI
         
         let updateAction = UIAlertAction(title: "Update", style: UIAlertActionStyle.default, handler: {(action) -> Void in
             
-            alertController.dismiss(animated: true, completion: nil)
+            //alertController.dismiss(animated: true, completion: nil)
             
             let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "UpdateViewController") as? UpdateViewController
             

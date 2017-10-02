@@ -32,35 +32,32 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         self.view.addSubview(self.doneBtn)
         self.doneBtn.isHidden = true
         
-        //receiver of updategeofence
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.updateGeofence(_:)), name: NSNotification.Name(rawValue: "updateGeofence"), object: nil)
-        
         //receiver of deletegeofence
         NotificationCenter.default.addObserver(self, selector: #selector(self.deleteGeofence(_:)), name: NSNotification.Name(rawValue: "deleteGeofence"), object: nil)
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated) // No need for semicolon
-        print("Mainview will Appear")
+        super.viewWillAppear(animated)
+        
         let testdata = DataHandler()
         testdata.testCoordinates(){
             place in
-            
-            DispatchQueue.main.async {
-                self.mapView.add(place?.annotation)
-            }
-            
-            self.mapView.add((place?.feature)!)
-            
-            self.featureId.append((place?.feature.featureId)!)
+            if !(self.url == nil) { self.updateGeofence()}
+        
             self.feature.append((place?.feature)!)
             self.annotation.append((place?.annotation)!)
             self.nameArray.append((place?.place.name)!)
             self.urlArray.append((place?.place.url)!)
             
-            if !(self.url == nil) { self.updateGeofence()}
+            DispatchQueue.main.async {
+                self.mapView.add(place?.annotation)
+            }
+            self.mapView.add((place?.feature)!)
+            self.featureId.append((place?.feature.featureId)!)
         }
+        
+        print("Mainview will Appear")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -69,7 +66,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated) // No need for semicolon
+        super.viewDidDisappear(animated)
         print("Mainview did Disappear")
         self.url = nil
     }
@@ -86,11 +83,9 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         guard let f = features.first else {return}
         
         print("Selecting object with ID \(f.featureId)")
-        //self.mapView.selectFeature(withId: f.featureId)
-        print(f)
-        print(self.feature)
-      
+
         if let index = self.featureId.index(of: f.featureId ){
+        
             let alertController = UIAlertController(title: "Manage Geofence", message: "Do you wish to Update or Delete \(self.nameArray[index]) ?", preferredStyle: .alert)
             
             
@@ -126,7 +121,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         let urlString = url as! String
         
         if let index = self.urlArray.index(of: urlString){
-                print("IM IN!")
+            
                 urlIndex = index
                 //alert user
                 let alertController = UIAlertController(title: "Update Geofence", message: "Remove previous geofence to start update a new one?", preferredStyle: .alert)
@@ -143,14 +138,18 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
                     self.navigationController?.navigationBar.isUserInteractionEnabled = false
                 }
                 
-                let cancelAction = UIAlertAction(title: "No", style: .cancel) { (_) in }
+                let cancelAction = UIAlertAction(title: "No", style: .cancel) { (_) in
+           
+                }
                 
                 alertController.addAction(confirmAction)
                 alertController.addAction(cancelAction)
-                
-            self.present(alertController, animated: true, completion: nil)
-            print("IM IN!")
-                
+            
+            //if statement to stop UIAlertcontroller from calling multiple times
+            if !(self.navigationController?.visibleViewController?.isKind(of: UIAlertController.self))! {
+               self.present(alertController, animated: true, completion: nil)
+            }
+
             }
     }
     
@@ -178,7 +177,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         
         //assign new feature into feature array
         feature.insert(feat, at: urlIndex!)
-        
+
         self.doneBtn.isHidden = true
         //send points to UpdateView
         let naviController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UpdateViewController") as? UpdateViewController

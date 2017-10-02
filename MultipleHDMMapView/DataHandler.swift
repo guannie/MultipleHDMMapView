@@ -63,8 +63,8 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
         testPlaceId(){ (placeId) in
             
         for place in placeId!{
-            var latitude : [Double] = []
             var longitude : [Double] = []
+            var latitude : [Double] = []
             
             
             let url = "https://manager.gimbal.com/api/v2/places/" + String(place)
@@ -95,19 +95,19 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
                     if (beacon.geofence?.points != nil){
                         let arrays = beacon.geofence?.points
                         for array in arrays!{
-                            latitude.append(array.latitude!)
                             longitude.append(array.longitude!)
+                            latitude.append(array.latitude!)
                         }
                         
-                        let coordinate = HDMMapCoordinateMake(latitude[0], longitude[0], 0)
+                        let coordinate = HDMMapCoordinateMake(longitude[0], latitude[0], 0)
                         
                         var ring0 : [Any] = []
                         
-                        for (x,y) in zip(latitude,longitude){
+                        for (x,y) in zip(longitude,latitude){
                             ring0.append(HDMPoint.init(x, y: y, z: 0))
                         }
                         
-                        ring0.append(HDMPoint.init(latitude[0], y: longitude[0], z: 0))
+                        ring0.append(HDMPoint.init(longitude[0], y: latitude[0], z: 0))
                         
                         let poly = HDMPolygon.init(points: ring0 as! [HDMPoint])
                         let myFeature: HDMFeature = HDMPolygonFeature.init(polygon: poly, featureType: "osm.building", zmin: 43, zmax: 44)
@@ -136,10 +136,10 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
         var points : [putPlace.Geofence.Points] = []
         var ring0 = [Any] ()
         
-        for (latitude,longitude) in zip(x,y){
+        for (longitude,latitude) in zip(x,y){
             
-            points.append(putPlace.Geofence.Points(latitude: latitude, longitude: longitude))
-            ring0.append(HDMPoint.init(latitude, y:longitude, z:0))
+            points.append(putPlace.Geofence.Points(longitude: longitude, latitude: latitude))
+            ring0.append(HDMPoint.init(longitude, y:latitude, z:0))
             
         }
         
@@ -151,6 +151,36 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
         mapView.add(myFeature)
         
         return (myFeature,points)
+    }
+    
+    func createPlace(_ x: [Double], _ y: [Double]){
+    
+        
+        let geofence = putPlace.Geofence(shape: "POLYGON", points: points)
+        let beacons : [putPlace.Beacons] = [putPlace.Beacons(id: beaconId)]
+        let beacon = putPlace(name: placeName, geofence: geofence, beacons: beacons)
+        
+        let postData = try! JSONEncoder().encode(beacon)
+        
+        print(String(data:postData, encoding: .utf8)!)
+        let request = NSMutableURLRequest(url: NSURL(string: "https://manager.gimbal.com/api/v2/places/")! as URL,
+                                          cachePolicy: .useProtocolCachePolicy,
+                                          timeoutInterval: 10.0)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = headers
+        request.httpBody = postData as Data
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            if (error != nil) {
+                print(error!)
+            } else {
+                let httpResponse = response as? HTTPURLResponse
+                print(httpResponse!)
+            }
+        })
+        
+        dataTask.resume()
     }
     
     func updatePlace(_ updates: putPlace, _ url: String){

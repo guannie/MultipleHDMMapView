@@ -17,8 +17,8 @@ struct putPlace : Codable{
         var shape: String = "POLYGON"
         
         struct Points : Codable{
-            var latitude: Double?
             var longitude: Double?
+            var latitude: Double?
         }
         
         var points: [Points]?

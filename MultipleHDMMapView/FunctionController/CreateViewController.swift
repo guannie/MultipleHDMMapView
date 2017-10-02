@@ -1,16 +1,15 @@
 //
-//  UpdateViewController.swift
+//  CreateViewController.swift
 //  MultipleHDMMapView
 //
-//  Created by Tan Chung Shzen on 27.09.17.
+//  Created by Tan Chung Shzen on 02.10.17.
 //  Copyright © 2017 HDMI. All rights reserved.
 //
 
 import UIKit
 
-class UpdateViewController: UIViewController {
-    //    MARK: Properties
-    
+class CreateViewController: UIViewController {
+
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var beaconIdField: UITextField!
     @IBOutlet var key1TextField: UITextField!
@@ -22,49 +21,26 @@ class UpdateViewController: UIViewController {
     @IBOutlet weak var key1Validation: UILabel!
     @IBOutlet weak var key2Validation: UILabel!
     
-    @IBOutlet weak var editGeofenceBtn: UIButton!
+    @IBOutlet weak var submitBtn: UIButton!
     
-    @IBOutlet weak var updateBtn: UIButton!
-    
-    var name: String = ""
-    var key1: String = ""
-    var key2: String = ""
-    var url: String = ""
-    var points : [putPlace.Geofence.Points]? = nil
     let list = ["Bauhaus", "Küche", "B&B B", "Meetingraum Heidelberg", "Geo Dev" ,"Kicker" ,"Glashaus" ,"Matthi" ,"Eingang Entwicklung" ,"Tokio"]
-  
+    
     //    MARK: View
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if !name.isEmpty{
-            nameTextField.text = name
-        }
-        if !key1.isEmpty{
-            key1TextField.text = key1
-        }
-        if !key2.isEmpty{
-            key2TextField.text = key2
-        }
-        
-       // beaconIdField.autocapitalizationType = .allCharacters
+
         setupView()
         
-       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if !(points == nil) {
-            loadStates()
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated) // No need for semicolon
-        points = nil
     }
     
     fileprivate func setupView() {
@@ -74,34 +50,9 @@ class UpdateViewController: UIViewController {
         self.pickerBeacon.isHidden = true
     }
     
-//    func numberOnly(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
-//    {
-//        let allowedCharacters = CharacterSet.decimalDigits
-//        let characterSet = CharacterSet(charactersIn: string)
-//        return allowedCharacters.isSuperset(of: characterSet)
-//    }
+    //MARK: Button function
     
-
-    //MARK: Button functions
-    @IBAction func editGeofence(_ sender: UIButton) {
-        
-        //Save the state while user navigate to another view
-        saveStates()
-        
-        //sender to MainViewController
-//        let data = ["url" : url]
-//
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateGeofence"), object: nil, userInfo: data)
-        
-        //Navigate to MainViewController
-        let naviController = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
-        
-        naviController?.url = url
-        
-        self.navigationController?.pushViewController(naviController!, animated: true)
-    }
-    
-    @IBAction func updateForm(_ sender: Any) {
+    @IBAction func submitForm(_ sender: Any) {
         var shape = "POLYGON"
         if(points?.count == 1) {shape = "Radial"}
         
@@ -130,21 +81,6 @@ extension UpdateViewController: UITextFieldDelegate {
         switch textField {
         case nameTextField:
             key1TextField.becomeFirstResponder()
-//        case beaconIdField:
-//            // Validate Text Field
-//            let (valid, message) = validate(textField)
-//            print(valid)
-//            if valid {
-//                key1TextField.becomeFirstResponder()
-//            }
-//
-//            // Update Password Validation Label
-//            self.nameValidationLabel.text = message
-//
-//            // Show/Hide Password Validation Label
-//            UIView.animate(withDuration: 0.25, animations: {
-//                self.nameValidationLabel.isHidden = valid
-//            })
         case key1TextField:
             key2TextField.becomeFirstResponder()
         default:
@@ -162,25 +98,9 @@ extension UpdateViewController: UITextFieldDelegate {
         
         return (true, "")
     }
-    
-    func saveStates(){
-        let defaults = UserDefaults.standard
-        
-        defaults.set(nameTextField.text, forKey: "nameTextField")
-        defaults.set(key1TextField.text, forKey: "key1TextField")
-        defaults.set(key2TextField.text, forKey: "key2TextField")
-        defaults.synchronize()
-    }
-    
-    func loadStates(){
-        let defaults = UserDefaults.standard
-        nameTextField.text = defaults.object(forKey: "nameTextField") as? String
-        key1TextField.text = defaults.object(forKey: "key1TextField") as? String
-        key2TextField.text = defaults.object(forKey: "key2TextField") as? String
-    }
 }
 
-extension UpdateViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension CreateViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -242,4 +162,3 @@ extension UpdateViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         return beaconId!
     }
 }
-

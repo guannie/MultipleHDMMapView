@@ -18,8 +18,8 @@ struct getPlace : Codable{
         var center: Double?
         
         struct Points : Codable{
-            var latitude: Double?
             var longitude: Double?
+            var latitude: Double?
         }
         
         var points: [Points]?

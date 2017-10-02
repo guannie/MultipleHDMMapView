@@ -1,5 +1,5 @@
 //
-//  DeleteListTableViewController.swift
+//  GeofenceController.swift
 //  MultipleHDMMapView
 //
 //  Created by Lee Kuan Xin on 22.09.17.
@@ -9,7 +9,12 @@
 import UIKit
 import HDMMapCore
 
-class DeleteListTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var nameArray = [String] ()
+    var key1Array = [String] ()
+    var key2Array = [String] ()
+    var urlArray = [String] ()
     
     @IBAction func cancel(_ sender: Any) {
         let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
@@ -17,10 +22,8 @@ class DeleteListTableViewController: UIViewController, UITableViewDataSource, UI
         self.navigationController?.pushViewController(naviController!, animated: true)
     }
     
-    var nameArray = [String] ()
-    var key1Array = [String] ()
-    var key2Array = [String] ()
-    var urlArray = [String] ()
+    @IBAction func addBtn(_ sender: UIBarButtonItem) {
+    }
     
     @IBOutlet weak var tableView: UITableView!
     

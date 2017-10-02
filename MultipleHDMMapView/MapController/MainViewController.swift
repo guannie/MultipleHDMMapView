@@ -8,6 +8,7 @@
 
 import UIKit
 import HDMMapCore
+import CoreGraphics
 
 class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
 
@@ -72,6 +73,8 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     }
     
     func mapViewController(_ controller: HDMMapViewController, tappedAt coordinate: HDMMapCoordinate, features: [HDMFeature]) {
+        
+        tapEffect(coordinate.x, coordinate.y)
         
         coordinateX.append(coordinate.x)
         coordinateY.append(coordinate.y)
@@ -189,4 +192,38 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         
     }
     
+    //    MARK:TAP effect
+    func tapEffect(_ x: Double, _ y:Double) {
+        var ui :UIImageView = UIImageView(frame: self.view.frame)
+        //ui.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+        self.view.addSubview(ui)
+        self.view.bringSubview(toFront: ui)
+        ui.isUserInteractionEnabled = false
+        if(coordinateX.count >= 2) {
+            UIGraphicsBeginImageContext(ui.frame.size)
+            let ctx = UIGraphicsGetCurrentContext()
+            print(ctx)
+            ui.draw(CGRect(x: 0, y: 0, width: ui.frame.size.width, height: ui.frame.size.height))
+            ctx?.saveGState()
+            ctx?.setLineCap(.square)
+            ctx?.setLineWidth(3.0)
+            ctx?.setStrokeColor(UIColor.blue.cgColor)
+            ctx?.beginPath()
+            ctx?.move(to: CGPoint(x: coordinateX.last!, y: coordinateY.last!))
+            print(coordinateX)
+            print(coordinateY)
+            print(x)
+            print(y)
+            ctx?.addLine(to: CGPoint(x: x, y: y))
+            ctx?.strokePath()
+            ctx?.restoreGState()
+            ui.image = UIGraphicsGetImageFromCurrentImageContext()
+            ui.alpha = 1.0
+            UIGraphicsEndImageContext()
+        }
+        if(coordinateX.count > 4){
+            ui.removeFromSuperview()
+            ui.image = nil
+        }
+    }
 }

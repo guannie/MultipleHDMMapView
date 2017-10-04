@@ -16,9 +16,20 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
     var urlArray = [String] ()
     
     @IBAction func cancel(_ sender: Any) {
-        let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
+        //let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
+        //self.navigationController?.popViewController(animated: true)
         
-        self.navigationController?.pushViewController(naviController!, animated: true)
+        let isPresentingInAddMealMode = presentingViewController is UINavigationController
+        
+        if isPresentingInAddMealMode {
+            dismiss(animated: true, completion: nil)
+            
+        } else if let owningNavigationController = navigationController{
+            owningNavigationController.popViewController(animated: true)
+        }
+        else {
+            fatalError("The ViewController is not inside a navigation controller")
+        }
     }
     
     @IBAction func addBtn(_ sender: UIBarButtonItem) {

@@ -44,7 +44,6 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         if status == "create" {
             createGeofence()
         }
@@ -65,6 +64,8 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
             self.mapView.add((place?.feature)!)
             self.featureId.append((place?.feature.featureId)!)
         }
+        
+        //mapView.reloadInputViews()
         
         print("Mainview will Appear")
     }

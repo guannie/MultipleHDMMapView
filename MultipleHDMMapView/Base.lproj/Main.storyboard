@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nhw-M0-ZHF">
-    <device id="ipad12_9" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Iem-YO-pYI">
+    <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -19,42 +19,40 @@
         </array>
     </customFonts>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="Zum-dI-mMb">
+            <objects>
+                <navigationController id="Iem-YO-pYI" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pAM-cQ-Lco">
+                        <rect key="frame" x="0.0" y="20" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="nhw-M0-ZHF" kind="relationship" relationship="rootViewController" id="aQh-rJ-bB6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rSe-OZ-HVy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1229" y="403"/>
+        </scene>
         <!--deleteView-->
         <scene sceneID="d74-Zc-2mW">
             <objects>
                 <viewController storyboardIdentifier="GeofenceController" title="deleteView" id="5sE-Bj-aC4" customClass="GeofenceController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8pC-d3-ORi">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lIT-CD-gHV">
-                                <rect key="frame" x="0.0" y="64" width="1024" height="1302"/>
+                                <rect key="frame" x="0.0" y="32" width="768" height="1024"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="cJd-ea-8Zp" customClass="myCell" customModule="MultipleHDMMapView" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="1024" height="52"/>
+                                        <rect key="frame" x="0.0" y="28" width="768" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cJd-ea-8Zp" id="ITk-NT-UKY">
-                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="51.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pxh-2Y-YcB">
-                                                    <rect key="frame" x="286" y="20" width="738" height="11.5"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                                    <state key="normal" title="Delete">
-                                                        <color key="titleColor" red="1" green="0.16593298526139044" blue="0.36391735183558926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="deleteGeofence:" destination="5sE-Bj-aC4" eventType="touchUpInside" id="DMB-3b-YAS"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="Pxh-2Y-YcB" secondAttribute="trailing" id="2KN-v0-dSw"/>
-                                                <constraint firstItem="Pxh-2Y-YcB" firstAttribute="top" secondItem="ITk-NT-UKY" secondAttribute="top" constant="20" id="C0P-aR-4SI"/>
-                                                <constraint firstAttribute="bottom" secondItem="Pxh-2Y-YcB" secondAttribute="bottom" constant="20" id="g8m-MP-1zV"/>
-                                                <constraint firstItem="Pxh-2Y-YcB" firstAttribute="leading" secondItem="ITk-NT-UKY" secondAttribute="leading" constant="286" id="vTK-rV-NMN"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="vfu-M3-PjK" kind="show" id="uBb-Fe-Lbk"/>
@@ -69,10 +67,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="lIT-CD-gHV" firstAttribute="bottom" secondItem="gzN-8Y-7zb" secondAttribute="bottom" id="9Pk-nf-u44"/>
-                            <constraint firstItem="lIT-CD-gHV" firstAttribute="top" secondItem="gzN-8Y-7zb" secondAttribute="top" id="d4n-ZJ-NtN"/>
-                            <constraint firstItem="lIT-CD-gHV" firstAttribute="leading" secondItem="gzN-8Y-7zb" secondAttribute="leading" id="ggn-Kh-wvW"/>
-                            <constraint firstItem="lIT-CD-gHV" firstAttribute="trailing" secondItem="gzN-8Y-7zb" secondAttribute="trailing" id="kD6-vB-Duf"/>
+                            <constraint firstItem="lIT-CD-gHV" firstAttribute="height" secondItem="8pC-d3-ORi" secondAttribute="height" id="UhB-KE-ys6"/>
+                            <constraint firstItem="lIT-CD-gHV" firstAttribute="centerY" secondItem="gzN-8Y-7zb" secondAttribute="centerY" id="a1S-l0-PQ0"/>
+                            <constraint firstItem="lIT-CD-gHV" firstAttribute="centerX" secondItem="gzN-8Y-7zb" secondAttribute="centerX" id="lBR-N5-O4y"/>
+                            <constraint firstItem="lIT-CD-gHV" firstAttribute="width" secondItem="8pC-d3-ORi" secondAttribute="width" id="rZK-Rd-67m"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gzN-8Y-7zb"/>
                     </view>
@@ -102,11 +100,11 @@
             <objects>
                 <viewController storyboardIdentifier="UpdateViewController" id="yDp-QS-4gV" customClass="UpdateViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YI1-Jn-H2W">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update Geofence" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YTJ-iw-2v8">
-                                <rect key="frame" x="0.0" y="84" width="1024" height="131"/>
+                                <rect key="frame" x="0.0" y="84" width="768" height="98.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="YTJ-iw-2v8" secondAttribute="height" multiplier="1024:131" id="Op9-zv-5J7"/>
                                 </constraints>
@@ -115,7 +113,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Place's Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fvh-UW-XO7">
-                                <rect key="frame" x="20" y="217" width="984" height="29.5"/>
+                                <rect key="frame" x="20" y="184.5" width="728" height="21.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Fvh-UW-XO7" secondAttribute="height" multiplier="984:29" id="L4M-Xs-Wpk"/>
                                     <constraint firstAttribute="width" secondItem="Fvh-UW-XO7" secondAttribute="height" multiplier="168:5" id="xI3-cM-uc8"/>
@@ -128,7 +126,7 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="warning" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1J-p3-sgx" userLabel="placeNameValidation">
-                                <rect key="frame" x="20" y="248.5" width="984" height="14"/>
+                                <rect key="frame" x="20" y="208" width="728" height="10.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="A1J-p3-sgx" secondAttribute="height" multiplier="72:1" id="Mds-t1-64Q"/>
                                     <constraint firstAttribute="width" secondItem="A1J-p3-sgx" secondAttribute="height" multiplier="492:7" id="iFX-44-qbm"/>
@@ -138,7 +136,7 @@
                                 <color key="highlightedColor" red="1" green="0.1659329853" blue="0.36391735180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1P0-M6-1hT">
-                                <rect key="frame" x="20" y="312.5" width="984" height="211"/>
+                                <rect key="frame" x="20" y="268.5" width="728" height="156"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="1P0-M6-1hT" secondAttribute="height" multiplier="14:3" id="CYv-iO-B2W"/>
                                     <constraint firstAttribute="width" secondItem="1P0-M6-1hT" secondAttribute="height" multiplier="14:3" id="yfN-2P-5oF"/>
@@ -149,14 +147,14 @@
                                 </connections>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpp-P5-CBw">
-                                <rect key="frame" x="417.51612850528181" y="573.5" width="187.00000000000182" height="30"/>
+                                <rect key="frame" x="417.51612850528181" y="474.5" width="187.00000000000182" height="30"/>
                                 <state key="normal" title="Click here to edit Geofence"/>
                                 <connections>
                                     <action selector="editGeofence:" destination="yDp-QS-4gV" eventType="touchUpInside" id="jgO-y0-IHW"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select Beacon Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dyj-Tz-u6i">
-                                <rect key="frame" x="20" y="282.5" width="984" height="30"/>
+                                <rect key="frame" x="20" y="238.5" width="728" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -165,7 +163,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tz4-lM-Ca7">
-                                <rect key="frame" x="485.83520303075238" y="633.5" width="50.999999999998181" height="30"/>
+                                <rect key="frame" x="485.83520303075238" y="534.5" width="50.999999999998181" height="30"/>
                                 <state key="normal" title="Update"/>
                                 <connections>
                                     <action selector="updateForm:" destination="yDp-QS-4gV" eventType="touchUpInside" id="8gA-fP-PSZ"/>
@@ -218,7 +216,7 @@
             <objects>
                 <navigationController title="deleteViewNavigate" id="zej-iM-DE0" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zvl-WR-5Tw">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -234,11 +232,11 @@
             <objects>
                 <viewController storyboardIdentifier="MainViewController" id="nhw-M0-ZHF" customClass="MainViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7ki-CU-Myd">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89P-ZN-8Gd">
-                                <rect key="frame" x="957" y="40" width="47" height="36"/>
+                                <rect key="frame" x="701" y="84" width="47" height="36"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Done">
@@ -249,22 +247,26 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEd-OQ-G4R">
-                                <rect key="frame" x="920" y="1262" width="64" height="64"/>
+                                <rect key="frame" x="684" y="940" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="hEd-OQ-G4R" secondAttribute="height" multiplier="1:1" id="B4C-CD-Vqj"/>
+                                </constraints>
                                 <state key="normal" image="icons8-Menu-64"/>
                                 <connections>
-                                    <segue destination="zej-iM-DE0" kind="show" id="yc2-s2-o9d"/>
+                                    <segue destination="zej-iM-DE0" kind="presentation" id="8yR-RF-K0Z"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="GGv-ck-Rki" firstAttribute="trailing" secondItem="89P-ZN-8Gd" secondAttribute="trailing" constant="20" id="2SI-RI-bPZ"/>
+                            <constraint firstItem="GGv-ck-Rki" firstAttribute="trailing" secondItem="hEd-OQ-G4R" secondAttribute="trailing" constant="20" id="Lkd-hS-jLy"/>
+                            <constraint firstItem="GGv-ck-Rki" firstAttribute="bottom" secondItem="hEd-OQ-G4R" secondAttribute="bottom" constant="20" id="YCG-e0-bKR"/>
                             <constraint firstItem="89P-ZN-8Gd" firstAttribute="top" secondItem="GGv-ck-Rki" secondAttribute="top" constant="20" id="Z0S-Ss-Ur9"/>
-                            <constraint firstItem="GGv-ck-Rki" firstAttribute="bottom" secondItem="hEd-OQ-G4R" secondAttribute="bottom" constant="40" id="ZEb-u6-8s7"/>
-                            <constraint firstAttribute="trailing" secondItem="hEd-OQ-G4R" secondAttribute="trailing" constant="40" id="zUU-XJ-Dbm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GGv-ck-Rki"/>
                     </view>
+                    <navigationItem key="navigationItem" id="nJo-UY-Cja"/>
                     <connections>
                         <outlet property="doneBtn" destination="89P-ZN-8Gd" id="tWC-Gp-wTE"/>
                         <outlet property="menuBtn" destination="hEd-OQ-G4R" id="Zvp-AQ-gDi"/>
@@ -280,7 +282,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vfu-M3-PjK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3NB-a3-QhH">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -297,11 +299,11 @@
             <objects>
                 <viewController storyboardIdentifier="CreateViewController" id="SFr-mm-4Ah" customClass="CreateViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gUZ-GJ-0Uv">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Geofence" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAb-Jp-tGe">
-                                <rect key="frame" x="0.0" y="84" width="1024" height="131"/>
+                                <rect key="frame" x="0.0" y="84" width="768" height="98.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="PAb-Jp-tGe" secondAttribute="height" multiplier="1024:131" id="eU4-bx-JeE"/>
                                 </constraints>
@@ -310,7 +312,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Place's Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lsx-yP-JiH">
-                                <rect key="frame" x="20" y="217" width="984" height="29.5"/>
+                                <rect key="frame" x="20" y="184.5" width="728" height="21.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="lsx-yP-JiH" secondAttribute="height" multiplier="168:5" id="tqm-iU-WBF"/>
                                 </constraints>
@@ -322,7 +324,7 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="warning" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xo4-53-G63" userLabel="placeNameValidation">
-                                <rect key="frame" x="20" y="248.5" width="984" height="13.5"/>
+                                <rect key="frame" x="20" y="208" width="728" height="10"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="xo4-53-G63" secondAttribute="height" multiplier="72:1" id="Ie2-1h-LLx"/>
                                 </constraints>
@@ -331,7 +333,7 @@
                                 <color key="highlightedColor" red="1" green="0.1659329853" blue="0.36391735180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zkF-eo-xmp">
-                                <rect key="frame" x="20" y="312" width="984" height="211"/>
+                                <rect key="frame" x="20" y="268" width="728" height="156"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="zkF-eo-xmp" secondAttribute="height" multiplier="14:3" id="P6k-4C-46P"/>
                                     <constraint firstAttribute="width" secondItem="zkF-eo-xmp" secondAttribute="height" multiplier="14:3" id="xmy-05-aHi"/>
@@ -342,14 +344,14 @@
                                 </connections>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6tF-C5-c2n">
-                                <rect key="frame" x="417.51612850528181" y="573" width="187.00000000000182" height="30"/>
+                                <rect key="frame" x="417.51612850528181" y="474" width="187.00000000000182" height="30"/>
                                 <state key="normal" title="Click here to add Geofence"/>
                                 <connections>
                                     <action selector="addGeofence:" destination="SFr-mm-4Ah" eventType="touchUpInside" id="3qg-8W-hqg"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select Beacon Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0tA-J8-253">
-                                <rect key="frame" x="20" y="282" width="984" height="30"/>
+                                <rect key="frame" x="20" y="238" width="728" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -358,7 +360,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FfO-yT-gQF">
-                                <rect key="frame" x="485.83520303075238" y="633" width="50.999999999998181" height="30"/>
+                                <rect key="frame" x="485.83520303075238" y="534" width="50.999999999998181" height="30"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="submitForm:" destination="SFr-mm-4Ah" eventType="touchUpInside" id="QRd-ZR-uum"/>
@@ -410,10 +412,11 @@
         <!--Navigation Controller-->
         <scene sceneID="mTp-yq-CrM">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ifH-8o-X7H" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tY5-ig-8h9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7KQ-7p-z5i">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -421,7 +424,6 @@
                         <segue destination="SFr-mm-4Ah" kind="relationship" relationship="rootViewController" id="VYd-AU-mcB"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ifH-8o-X7H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4212" y="459"/>
         </scene>

@@ -117,7 +117,13 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
                         let gPlace = beaconData(place: beacon, feature: myFeature, annotation: annotation)
                         
                         completionHandler(gPlace)
+                    } else {
+                        
+                        let gPlace = beaconData(place: beacon, feature: nil, annotation: nil)
+                        
+                        completionHandler(gPlace)
                     }
+                    
                     
                 } catch {
                     print("error trying to convert data to JSON")
@@ -179,6 +185,7 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
         
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            
             if (error != nil) {
                 print(error!)
             } else {
@@ -188,6 +195,7 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
         })
         
         dataTask.resume()
+        
     }
     
     func updatePlace(_ updates: putPlace, _ url: String){
@@ -222,7 +230,7 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
         let index = ["name" : name]
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "deleteGeofence"), object: nil, userInfo: index)
-        
+        print(url)
         let request = NSMutableURLRequest(url: NSURL(string: "https://manager.gimbal.com/api/v2/places/" + String(url))! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)

@@ -66,9 +66,11 @@ class CreateViewController: UIViewController {
     }
     
     @IBAction func submitForm(_ sender: Any) {
-        var shape = ""
-        if(points?.count == 1) {shape = "RADIAL"}
-        else if(points?.count != 0) {shape = "POLYGON"}
+        var shape : String?
+       
+        if points?.count == nil {shape = nil}
+        else if(points?.count == 1) {shape = "RADIAL"}
+        else {shape = "POLYGON"}
         
         let geofence = putPlace.Geofence(shape: shape, points: points)
         let beacon = [putPlace.Beacons(id: getBeaconId(beaconName: beaconIdField.text!))]
@@ -81,9 +83,12 @@ class CreateViewController: UIViewController {
         //after sending data, set points to nil
         points = nil
         
-        let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "GeofenceController") as? GeofenceController
-        
-        self.navigationController?.pushViewController(naviController!, animated: true)
+        let time = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: time) {
+            let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "GeofenceController") as? GeofenceController
+            
+            self.navigationController?.pushViewController(naviController!, animated: true)
+        }
     }
 }
 

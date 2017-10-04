@@ -12,13 +12,11 @@ import HDMMapCore
 class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var nameArray = [String] ()
-    var key1Array = [String] ()
-    var key2Array = [String] ()
     var beaconIdArray = [String] ()
     var urlArray = [String] ()
     
     @IBAction func cancel(_ sender: Any) {
-        let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "first") as? FirstViewController
+        let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
         
         self.navigationController?.pushViewController(naviController!, animated: true)
     }
@@ -56,8 +54,6 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
             
             naviController?.name = self.nameArray[indexPath.row]
             naviController?.url = self.urlArray[indexPath.row]
-            naviController?.key1 = self.key1Array[indexPath.row]
-            naviController?.key2 = self.key2Array[indexPath.row]
             naviController?.beaconId = self.beaconIdArray[indexPath.row]
             
             self.navigationController?.pushViewController(naviController!, animated: true)
@@ -83,24 +79,6 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion: nil)
- 
-        /*
-        let alert = UIAlertController(title: "Present Controller B", message: "Do you want to preset controller B?", preferredStyle: .alert)
-        
-        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action) -> Void in
-            
-            alert.dismiss(animated: true, completion: nil)
-            
-            let controllerB = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UpdateViewController") as? UpdateViewController
-            
-            self.navigationController?.pushViewController(controllerB!, animated: true)
-            
-        })
-        
-        alert.addAction(defaultAction)
-        
-        self.present(alert, animated: true, completion: nil)
- */
         
     }
     
@@ -144,23 +122,18 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
             
             self.nameArray.append((place?.place.name)!)
             self.urlArray.append((place?.place.url)!)
-            self.key1Array.append((place?.place.attributes?.key1) ?? "")
-            self.key2Array.append((place?.place.attributes?.key2) ?? "")
-            
+ 
+            if !((place?.place.beacons?.isEmpty)!){
             for beacon in (place?.place.beacons)! {
-                if !(beacon.name == nil){
-                        self.beaconIdArray.append(beacon.name ?? "")
-                }   else{
-                    print("Is here")
-                    }
-                
+                        self.beaconIdArray.append(beacon.name!)
                 }
-            
+            } else {
+                self.beaconIdArray.append("")
+            }
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            print(self.beaconIdArray)
         }
     }
     

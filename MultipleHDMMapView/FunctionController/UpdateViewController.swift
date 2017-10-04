@@ -13,22 +13,16 @@ class UpdateViewController: UIViewController {
     
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var beaconIdField: UITextField!
-    @IBOutlet var key1TextField: UITextField!
-    @IBOutlet var key2TextField: UITextField!
     
     @IBOutlet weak var pickerBeacon: UIPickerView!
     
     @IBOutlet var nameValidationLabel: UILabel!
-    @IBOutlet weak var key1Validation: UILabel!
-    @IBOutlet weak var key2Validation: UILabel!
     
     @IBOutlet weak var editGeofenceBtn: UIButton!
     
     @IBOutlet weak var updateBtn: UIButton!
     
     var name: String = ""
-    var key1: String = ""
-    var key2: String = ""
     var beaconId: String = ""
     var url: String = ""
     var status: String?
@@ -42,12 +36,6 @@ class UpdateViewController: UIViewController {
         
         if !name.isEmpty{
             nameTextField.text = name
-        }
-        if !key1.isEmpty{
-            key1TextField.text = key1
-        }
-        if !key2.isEmpty{
-            key2TextField.text = key2
         }
         if !beaconId.isEmpty{
             beaconIdField.text = beaconId
@@ -73,8 +61,6 @@ class UpdateViewController: UIViewController {
     
     fileprivate func setupView() {
         nameValidationLabel.isHidden = true
-        key1Validation.isHidden = true
-        key2Validation.isHidden = true
         self.pickerBeacon.isHidden = true
     }
     
@@ -99,9 +85,8 @@ class UpdateViewController: UIViewController {
         
         let geofence = putPlace.Geofence(shape: shape, points: points)
         let beacon = [putPlace.Beacons(id: getBeaconId(beaconName: beaconIdField.text!))]
-        let attributes = putPlace.Attributes(key1: key1TextField.text, key2: key2TextField.text)
         
-        let updates = putPlace(name: nameTextField.text, geofence: geofence, beacons: beacon, attributes: attributes)
+        let updates = putPlace(name: nameTextField.text, geofence: geofence, beacons: beacon)
         
         let data = DataHandler()
         data.updatePlace(updates,url)
@@ -115,59 +100,39 @@ class UpdateViewController: UIViewController {
 //MARK: Other functions
 extension UpdateViewController: UITextFieldDelegate {
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch textField {
-        case nameTextField:
-            key1TextField.becomeFirstResponder()
-//        case beaconIdField:
-//            // Validate Text Field
-//            let (valid, message) = validate(textField)
-//            print(valid)
-//            if valid {
-//                key1TextField.becomeFirstResponder()
-//            }
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        switch textField {
+//        case nameTextField:
+//            beaconIdField.becomeFirstResponder
+//        default:
+//            beaconIdField.resignFirstResponder()
+//        }
 //
-//            // Update Password Validation Label
-//            self.nameValidationLabel.text = message
-//
-//            // Show/Hide Password Validation Label
-//            UIView.animate(withDuration: 0.25, animations: {
-//                self.nameValidationLabel.isHidden = valid
-//            })
-        case key1TextField:
-            key2TextField.becomeFirstResponder()
-        default:
-            key2TextField.resignFirstResponder()
-        }
-        
-        return true
-    }
+//        return true
+//    }
     
-    fileprivate func validate(_ textField: UITextField) -> (Bool, String?) {
-        guard let text = textField.text else {
-            return (false, nil)
-        }
-        //Validation for beacon ID Textfield
-        
-        return (true, "")
-    }
+//    fileprivate func validate(_ textField: UITextField) -> (Bool, String?) {
+//        guard let text = textField.text else {
+//            return (false, nil)
+//        }
+//        //Validation for beacon ID Textfield
+//
+//        return (true, "")
+//    }
     
     func saveStates(){
         let defaults = UserDefaults.standard
         
         defaults.set(nameTextField.text, forKey: "nameTextField")
         defaults.set(beaconIdField.text, forKey: "beaconIdField")
-        defaults.set(key1TextField.text, forKey: "key1TextField")
-        defaults.set(key2TextField.text, forKey: "key2TextField")
         defaults.synchronize()
     }
     
     func loadStates(){
         let defaults = UserDefaults.standard
+        
         nameTextField.text = defaults.object(forKey: "nameTextField") as? String
         beaconIdField.text = defaults.object(forKey: "beaconIdField") as? String
-        key1TextField.text = defaults.object(forKey: "key1TextField") as? String
-        key2TextField.text = defaults.object(forKey: "key2TextField") as? String
     }
 }
 

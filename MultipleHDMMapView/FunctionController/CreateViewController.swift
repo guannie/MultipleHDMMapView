@@ -12,14 +12,10 @@ class CreateViewController: UIViewController {
 
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var beaconIdField: UITextField!
-    @IBOutlet var key1TextField: UITextField!
-    @IBOutlet var key2TextField: UITextField!
     
     @IBOutlet weak var pickerBeacon: UIPickerView!
     
     @IBOutlet var nameValidationLabel: UILabel!
-    @IBOutlet weak var key1Validation: UILabel!
-    @IBOutlet weak var key2Validation: UILabel!
     
     @IBOutlet weak var addGeofenceBtn: UIButton!
     @IBOutlet weak var submitBtn: UIButton!
@@ -53,8 +49,6 @@ class CreateViewController: UIViewController {
     
     fileprivate func setupView() {
         nameValidationLabel.isHidden = true
-        key1Validation.isHidden = true
-        key2Validation.isHidden = true
         self.pickerBeacon.isHidden = true
     }
     
@@ -78,9 +72,8 @@ class CreateViewController: UIViewController {
         
         let geofence = putPlace.Geofence(shape: shape, points: points)
         let beacon = [putPlace.Beacons(id: getBeaconId(beaconName: beaconIdField.text!))]
-        let attributes = putPlace.Attributes(key1: key1TextField.text, key2: key2TextField.text)
         
-        let create = putPlace(name: nameTextField.text, geofence: geofence, beacons: beacon, attributes: attributes)
+        let create = putPlace(name: nameTextField.text, geofence: geofence, beacons: beacon)
         
         let data = DataHandler()
         data.createPlace(create)
@@ -97,35 +90,31 @@ class CreateViewController: UIViewController {
 //MARK: Other functions
 extension CreateViewController: UITextFieldDelegate {
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch textField {
-        case nameTextField:
-            key1TextField.becomeFirstResponder()
-        case key1TextField:
-            key2TextField.becomeFirstResponder()
-        default:
-            key2TextField.resignFirstResponder()
-        }
-        
-        return true
-    }
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        switch textField {
+//        case nameTextField:
+//            beaconIdField.becomeFirstResponder()
+//        default:
+//            beaconIdField.resignFirstResponder()
+//        }
+//
+//        return true
+//    }
     
-    fileprivate func validate(_ textField: UITextField) -> (Bool, String?) {
-        guard let text = textField.text else {
-            return (false, nil)
-        }
-        //Validation for beacon ID Textfield
-        
-        return (true, "")
-    }
+//    fileprivate func validate(_ textField: UITextField) -> (Bool, String?) {
+//        guard let text = textField.text else {
+//            return (false, nil)
+//        }
+//        //Validation for beacon ID Textfield
+//
+//        return (true, "")
+//    }
     
     func saveStates(){
         let defaults = UserDefaults.standard
         
         defaults.set(nameTextField.text, forKey: "nameTextField")
         defaults.set(beaconIdField.text, forKey: "beaconIdField")
-        defaults.set(key1TextField.text, forKey: "key1TextField")
-        defaults.set(key2TextField.text, forKey: "key2TextField")
         defaults.synchronize()
     }
     
@@ -133,8 +122,6 @@ extension CreateViewController: UITextFieldDelegate {
         let defaults = UserDefaults.standard
         nameTextField.text = defaults.object(forKey: "nameTextField") as? String
         beaconIdField.text = defaults.object(forKey: "beaconIdField") as? String
-        key1TextField.text = defaults.object(forKey: "key1TextField") as? String
-        key2TextField.text = defaults.object(forKey: "key2TextField") as? String
     }
 }
 

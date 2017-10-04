@@ -25,6 +25,8 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     
     @IBOutlet weak var doneBtn: UIButton!
     
+    @IBOutlet weak var menuBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Mainview Did Load")
@@ -32,6 +34,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         self.delegate = self
         self.mapView.tapEnabled = false
         self.view.addSubview(self.doneBtn)
+        self.view.addSubview(self.menuBtn)
         self.doneBtn.isHidden = true
         
         //receiver of deletegeofence

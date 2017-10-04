@@ -17,22 +17,13 @@
 		886BDFED1F75714600457B94 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886BDFEC1F75714600457B94 /* Data.swift */; };
 		886C66951F829823009626A5 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C66941F829823009626A5 /* CreateViewController.swift */; };
 		88C832151F7BA6BA001F4657 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C832141F7BA6BA001F4657 /* MainViewController.swift */; };
-		8E0E88BB1F73F44A00EB4471 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0E88BA1F73F44A00EB4471 /* CanvasView.swift */; };
 		8E64A01E1F72C32B00F2844C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64A01D1F72C32B00F2844C /* AppDelegate.swift */; };
-		8E64A0201F72C32B00F2844C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64A01F1F72C32B00F2844C /* FirstViewController.swift */; };
-		8E64A0221F72C32B00F2844C /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64A0211F72C32B00F2844C /* SecondViewController.swift */; };
 		8E64A0251F72C32B00F2844C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E64A0231F72C32B00F2844C /* Main.storyboard */; };
 		8E64A0271F72C32B00F2844C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E64A0261F72C32B00F2844C /* Assets.xcassets */; };
 		8E64A02A1F72C32B00F2844C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E64A0281F72C32B00F2844C /* LaunchScreen.storyboard */; };
-		8EA117A21F750710009F409A /* ModificationMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA117A11F750710009F409A /* ModificationMenuView.swift */; };
-		8EA117A41F7538A1009F409A /* DrawingGeoFenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA117A31F7538A1009F409A /* DrawingGeoFenceViewController.swift */; };
-		8EA117A71F753EF2009F409A /* UpdateListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA117A61F753EF2009F409A /* UpdateListTableViewController.swift */; };
 		8EA117A91F753F10009F409A /* GeofenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA117A81F753F10009F409A /* GeofenceController.swift */; };
 		8EA117AB1F755375009F409A /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA117AA1F755375009F409A /* TestViewController.swift */; };
-		8EA117AF1F7569F4009F409A /* TestMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA117AE1F7569F4009F409A /* TestMapViewController.swift */; };
 		8EDB10271F73B395005DF488 /* DeepMap.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8EDB10261F73B203005DF488 /* DeepMap.zip */; };
-		8EDB10291F73BED4005DF488 /* BaseMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB10281F73BED4005DF488 /* BaseMapViewController.swift */; };
-		8EDB10321F73E7D1005DF488 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB10311F73E7D1005DF488 /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,24 +50,15 @@
 		886BDFEC1F75714600457B94 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		886C66941F829823009626A5 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		88C832141F7BA6BA001F4657 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		8E0E88BA1F73F44A00EB4471 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		8E64A01A1F72C32B00F2844C /* MultipleHDMMapView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultipleHDMMapView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E64A01D1F72C32B00F2844C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8E64A01F1F72C32B00F2844C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		8E64A0211F72C32B00F2844C /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		8E64A0241F72C32B00F2844C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8E64A0261F72C32B00F2844C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8E64A0291F72C32B00F2844C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E64A02B1F72C32B00F2844C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8EA117A11F750710009F409A /* ModificationMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModificationMenuView.swift; sourceTree = "<group>"; };
-		8EA117A31F7538A1009F409A /* DrawingGeoFenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingGeoFenceViewController.swift; sourceTree = "<group>"; };
-		8EA117A61F753EF2009F409A /* UpdateListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListTableViewController.swift; sourceTree = "<group>"; };
 		8EA117A81F753F10009F409A /* GeofenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceController.swift; sourceTree = "<group>"; };
 		8EA117AA1F755375009F409A /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
-		8EA117AE1F7569F4009F409A /* TestMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMapViewController.swift; sourceTree = "<group>"; };
 		8EDB10261F73B203005DF488 /* DeepMap.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = DeepMap.zip; sourceTree = "<group>"; };
-		8EDB10281F73BED4005DF488 /* BaseMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMapViewController.swift; sourceTree = "<group>"; };
-		8EDB10311F73E7D1005DF488 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,8 +109,6 @@
 				8EDB103A1F73F2CF005DF488 /* DrawHandler */,
 				8EDB102A1F73BEDB005DF488 /* MapController */,
 				8E64A01D1F72C32B00F2844C /* AppDelegate.swift */,
-				8E64A01F1F72C32B00F2844C /* FirstViewController.swift */,
-				8E64A0211F72C32B00F2844C /* SecondViewController.swift */,
 				886BDFEA1F7563FC00457B94 /* DataHandler.swift */,
 				8E64A0231F72C32B00F2844C /* Main.storyboard */,
 				8E64A0261F72C32B00F2844C /* Assets.xcassets */,
@@ -143,8 +123,6 @@
 		8EA117A51F753EC3009F409A /* FunctionController */ = {
 			isa = PBXGroup;
 			children = (
-				8EA117A31F7538A1009F409A /* DrawingGeoFenceViewController.swift */,
-				8EA117A61F753EF2009F409A /* UpdateListTableViewController.swift */,
 				8EA117A81F753F10009F409A /* GeofenceController.swift */,
 				885D5E471F7BF3C6002715B0 /* UpdateViewController.swift */,
 				886C66941F829823009626A5 /* CreateViewController.swift */,
@@ -155,10 +133,7 @@
 		8EDB102A1F73BEDB005DF488 /* MapController */ = {
 			isa = PBXGroup;
 			children = (
-				8EDB10281F73BED4005DF488 /* BaseMapViewController.swift */,
-				8EDB10311F73E7D1005DF488 /* MapView.swift */,
 				88C832141F7BA6BA001F4657 /* MainViewController.swift */,
-				8EA117AE1F7569F4009F409A /* TestMapViewController.swift */,
 			);
 			path = MapController;
 			sourceTree = "<group>";
@@ -166,8 +141,6 @@
 		8EDB103A1F73F2CF005DF488 /* DrawHandler */ = {
 			isa = PBXGroup;
 			children = (
-				8E0E88BA1F73F44A00EB4471 /* CanvasView.swift */,
-				8EA117A11F750710009F409A /* ModificationMenuView.swift */,
 			);
 			path = DrawHandler;
 			sourceTree = "<group>";
@@ -247,9 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				886C66951F829823009626A5 /* CreateViewController.swift in Sources */,
-				8EA117A21F750710009F409A /* ModificationMenuView.swift in Sources */,
 				886BDFE91F75635600457B94 /* putPlace.swift in Sources */,
-				8E64A0221F72C32B00F2844C /* SecondViewController.swift in Sources */,
 				886BDFEB1F7563FC00457B94 /* DataHandler.swift in Sources */,
 				886BDFE51F75633900457B94 /* Place.swift in Sources */,
 				885D5E481F7BF3C6002715B0 /* UpdateViewController.swift in Sources */,
@@ -258,13 +229,6 @@
 				8EA117A91F753F10009F409A /* GeofenceController.swift in Sources */,
 				88C832151F7BA6BA001F4657 /* MainViewController.swift in Sources */,
 				8E64A01E1F72C32B00F2844C /* AppDelegate.swift in Sources */,
-				8EA117A71F753EF2009F409A /* UpdateListTableViewController.swift in Sources */,
-				8E0E88BB1F73F44A00EB4471 /* CanvasView.swift in Sources */,
-				8EA117AF1F7569F4009F409A /* TestMapViewController.swift in Sources */,
-				8EDB10321F73E7D1005DF488 /* MapView.swift in Sources */,
-				8EA117A41F7538A1009F409A /* DrawingGeoFenceViewController.swift in Sources */,
-				8EDB10291F73BED4005DF488 /* BaseMapViewController.swift in Sources */,
-				8E64A0201F72C32B00F2844C /* FirstViewController.swift in Sources */,
 				886BDFED1F75714600457B94 /* Data.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

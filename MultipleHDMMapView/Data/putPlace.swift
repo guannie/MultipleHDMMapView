@@ -14,7 +14,7 @@ struct putPlace : Codable{
     
     struct Geofence : Codable{
         
-        var shape: String = "POLYGON"
+        var shape: String?
         
         struct Points : Codable{
             var longitude: Double?
@@ -28,20 +28,13 @@ struct putPlace : Codable{
         var id: String?
     }
     
-    struct Attributes : Codable{
-        var key1 : String?
-        var key2 : String?
-    }
-    
     var geofence: Geofence?
     var beacons: [Beacons]?
-    var attributes: Attributes?
     
-    init(name: String? = nil, geofence: Geofence? = nil, beacons: [Beacons]? = nil, attributes: Attributes? = nil){
+    init(name: String? = nil, geofence: Geofence? = nil, beacons: [Beacons]? = nil){
         self.name = name
         self.geofence = geofence
         self.beacons = beacons
-        self.attributes = attributes
     }
     
 }

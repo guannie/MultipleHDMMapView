@@ -11,8 +11,8 @@ import HDMMapCore
 
 struct beaconData {
     
-    var place : getPlace
-    var feature : HDMFeature
-    var annotation : HDMAnnotation
-    
+    var place : getPlace?
+    var feature : HDMFeature?
+    var annotation : HDMAnnotation?
+
 }

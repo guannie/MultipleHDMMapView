@@ -12,9 +12,10 @@ import CoreGraphics
 
 class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
 
-    var feature = [HDMFeature] ()
-    var featureId = [UInt64] ()
-    var annotation = [HDMAnnotation] ()
+    var feature : [HDMFeature?] = []
+    var featureId : [UInt64] = []
+    let emptyID = UInt64()
+    var annotation : [HDMAnnotation?] = []
     var nameArray = [String] ()
     var urlArray = [String] ()
     var url : String?
@@ -53,17 +54,29 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         testdata.testCoordinates(){
             place in
             if !(self.url == nil) { self.updateGeofence()}
-        
-            self.feature.append((place?.feature)!)
-            self.annotation.append((place?.annotation)!)
-            self.nameArray.append((place?.place.name)!)
-            self.urlArray.append((place?.place.url)!)
             
-            DispatchQueue.main.async {
-                self.mapView.add(place?.annotation)
+            if (place?.feature == nil) {
+                
+                self.feature.append(nil)
+                self.annotation.append(nil)
+                self.nameArray.append((place?.place?.name)!)
+                self.urlArray.append((place?.place?.url)!)
+                self.featureId.append(self.emptyID)
+                
+            } else {
+                
+                self.feature.append((place?.feature)!)
+                self.annotation.append((place?.annotation)!)
+                self.nameArray.append((place?.place?.name)!)
+                self.urlArray.append((place?.place?.url)!)
+                
+                DispatchQueue.main.async {
+                    self.mapView.add(place?.annotation)
+                }
+                self.mapView.add((place?.feature)!)
+                self.featureId.append((place?.feature?.featureId)!)
+                
             }
-            self.mapView.add((place?.feature)!)
-            self.featureId.append((place?.feature.featureId)!)
         }
         
         print("Mainview will Appear")
@@ -77,6 +90,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         print("Mainview did Disappear")
+    
         self.url = nil
     }
     
@@ -96,9 +110,9 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         print("Selecting object with ID \(f.featureId)")
 
         if let index = self.featureId.index(of: f.featureId ){
-        
+            print(urlArray[index])
+            print(urlArray)
             let alertController = UIAlertController(title: "Manage Geofence", message: "Do you wish to Update or Delete \(self.nameArray[index]) ?", preferredStyle: .alert)
-            
             
             let updateAction = UIAlertAction(title: "Update", style: .default) { (_) in
                 self.url = self.urlArray[index]
@@ -110,11 +124,12 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
                 let data = DataHandler()
                 data.deletePlace(self.urlArray[index], (self.nameArray[index]))
                 
-                self.mapView.remove(self.annotation[index])
-                self.mapView.remove(f)
-                self.nameArray.remove(at: index)
-                self.annotation.remove(at: index)
-                self.feature.remove(at: index)
+//                self.mapView.remove(self.annotation[index])
+//                self.mapView.remove(f)
+//                self.nameArray.remove(at: index)
+//                self.annotation.remove(at: index)
+//                self.feature.remove(at: index)
+//                self.featureId.remove(at: index)
                 
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
@@ -159,8 +174,10 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
                 let alertController = UIAlertController(title: "Update Geofence", message: "Remove previous geofence to start update a new one?", preferredStyle: .alert)
                 
                 let confirmAction = UIAlertAction(title: "Yes", style: .default) { (_) in
-                    self.mapView.remove(self.annotation[index])
-                    self.mapView.remove(self.feature[index])
+                    if self.feature.isEmpty {
+                        self.mapView.remove(self.annotation[index])
+                        self.mapView.remove(self.feature[index]!)
+                    }
                     self.feature.remove(at: index)
                     //allow user to draw geofence
                     self.mapView.tapEnabled = true
@@ -186,14 +203,16 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     //receiver function - deletegeofence
     @objc func deleteGeofence(_ notification: NSNotification){
         if let name = notification.userInfo?["name"] as? String{
-            print("name: \(name)")
             if let index = nameArray.index(of: name ){
-                print("index: \(index)")
-                self.mapView.remove(self.annotation[index])
-                self.mapView.remove(self.feature[index])
+                if !(self.feature.isEmpty){
+                    self.mapView.remove(self.annotation[index])
+                    self.mapView.remove(self.feature[index]!)
+                }
+                urlArray.remove(at: index)
                 nameArray.remove(at: index)
                 annotation.remove(at: index)
                 feature.remove(at: index)
+                featureId.remove(at: index)
             }
         }
     }
@@ -216,7 +235,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         }
         else if status == "update" {
         //assign new feature into feature array
-        feature.insert(feat, at: urlIndex!)
+        self.feature.insert(feat, at: urlIndex!)
             
         self.doneBtn.isHidden = true
         //send points to UpdateView

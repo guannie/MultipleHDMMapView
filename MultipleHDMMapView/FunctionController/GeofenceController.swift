@@ -120,11 +120,11 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
         testdata.testCoordinates(){
             (place) in
             
-            self.nameArray.append((place?.place.name)!)
-            self.urlArray.append((place?.place.url)!)
+            self.nameArray.append((place?.place?.name)!)
+            self.urlArray.append((place?.place?.url)!)
  
-            if !((place?.place.beacons?.isEmpty)!){
-            for beacon in (place?.place.beacons)! {
+            if !((place?.place?.beacons?.isEmpty)!){
+                for beacon in (place?.place?.beacons)! {
                         self.beaconIdArray.append(beacon.name!)
                 }
             } else {

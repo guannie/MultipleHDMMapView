@@ -14,10 +14,11 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
     var nameArray = [String] ()
     var key1Array = [String] ()
     var key2Array = [String] ()
+    var beaconIdArray = [String] ()
     var urlArray = [String] ()
     
     @IBAction func cancel(_ sender: Any) {
-        let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
+        let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "first") as? FirstViewController
         
         self.navigationController?.pushViewController(naviController!, animated: true)
     }
@@ -57,6 +58,7 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
             naviController?.url = self.urlArray[indexPath.row]
             naviController?.key1 = self.key1Array[indexPath.row]
             naviController?.key2 = self.key2Array[indexPath.row]
+            naviController?.beaconId = self.beaconIdArray[indexPath.row]
             
             self.navigationController?.pushViewController(naviController!, animated: true)
         })
@@ -136,7 +138,6 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let testdata = DataHandler()
         testdata.testCoordinates(){
             (place) in
@@ -146,10 +147,26 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
             self.key1Array.append((place?.place.attributes?.key1) ?? "")
             self.key2Array.append((place?.place.attributes?.key2) ?? "")
             
+            for beacon in (place?.place.beacons)! {
+                if !(beacon.name == nil){
+                        self.beaconIdArray.append(beacon.name ?? "")
+                }   else{
+                    print("Is here")
+                    }
+                
+                }
+            
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
+            print(self.beaconIdArray)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
 }
 

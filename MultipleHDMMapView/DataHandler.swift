@@ -136,6 +136,18 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
         var points : [putPlace.Geofence.Points] = []
         var ring0 = [Any] ()
         
+        if x.count == 2 {
+                
+                points.append(putPlace.Geofence.Points(longitude: x[0], latitude: y[0]))
+                points.append(putPlace.Geofence.Points(longitude: x[1], latitude: y[0]))
+                points.append(putPlace.Geofence.Points(longitude: x[1], latitude: y[1]))
+                points.append(putPlace.Geofence.Points(longitude: x[0], latitude: y[1]))
+                ring0.append(HDMPoint.init(x[0], y: y[0], z:0))
+                ring0.append(HDMPoint.init(x[1], y: y[0], z:0))
+                ring0.append(HDMPoint.init(x[1], y: y[1], z:0))
+                ring0.append(HDMPoint.init(x[0], y: y[1], z:0))
+                
+        }
         for (longitude,latitude) in zip(x,y){
             
             points.append(putPlace.Geofence.Points(longitude: longitude, latitude: latitude))
@@ -153,14 +165,9 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
         return (myFeature,points)
     }
     
-    func createPlace(_ x: [Double], _ y: [Double]){
-    
+    func createPlace(_ create: putPlace){
         
-        let geofence = putPlace.Geofence(shape: "POLYGON", points: points)
-        let beacons : [putPlace.Beacons] = [putPlace.Beacons(id: beaconId)]
-        let beacon = putPlace(name: placeName, geofence: geofence, beacons: beacons)
-        
-        let postData = try! JSONEncoder().encode(beacon)
+        let postData = try! JSONEncoder().encode(create)
         
         print(String(data:postData, encoding: .utf8)!)
         let request = NSMutableURLRequest(url: NSURL(string: "https://manager.gimbal.com/api/v2/places/")! as URL,

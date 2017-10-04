@@ -29,7 +29,9 @@ class UpdateViewController: UIViewController {
     var name: String = ""
     var key1: String = ""
     var key2: String = ""
+    var beaconId: String = ""
     var url: String = ""
+    var status: String?
     var points : [putPlace.Geofence.Points]? = nil
     let list = ["Bauhaus", "Küche", "B&B B", "Meetingraum Heidelberg", "Geo Dev" ,"Kicker" ,"Glashaus" ,"Matthi" ,"Eingang Entwicklung" ,"Tokio"]
   
@@ -47,7 +49,9 @@ class UpdateViewController: UIViewController {
         if !key2.isEmpty{
             key2TextField.text = key2
         }
-        
+        if !beaconId.isEmpty{
+            beaconIdField.text = beaconId
+        }
        // beaconIdField.autocapitalizationType = .allCharacters
         setupView()
         
@@ -57,14 +61,14 @@ class UpdateViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if !(points == nil) {
+        if status == "load" {
             loadStates()
         }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated) // No need for semicolon
-        points = nil
+        status = ""
     }
     
     fileprivate func setupView() {
@@ -74,29 +78,17 @@ class UpdateViewController: UIViewController {
         self.pickerBeacon.isHidden = true
     }
     
-//    func numberOnly(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
-//    {
-//        let allowedCharacters = CharacterSet.decimalDigits
-//        let characterSet = CharacterSet(charactersIn: string)
-//        return allowedCharacters.isSuperset(of: characterSet)
-//    }
-    
-
     //MARK: Button functions
     @IBAction func editGeofence(_ sender: UIButton) {
         
         //Save the state while user navigate to another view
         saveStates()
         
-        //sender to MainViewController
-//        let data = ["url" : url]
-//
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateGeofence"), object: nil, userInfo: data)
-        
         //Navigate to MainViewController
         let naviController = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
         
         naviController?.url = url
+        naviController?.status = "update"
         
         self.navigationController?.pushViewController(naviController!, animated: true)
     }
@@ -114,10 +106,7 @@ class UpdateViewController: UIViewController {
         let data = DataHandler()
         data.updatePlace(updates,url)
         
-        //after sending data, set points to nil
-        points = nil
-        
-        let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "DeleteListTableViewController") as? GeofenceController
+        let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "GeofenceController") as? GeofenceController
         
         self.navigationController?.pushViewController(naviController!, animated: true)
     }
@@ -167,6 +156,7 @@ extension UpdateViewController: UITextFieldDelegate {
         let defaults = UserDefaults.standard
         
         defaults.set(nameTextField.text, forKey: "nameTextField")
+        defaults.set(beaconIdField.text, forKey: "beaconIdField")
         defaults.set(key1TextField.text, forKey: "key1TextField")
         defaults.set(key2TextField.text, forKey: "key2TextField")
         defaults.synchronize()
@@ -175,6 +165,7 @@ extension UpdateViewController: UITextFieldDelegate {
     func loadStates(){
         let defaults = UserDefaults.standard
         nameTextField.text = defaults.object(forKey: "nameTextField") as? String
+        beaconIdField.text = defaults.object(forKey: "beaconIdField") as? String
         key1TextField.text = defaults.object(forKey: "key1TextField") as? String
         key2TextField.text = defaults.object(forKey: "key2TextField") as? String
     }

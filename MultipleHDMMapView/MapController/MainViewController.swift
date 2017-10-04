@@ -21,6 +21,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     var urlIndex : Int?
     var coordinateX = [Double] ()
     var coordinateY = [Double] ()
+    var status : String?
     
     @IBOutlet weak var doneBtn: UIButton!
     
@@ -40,6 +41,10 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if status == "create" {
+            createGeofence()
+        }
         
         let testdata = DataHandler()
         testdata.testCoordinates(){
@@ -119,6 +124,27 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         }
     }
     
+    func createGeofence(){
+        let alertController = UIAlertController(title: "Add Geofence", message: "Tap Ok to start adding geofence", preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "Ok", style: .default) { (_) in
+            //allow user to draw geofence
+            self.mapView.tapEnabled = true
+            
+            self.doneBtn.isHidden = false
+            
+            
+            self.navigationController?.navigationBar.isUserInteractionEnabled = false
+        }
+        
+        alertController.addAction(confirmAction)
+        
+        //if statement to stop UIAlertcontroller from calling multiple times
+        if !(self.navigationController?.visibleViewController?.isKind(of: UIAlertController.self))! {
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
     func updateGeofence(){
             //obtain correct index
         let urlString = url as! String
@@ -135,23 +161,21 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
                     self.feature.remove(at: index)
                     //allow user to draw geofence
                     self.mapView.tapEnabled = true
-                    
                     self.doneBtn.isHidden = false
-                    
-                    self.navigationController?.navigationBar.isUserInteractionEnabled = false
+                    //self.navigationController?.navigationBar.isUserInteractionEnabled = false
                 }
                 
                 let cancelAction = UIAlertAction(title: "No", style: .cancel) { (_) in
-           
+                   
                 }
                 
                 alertController.addAction(confirmAction)
                 alertController.addAction(cancelAction)
             
             //if statement to stop UIAlertcontroller from calling multiple times
-            if !(self.navigationController?.visibleViewController?.isKind(of: UIAlertController.self))! {
+            //if !(self.navigationController?.visibleViewController?.isKind(of: UIAlertController.self))! {
                self.present(alertController, animated: true, completion: nil)
-            }
+            //}
 
             }
     }
@@ -170,7 +194,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
             }
         }
     }
-
+    
     @IBAction func doneAction(_ sender: UIButton) {
         var points : [putPlace.Geofence.Points] = []
         var feat : HDMFeature
@@ -178,18 +202,29 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         let data = DataHandler()
         (feat,points) = data.drawPolygon(self.coordinateX,self.coordinateY)
         
+        if status == "create"{
+              self.doneBtn.isHidden = true
+            //send points to CreateView
+            let naviController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CreateViewController") as? CreateViewController
+            
+            naviController?.points = points
+            naviController?.status = "load"
+            self.navigationController?.pushViewController(naviController!, animated: true)
+        }
+        else if status == "update" {
         //assign new feature into feature array
         feature.insert(feat, at: urlIndex!)
-
+            
         self.doneBtn.isHidden = true
         //send points to UpdateView
         let naviController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UpdateViewController") as? UpdateViewController
         
         naviController?.points = points
         naviController?.url = url!
+        naviController?.status = "load"
         
         self.navigationController?.pushViewController(naviController!, animated: true)
-        
+        }
     }
     
     //    MARK:TAP effect

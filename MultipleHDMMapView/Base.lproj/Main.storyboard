@@ -39,13 +39,13 @@
         <!--First-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="first" id="9pv-A4-QxB" customClass="FirstViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Min-cI-8SE">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1317"/>
+                                <rect key="frame" x="0.0" y="-11" width="1024" height="1277"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <segue destination="K3S-xs-RLT" kind="embed" id="EQU-xI-VA6"/>
@@ -115,18 +115,17 @@
             <objects>
                 <viewController id="K3S-xs-RLT" customClass="ModificationMenuView" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zEQ-BP-myr">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1317"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1277"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n9a-OH-IOC">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1317"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n9a-OH-IOC">
+                                <rect key="frame" x="0.0" y="10" width="1024" height="1277"/>
                                 <connections>
                                     <segue destination="nhw-M0-ZHF" kind="embed" id="rIi-6D-gq6"/>
                                 </connections>
                             </containerView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ol5-pF-Pku">
-                                <rect key="frame" x="779" y="1253" width="245" height="64"/>
+                                <rect key="frame" x="779" y="1213" width="245" height="64"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AIz-5n-Agi">
                                         <rect key="frame" x="0.0" y="0.0" width="176" height="64"/>
@@ -175,7 +174,11 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ol5-pF-Pku" secondAttribute="trailing" id="3hm-FD-O8d"/>
+                            <constraint firstItem="n9a-OH-IOC" firstAttribute="width" secondItem="zEQ-BP-myr" secondAttribute="width" id="6el-Mz-MXN"/>
                             <constraint firstAttribute="bottom" secondItem="ol5-pF-Pku" secondAttribute="bottom" id="9wE-Ca-gZC"/>
+                            <constraint firstItem="n9a-OH-IOC" firstAttribute="height" secondItem="zEQ-BP-myr" secondAttribute="height" id="ABm-l9-Tai"/>
+                            <constraint firstItem="n9a-OH-IOC" firstAttribute="centerX" secondItem="udP-bJ-pJa" secondAttribute="centerX" id="OLJ-19-Yic"/>
+                            <constraint firstItem="n9a-OH-IOC" firstAttribute="centerY" secondItem="udP-bJ-pJa" secondAttribute="centerY" id="glo-Ly-3Wf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="udP-bJ-pJa"/>
                     </view>
@@ -197,7 +200,7 @@
             <objects>
                 <viewController title="updateView" id="IjE-Wz-bdV" customClass="UpdateListTableViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="WpX-gd-n17">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1317"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1277"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -266,13 +269,13 @@
         <!--deleteView-->
         <scene sceneID="d74-Zc-2mW">
             <objects>
-                <viewController storyboardIdentifier="DeleteListTableViewController" title="deleteView" id="5sE-Bj-aC4" customClass="GeofenceController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GeofenceController" title="deleteView" id="5sE-Bj-aC4" customClass="GeofenceController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8pC-d3-ORi">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1317"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1277"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lIT-CD-gHV">
-                                <rect key="frame" x="0.0" y="64" width="1024" height="1253"/>
+                                <rect key="frame" x="0.0" y="64" width="1024" height="1213"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="cJd-ea-8Zp" customClass="myCell" customModule="MultipleHDMMapView" customModuleProvider="target">
@@ -346,7 +349,7 @@
             <objects>
                 <viewController storyboardIdentifier="UpdateViewController" id="yDp-QS-4gV" customClass="UpdateViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YI1-Jn-H2W">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1317"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1277"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update Geofence" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YTJ-iw-2v8">
@@ -544,7 +547,7 @@
             <objects>
                 <viewController id="SIu-dh-Xab" customClass="DrawingGeoFenceViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bJ-gN-UwQ">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1317"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1277"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view alpha="0.55000000000000004" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G6m-e5-JdG" customClass="CanvasView" customModule="MultipleHDMMapView" customModuleProvider="target">
@@ -581,32 +584,30 @@
             <objects>
                 <viewController storyboardIdentifier="MainViewController" id="nhw-M0-ZHF" customClass="MainViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7ki-CU-Myd">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1317"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1277"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="amY-Qf-fKh">
-                                <rect key="frame" x="489" y="30" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89P-ZN-8Gd">
+                                <rect key="frame" x="957" y="40" width="47" height="36"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="amY-Qf-fKh" secondAttribute="height" multiplier="23:15" id="Yu3-LB-lus"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Done">
-                                    <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="doneAction:" destination="nhw-M0-ZHF" eventType="touchUpInside" id="ehA-s7-CD5"/>
+                                    <action selector="doneAction:" destination="nhw-M0-ZHF" eventType="touchUpInside" id="Cla-OE-CtJ"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="amY-Qf-fKh" firstAttribute="top" secondItem="GGv-ck-Rki" secondAttribute="top" constant="10" id="SMZ-Xy-XCV"/>
+                            <constraint firstItem="GGv-ck-Rki" firstAttribute="trailing" secondItem="89P-ZN-8Gd" secondAttribute="trailing" constant="20" id="2SI-RI-bPZ"/>
+                            <constraint firstItem="89P-ZN-8Gd" firstAttribute="top" secondItem="GGv-ck-Rki" secondAttribute="top" constant="20" id="Z0S-Ss-Ur9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GGv-ck-Rki"/>
                     </view>
                     <connections>
-                        <outlet property="doneBtn" destination="amY-Qf-fKh" id="HIC-Ta-iGh"/>
+                        <outlet property="doneBtn" destination="89P-ZN-8Gd" id="tWC-Gp-wTE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l6B-pd-bdR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -631,10 +632,12 @@
             </objects>
             <point key="canvasLocation" x="4247" y="1155"/>
         </scene>
-        <!--View Controller-->
+        <!--Title-->
         <scene sceneID="syh-Jo-v2q">
             <objects>
-                <viewController id="wVk-0d-1jY" sceneMemberID="viewController"/>
+                <viewController id="wVk-0d-1jY" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="Title" id="nGe-tm-7CT"/>
+                </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iHB-xa-z91" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3354.4921875" y="-441.43484626647142"/>
@@ -644,7 +647,7 @@
             <objects>
                 <viewController storyboardIdentifier="CreateViewController" id="SFr-mm-4Ah" customClass="CreateViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gUZ-GJ-0Uv">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1317"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1277"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Geofence" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAb-Jp-tGe">
@@ -725,7 +728,7 @@
                                 <rect key="frame" x="417.51612850528181" y="654" width="187.00000000000182" height="30"/>
                                 <state key="normal" title="Click here to add Geofence"/>
                                 <connections>
-                                    <action selector="editGeofence:" destination="SFr-mm-4Ah" eventType="touchUpInside" id="q8j-q6-fKN"/>
+                                    <action selector="addGeofence:" destination="SFr-mm-4Ah" eventType="touchUpInside" id="3qg-8W-hqg"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select Beacon Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0tA-J8-253">
@@ -755,7 +758,6 @@
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="submitForm:" destination="SFr-mm-4Ah" eventType="touchUpInside" id="QRd-ZR-uum"/>
-                                    <action selector="updateForm:" destination="SFr-mm-4Ah" eventType="touchUpInside" id="ARt-kC-Vrr"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -806,8 +808,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="rvw-IH-Bid"/>
                     <connections>
+                        <outlet property="addGeofenceBtn" destination="6tF-C5-c2n" id="rg6-Rw-Msk"/>
                         <outlet property="beaconIdField" destination="0tA-J8-253" id="ekx-pV-pua"/>
-                        <outlet property="editGeofenceBtn" destination="6tF-C5-c2n" id="L0F-P4-zbL"/>
                         <outlet property="key1TextField" destination="yAj-oP-DGH" id="f4b-gl-sFF"/>
                         <outlet property="key1Validation" destination="jng-Az-1o6" id="93q-f6-nnv"/>
                         <outlet property="key2TextField" destination="w4Y-5k-rzH" id="fSP-cU-kET"/>
@@ -816,7 +818,6 @@
                         <outlet property="nameValidationLabel" destination="xo4-53-G63" id="0Mv-0I-axP"/>
                         <outlet property="pickerBeacon" destination="zkF-eo-xmp" id="gMQ-PK-vUj"/>
                         <outlet property="submitBtn" destination="FfO-yT-gQF" id="VXp-ge-Nis"/>
-                        <outlet property="updateBtn" destination="FfO-yT-gQF" id="N9T-af-Dva"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YXl-Dc-wut" userLabel="First Responder" sceneMemberID="firstResponder"/>

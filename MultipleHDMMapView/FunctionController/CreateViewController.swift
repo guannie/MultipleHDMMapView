@@ -21,7 +21,11 @@ class CreateViewController: UIViewController {
     @IBOutlet weak var key1Validation: UILabel!
     @IBOutlet weak var key2Validation: UILabel!
     
+    @IBOutlet weak var addGeofenceBtn: UIButton!
     @IBOutlet weak var submitBtn: UIButton!
+    
+    var status : String?
+    var points : [putPlace.Geofence.Points]? = nil
     
     let list = ["Bauhaus", "Küche", "B&B B", "Meetingraum Heidelberg", "Geo Dev" ,"Kicker" ,"Glashaus" ,"Matthi" ,"Eingang Entwicklung" ,"Tokio"]
     
@@ -37,6 +41,10 @@ class CreateViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if status == "load" {
+            loadStates()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -52,30 +60,42 @@ class CreateViewController: UIViewController {
     
     //MARK: Button function
     
+    @IBAction func addGeofence(_ sender: Any) {
+        //Save the state while user navigate to another view
+        saveStates()
+        
+        let naviController = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
+        
+        naviController?.status = "create"
+        
+        self.navigationController?.pushViewController(naviController!, animated: true)
+    }
+    
     @IBAction func submitForm(_ sender: Any) {
-        var shape = "POLYGON"
-        if(points?.count == 1) {shape = "Radial"}
+        var shape = ""
+        if(points?.count == 1) {shape = "RADIAL"}
+        else if(points?.count != 0) {shape = "POLYGON"}
         
         let geofence = putPlace.Geofence(shape: shape, points: points)
         let beacon = [putPlace.Beacons(id: getBeaconId(beaconName: beaconIdField.text!))]
         let attributes = putPlace.Attributes(key1: key1TextField.text, key2: key2TextField.text)
         
-        let updates = putPlace(name: nameTextField.text, geofence: geofence, beacons: beacon, attributes: attributes)
+        let create = putPlace(name: nameTextField.text, geofence: geofence, beacons: beacon, attributes: attributes)
         
         let data = DataHandler()
-        data.updatePlace(updates,url)
+        data.createPlace(create)
         
         //after sending data, set points to nil
         points = nil
         
-        let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "DeleteListTableViewController") as? GeofenceController
+        let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "GeofenceController") as? GeofenceController
         
         self.navigationController?.pushViewController(naviController!, animated: true)
     }
 }
 
 //MARK: Other functions
-extension UpdateViewController: UITextFieldDelegate {
+extension CreateViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
@@ -97,6 +117,24 @@ extension UpdateViewController: UITextFieldDelegate {
         //Validation for beacon ID Textfield
         
         return (true, "")
+    }
+    
+    func saveStates(){
+        let defaults = UserDefaults.standard
+        
+        defaults.set(nameTextField.text, forKey: "nameTextField")
+        defaults.set(beaconIdField.text, forKey: "beaconIdField")
+        defaults.set(key1TextField.text, forKey: "key1TextField")
+        defaults.set(key2TextField.text, forKey: "key2TextField")
+        defaults.synchronize()
+    }
+    
+    func loadStates(){
+        let defaults = UserDefaults.standard
+        nameTextField.text = defaults.object(forKey: "nameTextField") as? String
+        beaconIdField.text = defaults.object(forKey: "beaconIdField") as? String
+        key1TextField.text = defaults.object(forKey: "key1TextField") as? String
+        key2TextField.text = defaults.object(forKey: "key2TextField") as? String
     }
 }
 

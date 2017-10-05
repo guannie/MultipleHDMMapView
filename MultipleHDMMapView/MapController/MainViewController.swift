@@ -12,12 +12,14 @@ import CoreGraphics
 
 class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
 
-    var feature : [HDMFeature?] = []
+    var feature : [HDMFeature] = []
+    var emptyFeature = HDMFeature()
     var featureId : [UInt64] = []
     let emptyID = UInt64()
     var annotation : [HDMAnnotation?] = []
     var nameArray = [String] ()
     var urlArray = [String] ()
+    var beaconName : [String] = []
     var url : String?
     var urlIndex : Int?
     var coordinateX = [Double] ()
@@ -45,22 +47,27 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if status == "create" {
-            createGeofence()
-        }
         
+        if status == "create" {createGeofence()}
         let testdata = DataHandler()
         testdata.testCoordinates(){
             place in
-            if !(self.url == nil) { self.updateGeofence()}
-            
+        
             if (place?.feature == nil) {
                 
-                self.feature.append(nil)
+                self.feature.append(self.emptyFeature)
                 self.annotation.append(nil)
                 self.nameArray.append((place?.place?.name)!)
                 self.urlArray.append((place?.place?.url)!)
                 self.featureId.append(self.emptyID)
+                
+                if !((place?.place?.beacons?.isEmpty)!){
+                    for beacon in (place?.place?.beacons)! {
+                        self.beaconName.append(beacon.name!)
+                    }
+                } else {
+                    self.beaconName.append("")
+                }
                 
             } else {
                 
@@ -69,6 +76,14 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
                 self.nameArray.append((place?.place?.name)!)
                 self.urlArray.append((place?.place?.url)!)
                 
+                if !((place?.place?.beacons?.isEmpty)!){
+                    for beacon in (place?.place?.beacons)! {
+                        self.beaconName.append(beacon.name!)
+                    }
+                } else {
+                    self.beaconName.append("")
+                }
+                
                 DispatchQueue.main.async {
                     self.mapView.add(place?.annotation)
                 }
@@ -76,6 +91,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
                 self.featureId.append((place?.feature?.featureId)!)
                 
             }
+            if self.status == "update" { self.updateGeofence()}
         }
         
         //mapView.reloadInputViews()
@@ -91,8 +107,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         print("Mainview did Disappear")
-    
-        self.url = nil
+        self.status = ""
     }
     
     func mapViewController(_ controller: HDMMapViewController, tappedAt coordinate: HDMMapCoordinate, features: [HDMFeature]) {
@@ -109,28 +124,30 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         guard let f = features.first else {return}
         
         print("Selecting object with ID \(f.featureId)")
-
+        print(featureId)
+        print(features)
+        print(annotation)
+        
         if let index = self.featureId.index(of: f.featureId ){
-            print(urlArray[index])
-            print(urlArray)
+            
             let alertController = UIAlertController(title: "Manage Geofence", message: "Do you wish to Update or Delete \(self.nameArray[index]) ?", preferredStyle: .alert)
             
             let updateAction = UIAlertAction(title: "Update", style: .default) { (_) in
                 self.url = self.urlArray[index]
-                self.updateGeofence()
+                
+                let naviController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UpdateViewController") as? UpdateViewController
+                
+                naviController?.name = self.nameArray[index]
+                naviController?.url = self.url!
+                naviController?.beaconId = self.beaconName[index]
+                
+                self.navigationController?.pushViewController(naviController!, animated: true)
             }
             
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
                 
                 let data = DataHandler()
                 data.deletePlace(self.urlArray[index], (self.nameArray[index]))
-                
-//                self.mapView.remove(self.annotation[index])
-//                self.mapView.remove(f)
-//                self.nameArray.remove(at: index)
-//                self.annotation.remove(at: index)
-//                self.feature.remove(at: index)
-//                self.featureId.remove(at: index)
                 
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
@@ -166,18 +183,19 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     
     func updateGeofence(){
             //obtain correct index
-        let urlString = url as! String
+        let urlString = url! as String
         
         if let index = self.urlArray.index(of: urlString){
-            
+          
                 urlIndex = index
                 //alert user
                 let alertController = UIAlertController(title: "Update Geofence", message: "Remove previous geofence to start update a new one?", preferredStyle: .alert)
                 
                 let confirmAction = UIAlertAction(title: "Yes", style: .default) { (_) in
-                    if self.feature.isEmpty {
+                    if !(self.annotation[index] == nil) {
                         self.mapView.remove(self.annotation[index])
-                        self.mapView.remove(self.feature[index]!)
+                        self.mapView.remove(self.feature[index])
+                    } else {
                     }
                     self.feature.remove(at: index)
                     //allow user to draw geofence
@@ -194,9 +212,9 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
                 alertController.addAction(cancelAction)
             
             //if statement to stop UIAlertcontroller from calling multiple times
-            //if !(self.navigationController?.visibleViewController?.isKind(of: UIAlertController.self))! {
+            if !(self.navigationController?.visibleViewController?.isKind(of: UIAlertController.self))! {
                self.present(alertController, animated: true, completion: nil)
-            //}
+            }
 
             }
     }
@@ -205,15 +223,17 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     @objc func deleteGeofence(_ notification: NSNotification){
         if let name = notification.userInfo?["name"] as? String{
             if let index = nameArray.index(of: name ){
-                if !(self.feature.isEmpty){
+                if !(self.annotation[index] == nil){
                     self.mapView.remove(self.annotation[index])
-                    self.mapView.remove(self.feature[index]!)
+                    self.mapView.remove(self.feature[index])
+                    print(self.feature[index])
                 }
                 urlArray.remove(at: index)
                 nameArray.remove(at: index)
                 annotation.remove(at: index)
                 feature.remove(at: index)
                 featureId.remove(at: index)
+                beaconName.remove(at: index)
             }
         }
     }
@@ -221,32 +241,51 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     @IBAction func doneAction(_ sender: UIButton) {
         var points : [putPlace.Geofence.Points] = []
         var feat : HDMFeature
-        //remember to assign new polygons to array
-        let data = DataHandler()
-        (feat,points) = data.drawPolygon(self.coordinateX,self.coordinateY)
         
-        if status == "create"{
-              self.doneBtn.isHidden = true
-            //send points to CreateView
-            let naviController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CreateViewController") as? CreateViewController
+        if self.coordinateX.count == 0 || self.coordinateX.count == 1{
+            var message : String?
+            if self.coordinateX.count == 0 {message = "You have not mark any points on the map"}
+            else if self.coordinateX.count == 1 {message = "You have only selected one point on the map"}
+            let alertController = UIAlertController(title: "Not Enough Points Selected", message: message, preferredStyle: .alert)
+            
+            let confirmButton = UIAlertAction(title: "OK", style: .default) { (_) in
+                    self.coordinateX.removeAll()
+                    self.coordinateY.removeAll()
+            }
+            
+            alertController.addAction(confirmButton)
+            
+            if !(self.navigationController?.visibleViewController?.isKind(of: UIAlertController.self))! {
+                self.present(alertController, animated: true, completion: nil)
+            }
+        } else {
+            //remember to assign new polygons to array
+            let data = DataHandler()
+            (feat,points) = data.drawPolygon(self.coordinateX,self.coordinateY)
+            
+            if status == "create"{
+                  self.doneBtn.isHidden = true
+                //send points to CreateView
+                let naviController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CreateViewController") as? CreateViewController
+                
+                naviController?.points = points
+                naviController?.status = "load"
+                self.navigationController?.pushViewController(naviController!, animated: true)
+            }
+            else if status == "update" {
+            //assign new feature into feature array
+            self.feature.insert(feat, at: urlIndex!)
+                
+            self.doneBtn.isHidden = true
+            //send points to UpdateView
+            let naviController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UpdateViewController") as? UpdateViewController
             
             naviController?.points = points
+            naviController?.url = url!
             naviController?.status = "load"
-            self.navigationController?.pushViewController(naviController!, animated: true)
-        }
-        else if status == "update" {
-        //assign new feature into feature array
-        self.feature.insert(feat, at: urlIndex!)
             
-        self.doneBtn.isHidden = true
-        //send points to UpdateView
-        let naviController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UpdateViewController") as? UpdateViewController
-        
-        naviController?.points = points
-        naviController?.url = url!
-        naviController?.status = "load"
-        
-        self.navigationController?.pushViewController(naviController!, animated: true)
+            self.navigationController?.pushViewController(naviController!, animated: true)
+            }
         }
     }
     

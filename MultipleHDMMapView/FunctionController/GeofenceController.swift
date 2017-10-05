@@ -14,16 +14,17 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
     var nameArray = [String] ()
     var beaconIdArray = [String] ()
     var urlArray = [String] ()
+    @IBOutlet weak var addBtn: UIBarButtonItem!
     
     @IBAction func cancel(_ sender: Any) {
         //let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
         //self.navigationController?.popViewController(animated: true)
         
         let isPresentingMode = presentingViewController is UINavigationController
-        
+
         if isPresentingMode {
             dismiss(animated: true, completion: nil)
-            
+
         } else if let owningNavigationController = navigationController{
             owningNavigationController.popViewController(animated: true)
         }
@@ -94,6 +95,9 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
         self.present(alertController, animated: true, completion: nil)
         
     }
+    @IBAction func addbtn(_ sender: UIBarButtonItem) {
+        //navigationController?.popViewController(animated: true)
+    }
     
     @IBAction func deleteGeofence(_ sender: UIButton) {
      
@@ -149,7 +153,6 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

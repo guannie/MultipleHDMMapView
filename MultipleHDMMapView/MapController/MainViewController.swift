@@ -168,6 +168,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
             self.mapView.tapEnabled = true
             
             self.doneBtn.isHidden = false
+            self.menuBtn.isHidden = true
             
             
             self.navigationController?.navigationBar.isUserInteractionEnabled = false
@@ -201,6 +202,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
                     //allow user to draw geofence
                     self.mapView.tapEnabled = true
                     self.doneBtn.isHidden = false
+                    self.menuBtn.isHidden = true
                     //self.navigationController?.navigationBar.isUserInteractionEnabled = false
                 }
                 
@@ -265,11 +267,13 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
             
             if status == "create"{
                   self.doneBtn.isHidden = true
+                self.menuBtn.isHidden = false
                 //send points to CreateView
                 let naviController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CreateViewController") as? CreateViewController
                 
                 naviController?.points = points
                 naviController?.status = "load"
+                //self.navigationController?.popViewController(animated: false)
                 self.navigationController?.pushViewController(naviController!, animated: true)
             }
             else if status == "update" {
@@ -277,13 +281,14 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
             self.feature.insert(feat, at: urlIndex!)
                 
             self.doneBtn.isHidden = true
+                self.menuBtn.isHidden = false
             //send points to UpdateView
             let naviController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UpdateViewController") as? UpdateViewController
             
             naviController?.points = points
             naviController?.url = url!
             naviController?.status = "load"
-            self.navigationController?.popViewController(animated: false)
+            //self.navigationController?.popViewController(animated: false)
             self.navigationController?.pushViewController(naviController!, animated: true)
             }
         }

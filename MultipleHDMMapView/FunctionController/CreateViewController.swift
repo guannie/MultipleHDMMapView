@@ -80,7 +80,7 @@ class CreateViewController: UIViewController {
         
         naviController?.status = "create"
         
-        self.navigationController?.popViewController(animated: false)
+        //self.navigationController?.popViewController(animated: false)
         self.navigationController?.pushViewController(naviController!, animated: true)
     }
     
@@ -106,11 +106,11 @@ class CreateViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: time) {
             
             let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "GeofenceController") as? GeofenceController
-             self.navigationController?.popViewController(animated: false)
-            //self.navigationController?.dismiss(animated: true, completion: nil)
+            //Fprint("pop")
+            //self.navigationController?.popViewController(animated: true)
+            // for the unpop mapview
             self.navigationController?.pushViewController(naviController!, animated: true)
             //self.navigationController?.present(naviController!, animated: true, completion: nil)
- 
         }
     }
 }

@@ -88,11 +88,13 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="sUK-4k-tTt">
                             <connections>
-                                <segue destination="tY5-ig-8h9" kind="show" id="V1J-6V-fJA"/>
+                                <action selector="addbtn:" destination="5sE-Bj-aC4" id="9E9-AO-bXU"/>
+                                <segue destination="SFr-mm-4Ah" kind="push" id="SZu-0D-Ln7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addBtn" destination="sUK-4k-tTt" id="xCz-bb-g8j"/>
                         <outlet property="tableView" destination="lIT-CD-gHV" id="IIp-2w-fgN"/>
                     </connections>
                 </viewController>
@@ -451,10 +453,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ifH-8o-X7H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4366" y="359"/>
+            <point key="canvasLocation" x="3972" y="-66"/>
         </scene>
     </scenes>
     <resources>
         <image name="icons8-Menu-64" width="64" height="64"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="VYd-AU-mcB"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -44,19 +44,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lIT-CD-gHV">
-                                <rect key="frame" x="0.0" y="32" width="768" height="1024"/>
+                                <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="cJd-ea-8Zp" customClass="myCell" customModule="MultipleHDMMapView" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="rxd-YQ-ytn" style="IBUITableViewCellStyleDefault" id="cJd-ea-8Zp" customClass="myCell" customModule="MultipleHDMMapView" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="768" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cJd-ea-8Zp" id="ITk-NT-UKY">
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rxd-YQ-ytn">
+                                                    <rect key="frame" x="15" y="0.0" width="738" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="vfu-M3-PjK" kind="show" id="uBb-Fe-Lbk"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -67,23 +73,22 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="lIT-CD-gHV" firstAttribute="height" secondItem="8pC-d3-ORi" secondAttribute="height" id="UhB-KE-ys6"/>
                             <constraint firstItem="lIT-CD-gHV" firstAttribute="centerY" secondItem="gzN-8Y-7zb" secondAttribute="centerY" id="a1S-l0-PQ0"/>
+                            <constraint firstItem="lIT-CD-gHV" firstAttribute="width" secondItem="gzN-8Y-7zb" secondAttribute="width" id="hLa-Fe-Syc"/>
                             <constraint firstItem="lIT-CD-gHV" firstAttribute="centerX" secondItem="gzN-8Y-7zb" secondAttribute="centerX" id="lBR-N5-O4y"/>
-                            <constraint firstItem="lIT-CD-gHV" firstAttribute="width" secondItem="8pC-d3-ORi" secondAttribute="width" id="rZK-Rd-67m"/>
+                            <constraint firstItem="lIT-CD-gHV" firstAttribute="height" secondItem="gzN-8Y-7zb" secondAttribute="height" id="qzU-Eu-cSW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gzN-8Y-7zb"/>
                     </view>
                     <navigationItem key="navigationItem" title="Manage Geofence" id="Dyg-bH-udU">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="cUH-bd-RjE">
+                        <barButtonItem key="leftBarButtonItem" title="Map" style="plain" id="cUH-bd-RjE">
                             <connections>
                                 <action selector="cancel:" destination="5sE-Bj-aC4" id="3iC-w1-8zw"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="sUK-4k-tTt">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="sUK-4k-tTt">
                             <connections>
-                                <action selector="addBtn:" destination="5sE-Bj-aC4" id="a81-MW-g9X"/>
-                                <segue destination="tY5-ig-8h9" kind="show" id="Mil-Sj-kgw"/>
+                                <segue destination="tY5-ig-8h9" kind="show" id="V1J-6V-fJA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -146,8 +151,8 @@
                                     <outlet property="delegate" destination="yDp-QS-4gV" id="p2g-jE-HJ8"/>
                                 </connections>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpp-P5-CBw">
-                                <rect key="frame" x="417.51612850528181" y="474.5" width="187.00000000000182" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpp-P5-CBw">
+                                <rect key="frame" x="290.5" y="474.5" width="187" height="30"/>
                                 <state key="normal" title="Click here to edit Geofence"/>
                                 <connections>
                                     <action selector="editGeofence:" destination="yDp-QS-4gV" eventType="touchUpInside" id="jgO-y0-IHW"/>
@@ -162,8 +167,8 @@
                                     <outlet property="delegate" destination="yDp-QS-4gV" id="AP7-LE-6rk"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tz4-lM-Ca7">
-                                <rect key="frame" x="485.83520303075238" y="534.5" width="50.999999999998181" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tz4-lM-Ca7">
+                                <rect key="frame" x="358.5" y="534.5" width="51" height="30"/>
                                 <state key="normal" title="Update"/>
                                 <connections>
                                     <action selector="updateForm:" destination="yDp-QS-4gV" eventType="touchUpInside" id="8gA-fP-PSZ"/>
@@ -181,6 +186,7 @@
                             <constraint firstItem="Tz4-lM-Ca7" firstAttribute="top" secondItem="gpp-P5-CBw" secondAttribute="bottom" constant="30" id="IE2-JF-n7c"/>
                             <constraint firstItem="A1J-p3-sgx" firstAttribute="leading" secondItem="MWF-Sp-F9R" secondAttribute="leading" constant="20" id="IwL-gp-s4u"/>
                             <constraint firstItem="1P0-M6-1hT" firstAttribute="top" secondItem="dyj-Tz-u6i" secondAttribute="bottom" id="JBy-BN-deQ"/>
+                            <constraint firstItem="Tz4-lM-Ca7" firstAttribute="centerX" secondItem="MWF-Sp-F9R" secondAttribute="centerX" id="KLV-ea-wSm"/>
                             <constraint firstItem="A1J-p3-sgx" firstAttribute="top" secondItem="Fvh-UW-XO7" secondAttribute="bottom" constant="2" id="Kur-38-l9z"/>
                             <constraint firstItem="YTJ-iw-2v8" firstAttribute="top" secondItem="MWF-Sp-F9R" secondAttribute="top" constant="20" id="L7v-vu-euz"/>
                             <constraint firstItem="MWF-Sp-F9R" firstAttribute="trailing" secondItem="dyj-Tz-u6i" secondAttribute="trailing" constant="20" id="MYm-FL-o4f"/>
@@ -194,6 +200,7 @@
                             <constraint firstItem="gpp-P5-CBw" firstAttribute="top" secondItem="1P0-M6-1hT" secondAttribute="bottom" constant="50" id="s0Y-3u-uuS"/>
                             <constraint firstItem="1P0-M6-1hT" firstAttribute="leading" secondItem="MWF-Sp-F9R" secondAttribute="leading" constant="20" id="wXY-dn-o7I"/>
                             <constraint firstItem="dyj-Tz-u6i" firstAttribute="leading" secondItem="MWF-Sp-F9R" secondAttribute="leading" constant="20" id="wmw-Qy-cyt"/>
+                            <constraint firstItem="gpp-P5-CBw" firstAttribute="centerX" secondItem="MWF-Sp-F9R" secondAttribute="centerX" id="zUb-yE-LfT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MWF-Sp-F9R"/>
                     </view>
@@ -302,104 +309,123 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Geofence" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAb-Jp-tGe">
-                                <rect key="frame" x="0.0" y="84" width="768" height="98.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="PAb-Jp-tGe" secondAttribute="height" multiplier="1024:131" id="eU4-bx-JeE"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Place's Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lsx-yP-JiH">
-                                <rect key="frame" x="20" y="184.5" width="728" height="21.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="lsx-yP-JiH" secondAttribute="height" multiplier="168:5" id="tqm-iU-WBF"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                                <connections>
-                                    <outlet property="delegate" destination="SFr-mm-4Ah" id="iZi-Hy-wvY"/>
-                                </connections>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="warning" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xo4-53-G63" userLabel="placeNameValidation">
-                                <rect key="frame" x="20" y="208" width="728" height="10"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="xo4-53-G63" secondAttribute="height" multiplier="72:1" id="Ie2-1h-LLx"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
-                                <color key="textColor" red="1" green="0.25633434630000002" blue="0.1582512462" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="highlightedColor" red="1" green="0.1659329853" blue="0.36391735180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </label>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zkF-eo-xmp">
-                                <rect key="frame" x="20" y="268" width="728" height="156"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="zkF-eo-xmp" secondAttribute="height" multiplier="14:3" id="P6k-4C-46P"/>
-                                    <constraint firstAttribute="width" secondItem="zkF-eo-xmp" secondAttribute="height" multiplier="14:3" id="xmy-05-aHi"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="dataSource" destination="SFr-mm-4Ah" id="N8T-Uc-fQc"/>
-                                    <outlet property="delegate" destination="SFr-mm-4Ah" id="DAG-Bo-EEk"/>
-                                </connections>
-                            </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6tF-C5-c2n">
-                                <rect key="frame" x="417.51612850528181" y="474" width="187.00000000000182" height="30"/>
-                                <state key="normal" title="Click here to add Geofence"/>
-                                <connections>
-                                    <action selector="addGeofence:" destination="SFr-mm-4Ah" eventType="touchUpInside" id="3qg-8W-hqg"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select Beacon Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0tA-J8-253">
-                                <rect key="frame" x="20" y="238" width="728" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                                <connections>
-                                    <outlet property="delegate" destination="SFr-mm-4Ah" id="4eX-YN-Zib"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FfO-yT-gQF">
-                                <rect key="frame" x="485.83520303075238" y="534" width="50.999999999998181" height="30"/>
-                                <state key="normal" title="Submit"/>
-                                <connections>
-                                    <action selector="submitForm:" destination="SFr-mm-4Ah" eventType="touchUpInside" id="QRd-ZR-uum"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Lhs-iB-R8m">
+                                <rect key="frame" x="50" y="114" width="668" height="860"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" text="Add Geofence" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAb-Jp-tGe">
+                                        <rect key="frame" x="0.0" y="0.0" width="668" height="26.5"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="iqV-lc-yDg">
+                                        <rect key="frame" x="0.0" y="76.5" width="668" height="246"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="rzg-S1-EED">
+                                                <rect key="frame" x="0.0" y="0.0" width="668" height="45"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Place's Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gJv-wE-iQb" userLabel="Name Text Field">
+                                                        <rect key="frame" x="0.0" y="0.0" width="668" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="25" id="VXW-ay-m4L"/>
+                                                        </constraints>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="SFr-mm-4Ah" id="PBw-39-fjg"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="warning" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xo4-53-G63" userLabel="placeNameValidation">
+                                                        <rect key="frame" x="0.0" y="31" width="668" height="14"/>
+                                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                        <color key="textColor" red="1" green="0.25633434630000002" blue="0.1582512462" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="highlightedColor" red="1" green="0.1659329853" blue="0.36391735180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="DEv-Oy-OG1">
+                                                <rect key="frame" x="0.0" y="65" width="668" height="181"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select Beacon Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0tA-J8-253">
+                                                        <rect key="frame" x="0.0" y="0.0" width="668" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="dPa-5s-PLg"/>
+                                                        </constraints>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="SFr-mm-4Ah" id="4eX-YN-Zib"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zkF-eo-xmp">
+                                                        <rect key="frame" x="0.0" y="31" width="668" height="150"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="150" id="Me2-a0-n0a"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="SFr-mm-4Ah" id="N8T-Uc-fQc"/>
+                                                            <outlet property="delegate" destination="SFr-mm-4Ah" id="DAG-Bo-EEk"/>
+                                                        </connections>
+                                                    </pickerView>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="RgN-we-sty">
+                                        <rect key="frame" x="0.0" y="372.5" width="668" height="55"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6tF-C5-c2n">
+                                                <rect key="frame" x="0.0" y="0.0" width="668" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="25" id="fvu-dw-Wnd"/>
+                                                </constraints>
+                                                <state key="normal" title="Click here to add Geofence"/>
+                                                <connections>
+                                                    <action selector="addGeofence:" destination="SFr-mm-4Ah" eventType="touchUpInside" id="3qg-8W-hqg"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FfO-yT-gQF">
+                                                <rect key="frame" x="0.0" y="30" width="668" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="25" id="1ZO-88-cyu"/>
+                                                </constraints>
+                                                <state key="normal" title="Submit"/>
+                                                <connections>
+                                                    <action selector="submitForm:" destination="SFr-mm-4Ah" eventType="touchUpInside" id="QRd-ZR-uum"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WkU-Oj-mEy" userLabel="Filler">
+                                        <rect key="frame" x="0.0" y="477.5" width="668" height="382.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="6tF-C5-c2n" firstAttribute="top" secondItem="zkF-eo-xmp" secondAttribute="bottom" constant="50" id="6M0-4P-WF1"/>
-                            <constraint firstItem="WLB-ge-nxZ" firstAttribute="trailing" secondItem="xo4-53-G63" secondAttribute="trailing" constant="20" id="71E-Vb-7zF"/>
-                            <constraint firstItem="WLB-ge-nxZ" firstAttribute="trailing" secondItem="lsx-yP-JiH" secondAttribute="trailing" constant="20" id="Ahu-3M-scq"/>
-                            <constraint firstItem="xo4-53-G63" firstAttribute="top" secondItem="lsx-yP-JiH" secondAttribute="bottom" constant="2" id="FOk-IQ-a81"/>
-                            <constraint firstItem="PAb-Jp-tGe" firstAttribute="top" secondItem="WLB-ge-nxZ" secondAttribute="top" constant="20" id="IPH-IW-pWU"/>
-                            <constraint firstItem="WLB-ge-nxZ" firstAttribute="trailing" secondItem="0tA-J8-253" secondAttribute="trailing" constant="20" id="IXW-39-J1Z"/>
-                            <constraint firstItem="zkF-eo-xmp" firstAttribute="top" secondItem="0tA-J8-253" secondAttribute="bottom" id="IgD-0v-AWv"/>
-                            <constraint firstAttribute="trailing" secondItem="zkF-eo-xmp" secondAttribute="trailing" constant="20" id="N0U-P2-qvD"/>
-                            <constraint firstItem="0tA-J8-253" firstAttribute="top" secondItem="xo4-53-G63" secondAttribute="bottom" constant="20" id="Qch-Uw-iug"/>
-                            <constraint firstItem="FfO-yT-gQF" firstAttribute="top" secondItem="6tF-C5-c2n" secondAttribute="bottom" constant="30" id="Rfs-iw-shm"/>
-                            <constraint firstItem="zkF-eo-xmp" firstAttribute="leading" secondItem="WLB-ge-nxZ" secondAttribute="leading" constant="20" id="ThI-aQ-0BR"/>
-                            <constraint firstItem="lsx-yP-JiH" firstAttribute="leading" secondItem="WLB-ge-nxZ" secondAttribute="leading" constant="20" id="Xjq-xp-8Yr"/>
-                            <constraint firstItem="0tA-J8-253" firstAttribute="leading" secondItem="WLB-ge-nxZ" secondAttribute="leading" constant="20" id="Xyc-Yq-wCY"/>
-                            <constraint firstItem="6tF-C5-c2n" firstAttribute="top" secondItem="zkF-eo-xmp" secondAttribute="bottom" constant="50" id="g9N-jW-rdy"/>
-                            <constraint firstItem="PAb-Jp-tGe" firstAttribute="trailing" secondItem="WLB-ge-nxZ" secondAttribute="trailing" id="iHS-AH-cqq"/>
-                            <constraint firstItem="xo4-53-G63" firstAttribute="top" secondItem="lsx-yP-JiH" secondAttribute="bottom" constant="2" id="mRi-pf-lbW"/>
-                            <constraint firstItem="zkF-eo-xmp" firstAttribute="top" secondItem="0tA-J8-253" secondAttribute="bottom" id="mvK-9i-BCy"/>
-                            <constraint firstItem="PAb-Jp-tGe" firstAttribute="leading" secondItem="WLB-ge-nxZ" secondAttribute="leading" id="ogp-32-Z4c"/>
-                            <constraint firstItem="0tA-J8-253" firstAttribute="top" secondItem="xo4-53-G63" secondAttribute="bottom" constant="20" id="pJK-YV-K6q"/>
-                            <constraint firstItem="FfO-yT-gQF" firstAttribute="top" secondItem="6tF-C5-c2n" secondAttribute="bottom" constant="30" id="t8W-Cc-5Ub"/>
-                            <constraint firstItem="xo4-53-G63" firstAttribute="leading" secondItem="WLB-ge-nxZ" secondAttribute="leading" constant="20" id="wHg-Z3-LdU"/>
-                            <constraint firstItem="lsx-yP-JiH" firstAttribute="top" secondItem="PAb-Jp-tGe" secondAttribute="bottom" constant="2" id="yIP-6r-XdB"/>
-                            <constraint firstItem="lsx-yP-JiH" firstAttribute="top" secondItem="PAb-Jp-tGe" secondAttribute="bottom" constant="2" id="yWj-Mc-1oE"/>
+                            <constraint firstItem="Lhs-iB-R8m" firstAttribute="centerY" secondItem="WLB-ge-nxZ" secondAttribute="centerY" id="7iJ-SC-LW7"/>
+                            <constraint firstItem="Lhs-iB-R8m" firstAttribute="leading" secondItem="WLB-ge-nxZ" secondAttribute="leading" constant="50" id="Exl-V4-u8c"/>
+                            <constraint firstItem="Lhs-iB-R8m" firstAttribute="centerX" secondItem="WLB-ge-nxZ" secondAttribute="centerX" id="S66-EQ-MtQ"/>
+                            <constraint firstItem="WLB-ge-nxZ" firstAttribute="trailing" secondItem="Lhs-iB-R8m" secondAttribute="trailing" constant="50" id="mpF-ip-gxq"/>
+                            <constraint firstItem="Lhs-iB-R8m" firstAttribute="top" secondItem="WLB-ge-nxZ" secondAttribute="top" constant="50" id="wIk-On-2uv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WLB-ge-nxZ"/>
                     </view>
-                    <navigationItem key="navigationItem" id="rvw-IH-Bid"/>
+                    <navigationItem key="navigationItem" id="rvw-IH-Bid">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="z7c-jL-KcF">
+                            <connections>
+                                <action selector="cancel:" destination="SFr-mm-4Ah" id="LRL-9h-XGi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addGeofenceBtn" destination="6tF-C5-c2n" id="rg6-Rw-Msk"/>
                         <outlet property="beaconIdField" destination="0tA-J8-253" id="ekx-pV-pua"/>
-                        <outlet property="nameTextField" destination="lsx-yP-JiH" id="Nva-iY-GGp"/>
+                        <outlet property="nameTextField" destination="gJv-wE-iQb" id="FRU-Q3-JLk"/>
                         <outlet property="nameValidationLabel" destination="xo4-53-G63" id="0Mv-0I-axP"/>
                         <outlet property="pickerBeacon" destination="zkF-eo-xmp" id="gMQ-PK-vUj"/>
                         <outlet property="submitBtn" destination="FfO-yT-gQF" id="VXp-ge-Nis"/>
@@ -407,12 +433,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YXl-Dc-wut" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5120" y="-51"/>
+            <point key="canvasLocation" x="5119.53125" y="-51.5625"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mTp-yq-CrM">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ifH-8o-X7H" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tY5-ig-8h9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7KQ-7p-z5i">
@@ -424,8 +449,9 @@
                         <segue destination="SFr-mm-4Ah" kind="relationship" relationship="rootViewController" id="VYd-AU-mcB"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ifH-8o-X7H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4212" y="459"/>
+            <point key="canvasLocation" x="4366" y="359"/>
         </scene>
     </scenes>
     <resources>

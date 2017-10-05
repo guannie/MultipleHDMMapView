@@ -224,7 +224,6 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         //remember to assign new polygons to array
         let data = DataHandler()
         (feat,points) = data.drawPolygon(self.coordinateX,self.coordinateY)
-        
         if status == "create"{
               self.doneBtn.isHidden = true
             //send points to CreateView
@@ -232,6 +231,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
             
             naviController?.points = points
             naviController?.status = "load"
+            self.navigationController?.popViewController(animated: false)
             self.navigationController?.pushViewController(naviController!, animated: true)
         }
         else if status == "update" {

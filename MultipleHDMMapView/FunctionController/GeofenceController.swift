@@ -19,9 +19,9 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
         //let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
         //self.navigationController?.popViewController(animated: true)
         
-        let isPresentingInAddMealMode = presentingViewController is UINavigationController
+        let isPresentingMode = presentingViewController is UINavigationController
         
-        if isPresentingInAddMealMode {
+        if isPresentingMode {
             dismiss(animated: true, completion: nil)
             
         } else if let owningNavigationController = navigationController{
@@ -32,8 +32,8 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    @IBAction func addBtn(_ sender: UIBarButtonItem) {
-    }
+//    @IBAction func addBtn(_ sender: UIBarButtonItem) {
+//    }
     
     @IBOutlet weak var tableView: UITableView!
     

@@ -54,6 +54,24 @@ class CreateViewController: UIViewController {
     
     //MARK: Button function
     
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    //  @IBAction func cancel(_ sender: Any) {
+    
+//        let isPresentingMode = presentingViewController is UINavigationController
+//
+//        if isPresentingMode {
+ //           dismiss(animated: true, completion: nil)
+//
+//        } else if let owningNavigationController = navigationController{
+//            owningNavigationController.popViewController(animated: true)
+//        }
+//        else {
+//            fatalError("The ViewController is not inside a navigation controller")
+//        }
+    
+   // }
     @IBAction func addGeofence(_ sender: Any) {
         //Save the state while user navigate to another view
         saveStates()
@@ -62,6 +80,7 @@ class CreateViewController: UIViewController {
         
         naviController?.status = "create"
         
+        self.navigationController?.popViewController(animated: false)
         self.navigationController?.pushViewController(naviController!, animated: true)
     }
     
@@ -85,14 +104,21 @@ class CreateViewController: UIViewController {
         
         let time = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: time) {
-            let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "GeofenceController") as? GeofenceController
             
+            let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "GeofenceController") as? GeofenceController
+             self.navigationController?.popViewController(animated: false)
+            //self.navigationController?.dismiss(animated: true, completion: nil)
             self.navigationController?.pushViewController(naviController!, animated: true)
+            //self.navigationController?.present(naviController!, animated: true, completion: nil)
+ 
         }
     }
 }
 
 //MARK: Other functions
+
+
+//MARK: UITextFieldDelegate
 extension CreateViewController: UITextFieldDelegate {
     
 //    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -128,6 +154,18 @@ extension CreateViewController: UITextFieldDelegate {
         nameTextField.text = defaults.object(forKey: "nameTextField") as? String
         beaconIdField.text = defaults.object(forKey: "beaconIdField") as? String
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField)-> Bool{
+        // Hide the keyboard.
+        textField.resignFirstResponder()
+        return true
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        //updateSaveButtonState()
+        textField.resignFirstResponder()
+        //navigationItem.title = textField.text
+    }
+    
 }
 
 extension CreateViewController: UIPickerViewDelegate, UIPickerViewDataSource {

@@ -77,6 +77,8 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
             
             self.nameArray.remove(at: indexPath.row)
             self.urlArray.remove(at: indexPath.row)
+            self.beaconIdArray.remove(at: indexPath.row)
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

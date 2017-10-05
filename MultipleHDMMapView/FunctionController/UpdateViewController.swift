@@ -72,7 +72,7 @@ class UpdateViewController: UIViewController {
         
         //Navigate to MainViewController
         let naviController = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
-        
+    
         naviController?.url = url
         naviController?.status = "update"
         

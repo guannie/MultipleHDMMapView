@@ -227,9 +227,9 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
     func deletePlace(_ url: String, _ name: String){
         
         //sender to deletebeacon
-        let index = ["name" : name]
+        let data = ["name" : name]
         
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "deleteGeofence"), object: nil, userInfo: index)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "deleteGeofence"), object: nil, userInfo: data)
         print(url)
         let request = NSMutableURLRequest(url: NSURL(string: "https://manager.gimbal.com/api/v2/places/" + String(url))! as URL,
                                           cachePolicy: .useProtocolCachePolicy,

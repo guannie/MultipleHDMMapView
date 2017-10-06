@@ -8,7 +8,6 @@
 
 import UIKit
 import HDMMapCore
-import CoreGraphics
 
 class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
 
@@ -24,7 +23,14 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     var urlIndex : Int?
     var coordinateX = [Double] ()
     var coordinateY = [Double] ()
+    var tapLocation = [CGPoint] ()
     var status : String?
+    
+    
+    var canvasView: CanvasView!
+    var drawRectangle: DrawPolygon!
+
+
     
     @IBOutlet weak var doneBtn: UIButton!
     
@@ -33,20 +39,16 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Mainview Did Load")
-        self.mapView.set3DMode(false, animated: false)
         self.delegate = self
         self.mapView.tapEnabled = false
         self.view.addSubview(self.doneBtn)
         self.view.addSubview(self.menuBtn)
         self.doneBtn.isHidden = true
         
-        //receiver of deletegeofence
-        NotificationCenter.default.addObserver(self, selector: #selector(self.deleteGeofence(_:)), name: NSNotification.Name(rawValue: "deleteGeofence"), object: nil)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillAppear(true)
         
         if status == "create" {createGeofence()}
         let testdata = DataHandler()
@@ -54,7 +56,6 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
             place in
         
             if (place?.feature == nil) {
-                
                 self.feature.append(self.emptyFeature)
                 self.annotation.append(nil)
                 self.nameArray.append((place?.place?.name)!)
@@ -70,7 +71,6 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
                 }
                 
             } else {
-                
                 self.feature.append((place?.feature)!)
                 self.annotation.append((place?.annotation)!)
                 self.nameArray.append((place?.place?.name)!)
@@ -92,10 +92,12 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
                 
             }
             if self.status == "update" { self.updateGeofence()}
+            self.setupOnMapViewAppear()
         }
         
-        //mapView.reloadInputViews()
-        
+        mapView.reloadInputViews()
+        //receiver of deletegeofence
+        NotificationCenter.default.addObserver(self, selector: #selector(self.deleteGeofence(_:)), name: NSNotification.Name(rawValue: "deleteGeofence"), object: nil)
         print("Mainview will Appear")
     }
     
@@ -110,14 +112,17 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         self.status = ""
     }
     
+    func mapViewControllerDidStart(_ controller: HDMMapViewController, error: Error?) {
+        setupAfterMapLoad()
+    }
+    
     func mapViewController(_ controller: HDMMapViewController, tappedAt coordinate: HDMMapCoordinate, features: [HDMFeature]) {
-        
-        tapEffect(coordinate.x, coordinate.y)
         
         coordinateX.append(coordinate.x)
         coordinateY.append(coordinate.y)
-        
+    
         print(coordinateX.count)
+        
     }
     
     func mapViewController(_ controller: HDMMapViewController, longPressedAt coordinate: HDMMapCoordinate, features: [HDMFeature]) {
@@ -294,38 +299,84 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         }
     }
     
+    // Setup
+    func setupAfterMapLoad() {
+        // mapView.stopAllCameraAnimations()
+        mapView.setFeatureStyle("poly", propertyName: "fill-color", value: "#e9bc00")
+        mapView.reloadStyle()
+        mapView.set3DMode(false, animated: false)
+        mapView.setRegion(HDMMapCoordinateRegionMake(49.418397, 8.675501, 0, 0.000213, 0.000213), animated: false)
+        // Map is too small thus zoom region not big enough
+         //mapView.moveToFeature(withId: 19392, animated: false)
+        
+        // For user interaction
+        mapView.rotateEnabled = false
+        mapView.tiltEnabled = false
+        
+        //For gesture respond
+        if mapView.tapEnabled == true {
+            let t = UITapGestureRecognizer(target: self, action: #selector(tapEffectHandler))
+            view.addGestureRecognizer(t)
+        }
+    }
+    
+    func setupOnMapViewAppear(){
+        //For gesture respond
+        if mapView.tapEnabled == true {
+            let t = UITapGestureRecognizer(target: self, action: #selector(tapEffectHandler))
+            view.addGestureRecognizer(t)
+        }
+    }
+    
+    // changing default touches gesture
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        super.touchesBegan(touches, with: event)
+//        print("touches began")
+//    }
+//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        super.touchesBegan(touches, with: event)
+//        print("touches ended")
+//    }
+    
+    @objc func tapEffectHandler(gesture: UITapGestureRecognizer) {
+        
+        // handle touch down and touch up events separately
+        if gesture.state == .ended { // optional for touch up event catching
+            let tap = gesture.location(in: mapView)
+            tapLocation.append(tap)
+            // make sure there is nothing on the canvasView
+            if canvasView != nil{
+            canvasView.removeFromSuperview()
+            canvasView = nil
+            }
+            print("Just Started")
+            let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+            canvasView = CanvasView(frame: frame)
+            self.view.addSubview(canvasView)
+                var prev = tapLocation.first
+                for i in tapLocation {
+                    var pointIcon: UIImageView = UIImageView()
+                    pointIcon.image = #imageLiteral(resourceName: "point")
+                    pointIcon.frame = CGRect(x: i.x-5, y: i.y-5, width: 10, height: 10)
+                    canvasView.addSubview(pointIcon)
+                    canvasView.drawLineFrom(fromPoint: prev!, toPoint: i)
+                    prev = i
+                }
+            canvasView.drawLineFrom(fromPoint: prev!, toPoint: tapLocation.first!)
+                //canvasView.drawLineFrom(fromPoint: newLocation.first!, toPoint: newLocation.last!)
+
+            
+
+//            if(coordinateX.count > 4){
+//                canvasView.removeFromSuperview()
+//                canvasView = nil
+//            }
+            print("Ended")
+        } else { print("something")}
+    }
+    
     //    MARK:TAP effect
     func tapEffect(_ x: Double, _ y:Double) {
-        var ui :UIImageView = UIImageView(frame: self.view.frame)
-        //ui.backgroundColor = UIColor.black.withAlphaComponent(0.1)
-        self.view.addSubview(ui)
-        self.view.bringSubview(toFront: ui)
-        ui.isUserInteractionEnabled = false
-        if(coordinateX.count >= 2) {
-            UIGraphicsBeginImageContext(ui.frame.size)
-            let ctx = UIGraphicsGetCurrentContext()
-            print(ctx)
-            ui.draw(CGRect(x: 0, y: 0, width: ui.frame.size.width, height: ui.frame.size.height))
-            ctx?.saveGState()
-            ctx?.setLineCap(.square)
-            ctx?.setLineWidth(3.0)
-            ctx?.setStrokeColor(UIColor.blue.cgColor)
-            ctx?.beginPath()
-            ctx?.move(to: CGPoint(x: coordinateX.last!, y: coordinateY.last!))
-            print(coordinateX)
-            print(coordinateY)
-            print(x)
-            print(y)
-            ctx?.addLine(to: CGPoint(x: x, y: y))
-            ctx?.strokePath()
-            ctx?.restoreGState()
-            ui.image = UIGraphicsGetImageFromCurrentImageContext()
-            ui.alpha = 1.0
-            UIGraphicsEndImageContext()
-        }
-        if(coordinateX.count > 4){
-            ui.removeFromSuperview()
-            ui.image = nil
-        }
+
     }
 }

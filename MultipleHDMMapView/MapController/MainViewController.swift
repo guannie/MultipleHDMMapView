@@ -52,7 +52,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         
         if status == "create" {createGeofence()}
         let testdata = DataHandler()
-        testdata.testCoordinates(){
+        testdata.getCoordinates(){
             place in
         
             if (place?.feature == nil) {

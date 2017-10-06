@@ -18,7 +18,7 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
         "postman-token": "0017962a-2bc2-cbe3-c65b-38acad6be8da"
     ]
     
-    func testPlaceId(completionHandler: @escaping ([String]?)-> Void) {
+    func getPlaceId(completionHandler: @escaping ([String]?)-> Void) {
         
         var placeId : [String] = []
         let urlGimbal = "https://manager.gimbal.com/api/v2/places/"
@@ -58,9 +58,9 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
         task.resume()
     }
     
-    func testCoordinates(completionHandler: @escaping (beaconData?) -> Void) {
+    func getCoordinates(completionHandler: @escaping (beaconData?) -> Void) {
         
-        testPlaceId(){ (placeId) in
+        getPlaceId(){ (placeId) in
             
         for place in placeId!{
             var longitude : [Double] = []

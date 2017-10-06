@@ -376,7 +376,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="RgN-we-sty">
-                                        <rect key="frame" x="0.0" y="372.5" width="668" height="55"/>
+                                        <rect key="frame" x="0.0" y="372.5" width="668" height="76"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6tF-C5-c2n">
                                                 <rect key="frame" x="0.0" y="0.0" width="668" height="25"/>
@@ -388,8 +388,14 @@
                                                     <action selector="addGeofence:" destination="SFr-mm-4Ah" eventType="touchUpInside" id="3qg-8W-hqg"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="geofenceValidation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PO9-7A-SYD">
+                                                <rect key="frame" x="0.0" y="30" width="668" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" red="1" green="0.24742617519999999" blue="0.215515596" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FfO-yT-gQF">
-                                                <rect key="frame" x="0.0" y="30" width="668" height="25"/>
+                                                <rect key="frame" x="0.0" y="51" width="668" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="25" id="1ZO-88-cyu"/>
                                                 </constraints>
@@ -401,7 +407,7 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WkU-Oj-mEy" userLabel="Filler">
-                                        <rect key="frame" x="0.0" y="477.5" width="668" height="382.5"/>
+                                        <rect key="frame" x="0.0" y="498.5" width="668" height="361.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
@@ -427,6 +433,7 @@
                     <connections>
                         <outlet property="addGeofenceBtn" destination="6tF-C5-c2n" id="rg6-Rw-Msk"/>
                         <outlet property="beaconIdField" destination="0tA-J8-253" id="ekx-pV-pua"/>
+                        <outlet property="geofenceValidationLabel" destination="PO9-7A-SYD" id="EGv-h8-R6V"/>
                         <outlet property="nameTextField" destination="gJv-wE-iQb" id="FRU-Q3-JLk"/>
                         <outlet property="nameValidationLabel" destination="xo4-53-G63" id="0Mv-0I-axP"/>
                         <outlet property="pickerBeacon" destination="zkF-eo-xmp" id="gMQ-PK-vUj"/>

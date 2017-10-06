@@ -14,6 +14,7 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
     var nameArray = [String] ()
     var beaconIdArray = [String] ()
     var urlArray = [String] ()
+    var status = false
     @IBOutlet weak var addBtn: UIBarButtonItem!
     
     @IBAction func cancel(_ sender: Any) {
@@ -130,11 +131,50 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
      
     }
 
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(GeofenceController.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.blue
+        
+        return refreshControl
+    }()
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        
+        let testdata = DataHandler()
+        testdata.getCoordinates(){
+            (place) in
+            
+            for name in self.nameArray{
+                if(name == place?.place?.name){ self.status = true }
+            }
+            
+            if self.status == false{
+                self.nameArray.append((place?.place?.name)!)
+                self.urlArray.append((place?.place?.url)!)
+                if !((place?.place?.beacons?.isEmpty)!){
+                    for beacon in (place?.place?.beacons)! {
+                        self.beaconIdArray.append(beacon.name!)
+                    }
+                } else {
+                    self.beaconIdArray.append("")
+                }
+            }
+            
+            self.status = false
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        refreshControl.endRefreshing()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let testdata = DataHandler()
-        testdata.testCoordinates(){
+        testdata.getCoordinates(){
             (place) in
             
             self.nameArray.append((place?.place?.name)!)
@@ -155,7 +195,7 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.tableView.addSubview(self.refreshControl)
     }
 }
 

@@ -16,6 +16,7 @@ class CreateViewController: UIViewController {
     @IBOutlet weak var pickerBeacon: UIPickerView!
     
     @IBOutlet var nameValidationLabel: UILabel!
+    @IBOutlet weak var geofenceValidationLabel: UILabel!
     
     @IBOutlet weak var addGeofenceBtn: UIButton!
     @IBOutlet weak var submitBtn: UIButton!
@@ -48,6 +49,7 @@ class CreateViewController: UIViewController {
     }
     
     fileprivate func setupView() {
+        geofenceValidationLabel.isHidden = true
         nameValidationLabel.isHidden = true
         self.pickerBeacon.isHidden = true
     }
@@ -85,32 +87,46 @@ class CreateViewController: UIViewController {
     }
     
     @IBAction func submitForm(_ sender: Any) {
-        var shape : String?
-       
-        if points?.count == nil {shape = nil}
-        else if(points?.count == 1) {shape = "RADIAL"}
-        else {shape = "POLYGON"}
         
-        let geofence = putPlace.Geofence(shape: shape, points: points)
-        let beacon = [putPlace.Beacons(id: getBeaconId(beaconName: beaconIdField.text!))]
-        
-        let create = putPlace(name: nameTextField.text, geofence: geofence, beacons: beacon)
-        
-        let data = DataHandler()
-        data.createPlace(create)
-        
-        //after sending data, set points to nil
-        points = nil
-        
-        let time = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: time) {
+        if (nameTextField.text?.isEmpty)! || points == nil{
+            self.nameValidationLabel.text = "Please fill in the name"
+            self.geofenceValidationLabel.text = "Geofence has not been marked"
             
-            let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "GeofenceController") as? GeofenceController
-            //Fprint("pop")
-            //self.navigationController?.popViewController(animated: true)
-            // for the unpop mapview
-            self.navigationController?.pushViewController(naviController!, animated: true)
-            //self.navigationController?.present(naviController!, animated: true, completion: nil)
+            if (nameTextField.text?.isEmpty)! {UIView.animate(withDuration: 0.25, animations: {
+                self.nameValidationLabel.isHidden = false
+            })}
+            if points == nil {
+                UIView.animate(withDuration: 0.25, animations: {
+                    self.geofenceValidationLabel.isHidden = false
+            })}
+        } else {
+            var shape : String?
+           
+            if points?.count == nil {shape = nil}
+            else if(points?.count == 1) {shape = "RADIAL"}
+            else {shape = "POLYGON"}
+            
+            let geofence = putPlace.Geofence(shape: shape, points: points)
+            let beacon = [putPlace.Beacons(id: getBeaconId(beaconName: beaconIdField.text!))]
+            
+            let create = putPlace(name: nameTextField.text, geofence: geofence, beacons: beacon)
+            
+            let data = DataHandler()
+            data.createPlace(create)
+            
+            //after sending data, set points to nil
+            points = nil
+            
+            let time = DispatchTime.now() + 1.5
+            DispatchQueue.main.asyncAfter(deadline: time) {
+                
+                let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "GeofenceController") as? GeofenceController
+                //Fprint("pop")
+                //self.navigationController?.popViewController(animated: true)
+                // for the unpop mapview
+                self.navigationController?.pushViewController(naviController!, animated: true)
+                //self.navigationController?.present(naviController!, animated: true, completion: nil)
+            }
         }
     }
 }
@@ -120,26 +136,6 @@ class CreateViewController: UIViewController {
 
 //MARK: UITextFieldDelegate
 extension CreateViewController: UITextFieldDelegate {
-    
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        switch textField {
-//        case nameTextField:
-//            beaconIdField.becomeFirstResponder()
-//        default:
-//            beaconIdField.resignFirstResponder()
-//        }
-//
-//        return true
-//    }
-    
-//    fileprivate func validate(_ textField: UITextField) -> (Bool, String?) {
-//        guard let text = textField.text else {
-//            return (false, nil)
-//        }
-//        //Validation for beacon ID Textfield
-//
-//        return (true, "")
-//    }
     
     func saveStates(){
         let defaults = UserDefaults.standard

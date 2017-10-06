@@ -80,45 +80,25 @@ class UpdateViewController: UIViewController {
     }
     
     @IBAction func updateForm(_ sender: Any) {
-        var shape = "POLYGON"
-        if(points?.count == 1) {shape = "Radial"}
+            var shape = "POLYGON"
+            if(points?.count == 1) {shape = "Radial"}
         
-        let geofence = putPlace.Geofence(shape: shape, points: points)
-        let beacon = [putPlace.Beacons(id: getBeaconId(beaconName: beaconIdField.text!))]
+            let geofence = putPlace.Geofence(shape: shape, points: points)
+            let beacon = [putPlace.Beacons(id: getBeaconId(beaconName: beaconIdField.text!))]
         
-        let updates = putPlace(name: nameTextField.text, geofence: geofence, beacons: beacon)
+            let updates = putPlace(name: nameTextField.text, geofence: geofence, beacons: beacon)
         
-        let data = DataHandler()
-        data.updatePlace(updates,url)
+            let data = DataHandler()
+            data.updatePlace(updates,url)
         
-        let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "GeofenceController") as? GeofenceController
+            let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "GeofenceController") as? GeofenceController
         
-        self.navigationController?.pushViewController(naviController!, animated: true)
+            self.navigationController?.pushViewController(naviController!, animated: true)
     }
 }
 
 //MARK: Other functions
 extension UpdateViewController: UITextFieldDelegate {
-    
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        switch textField {
-//        case nameTextField:
-//            beaconIdField.becomeFirstResponder
-//        default:
-//            beaconIdField.resignFirstResponder()
-//        }
-//
-//        return true
-//    }
-    
-//    fileprivate func validate(_ textField: UITextField) -> (Bool, String?) {
-//        guard let text = textField.text else {
-//            return (false, nil)
-//        }
-//        //Validation for beacon ID Textfield
-//
-//        return (true, "")
-//    }
     
     func saveStates(){
         let defaults = UserDefaults.standard

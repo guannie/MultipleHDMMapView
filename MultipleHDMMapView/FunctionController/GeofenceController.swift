@@ -144,7 +144,7 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         
         let testdata = DataHandler()
-        testdata.testCoordinates(){
+        testdata.getCoordinates(){
             (place) in
             
             for name in self.nameArray{
@@ -174,7 +174,7 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         let testdata = DataHandler()
-        testdata.testCoordinates(){
+        testdata.getCoordinates(){
             (place) in
             
             self.nameArray.append((place?.place?.name)!)

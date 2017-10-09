@@ -100,7 +100,6 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
                         }
                         
                         let coordinate = HDMMapCoordinateMake(longitude[0], latitude[0], 0)
-                        
                         var ring0 : [Any] = []
                         
                         for (x,y) in zip(longitude,latitude){
@@ -108,9 +107,8 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
                         }
                         
                         ring0.append(HDMPoint.init(longitude[0], y: latitude[0], z: 0))
-                        
                         let poly = HDMPolygon.init(points: ring0 as! [HDMPoint])
-                        let myFeature: HDMFeature = HDMPolygonFeature.init(polygon: poly, featureType: "osm.building", zmin: 43, zmax: 44)
+                        let myFeature: HDMFeature = HDMPolygonFeature.init(polygon: poly, featureType: "poly", zmin: 43, zmax: 44)
                         let annotation = HDMAnnotation(coordinate: coordinate)
                         annotation.title = beacon.name
                         

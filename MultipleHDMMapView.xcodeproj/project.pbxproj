@@ -19,6 +19,7 @@
 		88C832151F7BA6BA001F4657 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C832141F7BA6BA001F4657 /* MainViewController.swift */; };
 		8E41BAC01F877628003EFE15 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E08C7D31F86715700C1FDB0 /* CanvasView.swift */; };
 		8E41BAC11F87767A003EFE15 /* DrawPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E08C7D21F86714400C1FDB0 /* DrawPolygon.swift */; };
+		8E41BAC91F87B2C8003EFE15 /* CoordinateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E41BAC81F87B2C8003EFE15 /* CoordinateHandler.swift */; };
 		8E64A01E1F72C32B00F2844C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64A01D1F72C32B00F2844C /* AppDelegate.swift */; };
 		8E64A0251F72C32B00F2844C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E64A0231F72C32B00F2844C /* Main.storyboard */; };
 		8E64A0271F72C32B00F2844C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E64A0261F72C32B00F2844C /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		88C832141F7BA6BA001F4657 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8E08C7D21F86714400C1FDB0 /* DrawPolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawPolygon.swift; sourceTree = "<group>"; };
 		8E08C7D31F86715700C1FDB0 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		8E41BAC81F87B2C8003EFE15 /* CoordinateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateHandler.swift; sourceTree = "<group>"; };
 		8E64A01A1F72C32B00F2844C /* MultipleHDMMapView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultipleHDMMapView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E64A01D1F72C32B00F2844C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E64A0241F72C32B00F2844C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			children = (
 				8E08C7D31F86715700C1FDB0 /* CanvasView.swift */,
 				8E08C7D21F86714400C1FDB0 /* DrawPolygon.swift */,
+				8E41BAC81F87B2C8003EFE15 /* CoordinateHandler.swift */,
 			);
 			path = DrawHandler;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E41BAC91F87B2C8003EFE15 /* CoordinateHandler.swift in Sources */,
 				886C66951F829823009626A5 /* CreateViewController.swift in Sources */,
 				886BDFE91F75635600457B94 /* putPlace.swift in Sources */,
 				8E41BAC01F877628003EFE15 /* CanvasView.swift in Sources */,

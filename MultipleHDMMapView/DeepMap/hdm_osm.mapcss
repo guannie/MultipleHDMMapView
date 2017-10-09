@@ -432,6 +432,14 @@ feature stair:visibility_in_building_icon {
     icon-rotate: 0;
 }
 
+feature poly:polygon {
+    fill-outline-color: #BFE8ACFF;
+    text-color: #000000FF;
+    fill-color: #BFE8ACFF;
+    text-size: 12;
+    fill-outline-width: 0.5;
+}
+
 rule building_SelectRule(building) ["isSelected()"] {
     fill-color: #FFF200;
 }

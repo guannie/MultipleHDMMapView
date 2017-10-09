@@ -5,6 +5,7 @@
 //  Created by Lee Kuan Xin on 26.09.17.
 //  Copyright © 2017 HDMI. All rights reserved.
 //
+//  A view to render touch feedback
 
 import UIKit
 
@@ -20,8 +21,12 @@ class CanvasView: UIImageView {
     var isDrawing: Bool = false
     var coordinates = [Any]()
     
+    // Image Settings
+    var pointerImage: UIImage = #imageLiteral(resourceName: "point")
+    
     var shouldSetupContraints = true
     let screenSize = UIScreen.main.bounds
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,7 +58,7 @@ class CanvasView: UIImageView {
 
         }
     }
-    
+
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let currentPoint = touch.location(in: self)
@@ -64,9 +69,9 @@ class CanvasView: UIImageView {
             firstPoint = currentPoint
             coordinates.append(touches.first)
         }
-        
+
     }
-    
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
         if !isDrawing {
@@ -74,15 +79,52 @@ class CanvasView: UIImageView {
             drawLineFrom(fromPoint: currentPoint , toPoint: currentPoint)
             //print("Ended")
         }
-        
             firstPoint = nil
         }
     }
-    
+
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         //print("cancelled")
     }
     
+    
+    // Personal draw gesture
+//    func drawBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        // Test for touch gesture
+//        if let touch = touches.first {
+//            //allocate firstPoint
+//            firstPoint = touch.location(in: self)
+//            // tester code
+//            print("Starting \(firstPoint)" )
+//            self.backgroundColor = bgcColor
+//            coordinates.removeAll()
+//
+//        }
+//    }
+//
+//    func drawMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        if let touch = touches.first {
+//            let currentPoint = touch.location(in: self)
+//            drawLineFrom(fromPoint: firstPoint, toPoint: currentPoint)
+//            // tester code
+//            print("Moving: last: \(firstPoint) now: \(currentPoint)" )
+//            // assign the current point as first point
+//            firstPoint = currentPoint
+//            coordinates.append(touches.first)
+//        }
+//
+//    }
+//
+//    func drawEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        if let touch = touches.first {
+//            if !isDrawing {
+//                let currentPoint = touch.location(in: self)
+//                drawLineFrom(fromPoint: currentPoint , toPoint: currentPoint)
+//                print("Ended")
+//            }
+//            firstPoint = nil
+//        }
+//    }
     
     // MARK: ExtraFunction
     func drawLineFrom(fromPoint: CGPoint, toPoint: CGPoint) {
@@ -102,8 +144,15 @@ class CanvasView: UIImageView {
         UIGraphicsEndImageContext()
     }
     
+    func createPointer(on origin: CGPoint) -> UIImageView{
+        let pointer:UIImageView = UIImageView(image: pointerImage)
+        pointer.frame = CGRect(x: origin.x-5, y: origin.y-5, width: 10, height: 10)
+        return pointer
+    }
+    
     func clear(){
         self.image = nil
+        self.setNeedsDisplay()
     }
 
 }

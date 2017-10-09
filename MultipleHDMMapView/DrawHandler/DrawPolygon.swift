@@ -143,7 +143,7 @@ class DrawPolygon: UIView {
             canvasView.backgroundColor = canvasView.bgcColor
             self.addSubview(canvasView)
             //self.canvasView.backgroundColor = canvasView.bgcColor
-            print("Added")
+            //print("Added")
             //canvasView.drawBegan(touches, with: event)
         //}
         //print("Not Added")
@@ -151,9 +151,10 @@ class DrawPolygon: UIView {
         coordinates.append(temp)
         let curPoint = touches.first!.location(in: self)
         renderCoordinates.append(curPoint)
-        print("began")
-        print(temp)
-        createDragArea(touches.first!)
+        //print("began")
+        //print(temp)
+        createDrag(touches.first!)
+        //createDragArea(touches.first!)
         //createDragArea2(touches.first!)
         
     }
@@ -166,14 +167,14 @@ class DrawPolygon: UIView {
                 coordinates.append(temp)
                 firstPoint = touch.location(in: self)
                 
-                let curPoint = touches.first!.location(in: self)
-                renderCoordinates.append(curPoint)
             }
             //canvasView.drawMoved(touches, with: event)
             canvasView.touchesMoved(touches, with: event)
-            let _: HDMMapCoordinate = CoordinateHandler.getCoordinateForTouch(touch, mapView)
-             //createDragArea(touch)
-            createDragArea(touches.first!)
+            //let _: HDMMapCoordinate = CoordinateHandler.getCoordinateForTouch(touch, mapView)
+            let curPoint = touches.first!.location(in: self)
+            renderCoordinates.append(curPoint)
+             createDrag(touches.first!)
+            //createDragArea(touches.first!)
         }
     }
     
@@ -190,27 +191,46 @@ class DrawPolygon: UIView {
             renderCoordinates.append(curPoint)
             //print(coordinates)
             //reset()
-            createDragArea(touches.first!)
+            createDrag(touches.first!)
+            //createDragArea(touches.first!)
             renderPoly()
         }
     
     }
     
-    func createDrag() {
-        if dragArea != nil {
+    func createDrag(_ touch: UITouch) {
+        
+        
+        if dragArea != nil{
+            
+            dragArea.removeFromSuperview()
             dragArea = nil
+            self.setNeedsDisplay()
         }
         let newDragPoints = renderMaxSpan(renderCoordinates as! [CGPoint])
-        if newDragPoints != nil {
-        var height:CGFloat = 1.0
-        var width:CGFloat = 1.0
+        //print(newDragPoints)
+        print(renderCoordinates)
         if renderCoordinates.count > 4{
-            height = abs(newDragPoints![3].y - newDragPoints![0].y)
-            width = abs(newDragPoints![1].x - newDragPoints![0].x)
+            let height = abs(newDragPoints![3].y - newDragPoints![0].y)
+            let width = abs(newDragPoints![1].x - newDragPoints![0].x)
+//            dragAreaBounds.origin =  (newDragPoints![3])
+            let oriX = newDragPoints![3].x
+            let oriY = newDragPoints![3].y
+            let aHeight = height
+            let aWidth = width
+            let area = UIView(frame: CGRect.init(x: oriX, y: oriY, width: aHeight, height: aWidth))
+            area.backgroundColor = UIColor.blue
+            //area.isOpaque = false
+            area.alpha = 0.3
+            //area.isUserInteractionEnabled = false
+            dragArea = area
+            self.addSubview(dragArea!)
+            print("bound")
+            print(dragArea.frame)
         }
-        dragAreaBounds.origin = (newDragPoints?.first)!
-        dragAreaBounds.size.height = height - (dragAreaBounds.origin.y)
-        dragAreaBounds.size.width = width - (dragAreaBounds.origin.x)
+
+
+        
         if dragArea == nil {
             let area = UIView(frame: dragAreaBounds)
             area.backgroundColor = UIColor.blue
@@ -224,7 +244,6 @@ class DrawPolygon: UIView {
 //            dragArea?.frame = dragAreaBounds
 //        }
             //setNeedsDisplay()
-        }
     }
     
     func createDragArea(_ touch: UITouch) {
@@ -299,7 +318,7 @@ class DrawPolygon: UIView {
             if Double(coordinate.x) > bounds.maxLongitude {bounds.maxLongitude = Double(coordinate.x)}
             if Double(coordinate.y) > bounds.maxLatitude {bounds.maxLatitude = Double(coordinate.y)}
             //print("polygon points")
-            print(coordinate)
+            //print(coordinate)
         }
         
         var coords = [CGPoint]()
@@ -310,7 +329,7 @@ class DrawPolygon: UIView {
         coords.append(CGPoint(x: bounds.minLongitude, y: bounds.minLatitude))
         
         //print("final point")
-        print(coords)
+        //print(coords)
         return coords
     }
 }

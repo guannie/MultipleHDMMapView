@@ -16,11 +16,11 @@ struct LocationBounds {
     var maxLongitude = 0.0
 }
 
-enum gesture {
-    case tap
-    case rect
-    case line
-    case poly
+enum Gesture: Int {
+    case tap = 0
+    case rect = 1
+    case line = 2
+    case poly = 3
 }
 
 class DrawPolygon: UIView {
@@ -32,12 +32,14 @@ class DrawPolygon: UIView {
     var firstPoint: CGPoint = CGPoint.zero
     var mapView: HDMMapView!
     var canvasView = CanvasView(frame: CGRect.zero)
-    var gestureType: Int = 1
+    var gestureType: Gesture = .tap
     
     // Accumulate coordinates
-    var coordinates = [Any]()
-    var renderCoordinates = [Any]()
+    var coordinates = [Any]() // coordinates for parser AKA. HDMMap
+    var renderCoordinates = [Any]() // coordinates for visual feedback AKA. UIView
     
+    
+    // MARK: Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         canvasView.frame = frame
@@ -59,16 +61,20 @@ class DrawPolygon: UIView {
         autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
+    // MARK: Compulsary Variable
     // Set mapViewInstance from calling class
     func setCurrentMap(mapView :HDMMapView) {
         self.mapView = mapView
     }
     
-    func gesturePicker(_ type: Int = 1) {
-        gestureType = type
+    // Set the Gesture type
+    func setGesture(_ type: Gesture) {
+        self.gestureType = type
     }
     
     
+    
+    // MARK: Point Processor
     // No matter how many point the function only create geofence/rect from first and last point
     func rectTwoPoint(_ coordinates: [HDMMapCoordinate]) -> [HDMPoint]? {
         if (coordinates.count < 2) {
@@ -135,131 +141,77 @@ class DrawPolygon: UIView {
     }
     
     
+    // MARK: Touch gesture
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //reset()
         //if(self.isDrawing == false) {
             self.isDrawing = true;
             coordinates.removeAll()
             canvasView.frame = self.frame
             canvasView.backgroundColor = canvasView.bgcColor
             self.addSubview(canvasView)
-            //self.canvasView.backgroundColor = canvasView.bgcColor
-            //print("Added")
-            //canvasView.drawBegan(touches, with: event)
         //}
-        //print("Not Added")
-        let temp: HDMMapCoordinate = CoordinateHandler.getCoordinateForTouch(touches.first!, mapView)
-        coordinates.append(temp)
-        let curPoint = touches.first!.location(in: self)
-        renderCoordinates.append(curPoint)
-        //print("began")
-        //print(temp)
+        appendingPoints(touches)
         createDrag(touches.first!)
-        //createDragArea(touches.first!)
-        //createDragArea2(touches.first!)
-        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             if(canvasView.firstPoint == nil){
                 canvasView.touchesBegan(touches, with: event)
-                let temp: HDMMapCoordinate = CoordinateHandler.getCoordinateForTouch(touches.first!, mapView)
-                coordinates.append(temp)
                 firstPoint = touch.location(in: self)
-                
             }
-            //canvasView.drawMoved(touches, with: event)
             canvasView.touchesMoved(touches, with: event)
-            //let _: HDMMapCoordinate = CoordinateHandler.getCoordinateForTouch(touch, mapView)
-            let curPoint = touches.first!.location(in: self)
-            renderCoordinates.append(curPoint)
-             createDrag(touches.first!)
-            //createDragArea(touches.first!)
+            appendingPoints(touches)
+            createDrag(touches.first!)
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // get real world coordinates for later drawing on the map
-        //let coordinate: CLLocationCoordinate2D = getCoordinateForTouch(touch)
-        //coordinates.append(NSValue(mkCoordinate: coordinate))
         if touches.first != nil {
             //canvasView.drawEnded(touches, with: event)
-           canvasView.touchesEnded(touches, with: event)
-            let temp: HDMMapCoordinate = CoordinateHandler.getCoordinateForTouch(touches.first!, mapView)
-            coordinates.append(temp)
-            let curPoint = touches.first!.location(in: self)
-            renderCoordinates.append(curPoint)
-            //print(coordinates)
-            //reset()
+            canvasView.touchesEnded(touches, with: event)
+            appendingPoints(touches)
             createDrag(touches.first!)
-            //createDragArea(touches.first!)
             renderPoly()
         }
     
     }
     
-    func createDrag(_ touch: UITouch) {
+    func appendingPoints(_ touches: Set<UITouch>) {
+        let temp: HDMMapCoordinate = CoordinateHandler.getCoordinateForTouch(touches.first!, mapView)
+        coordinates.append(temp)
         
-        
-        if dragArea != nil{
-            
-            dragArea.removeFromSuperview()
-            dragArea = nil
-            self.setNeedsDisplay()
-        }
-        let newDragPoints = renderMaxSpan(renderCoordinates as! [CGPoint])
-        //print(newDragPoints)
-        print(renderCoordinates)
-        if renderCoordinates.count > 4{
-            let height = abs(newDragPoints![3].y - newDragPoints![0].y)
-            let width = abs(newDragPoints![1].x - newDragPoints![0].x)
-//            dragAreaBounds.origin =  (newDragPoints![3])
-            let oriX = newDragPoints![3].x
-            let oriY = newDragPoints![3].y
-            let aHeight = height
-            let aWidth = width
-            let area = UIView(frame: CGRect.init(x: oriX, y: oriY, width: aHeight, height: aWidth))
-            area.backgroundColor = UIColor.blue
-            //area.isOpaque = false
-            area.alpha = 0.3
-            //area.isUserInteractionEnabled = false
-            dragArea = area
-            self.addSubview(dragArea!)
-            print("bound")
-            print(dragArea.frame)
-        }
-
-
-        
-        if dragArea == nil {
-            let area = UIView(frame: dragAreaBounds)
-            area.backgroundColor = UIColor.blue
-            //area.isOpaque = false
-            area.alpha = 0.3
-            //area.isUserInteractionEnabled = false
-            dragArea = area
-            self.addSubview(dragArea!)
-        }
-//        else {
-//            dragArea?.frame = dragAreaBounds
-//        }
-            //setNeedsDisplay()
+        let curPoint = touches.first!.location(in: self)
+        renderCoordinates.append(curPoint)
+        createDrag(touches.first!)
     }
     
-    func createDragArea(_ touch: UITouch) {
-        //        if coordinates.count < 2 {
-        //            return
-        //        }
-        //let location: CGPoint = touch.location(in: self)
-        dragAreaBounds.origin = touch.location(in: self)
+    // MARK: Rendering drag feedback
+    func createDrag(_ touch: UITouch) {
+        switch gestureType {
+        case .rect:
+            pointDrag(touch)
+        case .line:
+            spanDrag(touch)
+        default:
+            break
+        }
+    }
+    
+    func pointDrag(_ touch: UITouch){
+        if coordinates.count < 2 {
+            return
+        }
+        let location: CGPoint = touch.location(in: self)
+        dragAreaBounds.origin = location
         dragAreaBounds.size.height = firstPoint.y - (dragAreaBounds.origin.y)
         dragAreaBounds.size.width = firstPoint.x - (dragAreaBounds.origin.x)
         if dragArea == nil {
             let area = UIView(frame: dragAreaBounds)
             area.backgroundColor = UIColor.blue
-            //area.isOpaque = false
             area.alpha = 0.3
-            //area.isUserInteractionEnabled = false
+            area.isUserInteractionEnabled = false
             dragArea = area
             self.addSubview(dragArea!)
         }
@@ -268,19 +220,64 @@ class DrawPolygon: UIView {
         }
     }
     
-    func dragPoly() {
+    // Need to re-render each time value change
+    func spanDrag(_ touch: UITouch) {
+        // Always Make sure dragArea is not available
+        if dragArea != nil{
+            resetDrag()
+        }
+        let newDragPoints = renderMaxSpan(renderCoordinates as! [CGPoint])
+        //print(newDragPoints)
+        print(renderCoordinates)
+        if renderCoordinates.count > 4{
+            let oriX = newDragPoints![0].x
+            let oriY = newDragPoints![0].y
+            let width = abs(newDragPoints![1].x - newDragPoints![0].x)
+            let height = abs(newDragPoints![3].y - newDragPoints![0].y)
+
+            let area = UIView(frame: CGRect.init(x: oriX, y: oriY, width: width, height: height))
+            area.backgroundColor = UIColor.blue
+            area.alpha = 0.3
+            area.isUserInteractionEnabled = false
+            dragArea = area
+            self.addSubview(dragArea!)
+        }
+    }
+    
+    func polyDrag() {
         
     }
     
+    func resetDrag() {
+        dragArea.removeFromSuperview()
+        dragArea = nil
+        self.setNeedsDisplay()
+    }
+    
+    // MARK: Rendering Polygon Display
     func renderPoly() {
+        // Make sure display is unavailable
         canvasView.clear()
-        let newPoints = renderTwoPoint(renderCoordinates as! [CGPoint])
-        var prev = newPoints?.first
-        for i in newPoints!{
+        let renderPoints: [CGPoint] = renderCoordinates as! [CGPoint]
+        var newPoints = [CGPoint]()
+        switch gestureType {
+            case .rect:
+                newPoints = renderTwoPoint(renderPoints)!
+            case .line:
+                newPoints = renderMaxSpan(renderPoints)!
+            case .poly:
+                newPoints = renderCoordinates as! [CGPoint]
+                newPoints.append(newPoints.first!)
+            default:
+                break
+        }
+        var prev = newPoints.first
+        for i in newPoints{
             canvasView.drawLineFrom(fromPoint: prev!, toPoint: i )
             prev = i
         }
         renderCoordinates.removeAll()
+        
     }
     
     

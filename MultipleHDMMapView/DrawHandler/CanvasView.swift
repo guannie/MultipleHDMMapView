@@ -87,45 +87,6 @@ class CanvasView: UIImageView {
         //print("cancelled")
     }
     
-    
-    // Personal draw gesture
-//    func drawBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        // Test for touch gesture
-//        if let touch = touches.first {
-//            //allocate firstPoint
-//            firstPoint = touch.location(in: self)
-//            // tester code
-//            print("Starting \(firstPoint)" )
-//            self.backgroundColor = bgcColor
-//            coordinates.removeAll()
-//
-//        }
-//    }
-//
-//    func drawMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        if let touch = touches.first {
-//            let currentPoint = touch.location(in: self)
-//            drawLineFrom(fromPoint: firstPoint, toPoint: currentPoint)
-//            // tester code
-//            print("Moving: last: \(firstPoint) now: \(currentPoint)" )
-//            // assign the current point as first point
-//            firstPoint = currentPoint
-//            coordinates.append(touches.first)
-//        }
-//
-//    }
-//
-//    func drawEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        if let touch = touches.first {
-//            if !isDrawing {
-//                let currentPoint = touch.location(in: self)
-//                drawLineFrom(fromPoint: currentPoint , toPoint: currentPoint)
-//                print("Ended")
-//            }
-//            firstPoint = nil
-//        }
-//    }
-    
     // MARK: ExtraFunction
     func drawLineFrom(fromPoint: CGPoint, toPoint: CGPoint) {
         //print("drawing...")

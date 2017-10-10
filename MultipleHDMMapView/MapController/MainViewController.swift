@@ -34,6 +34,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     var drawPolygon: DrawPolygon!
     var modeSelected: Bool = false
     var isDrawing: Bool = false
+    var gestureType: Gesture = .tap
 
     // Draw Menu
     @IBOutlet weak var drawStack: UIStackView!
@@ -393,35 +394,39 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         doneBtn.isHidden = false
         view.bringSubview(toFront: doneBtn)
     }
+    
     @IBAction func rectAction(_ sender: UIButton) {
         let oriImage = #imageLiteral(resourceName: "rect")
         mapView.tapEnabled = false
+        gestureType = .rect
         if(self.isDrawing == false) {
-            prepareForDrawing(sender, 1)
+            prepareForDrawing(sender, gestureType)
         } else if(checkPoints()){
-            prepareToEndDrawing(sender, 1, oriImage)
+            prepareToEndDrawing(sender, gestureType, oriImage)
         }
     }
     @IBAction func lineAction(_ sender: UIButton) {
         let oriImage = #imageLiteral(resourceName: "line")
         mapView.tapEnabled = false
+        gestureType = .line
         if(self.isDrawing == false) {
-            prepareForDrawing(sender, 2)
-        } else {
-            prepareToEndDrawing(sender, 2, oriImage)
+            prepareForDrawing(sender, gestureType)
+        } else if(checkPoints()) {
+            prepareToEndDrawing(sender, gestureType, oriImage)
         }
     }
     @IBAction func polyAction(_ sender: UIButton) {
         let oriImage = #imageLiteral(resourceName: "poly")
         mapView.tapEnabled = false
+        gestureType = .poly
         if(self.isDrawing == false) {
-            prepareForDrawing(sender, 3)
-        } else {
-            prepareToEndDrawing(sender, 3, oriImage)
+            prepareForDrawing(sender, gestureType)
+        } else if(checkPoints()) {
+            prepareToEndDrawing(sender, gestureType, oriImage)
         }
     }
     
-    func prepareForDrawing(_ sender: UIButton, _ type: Int) {
+    func prepareForDrawing(_ sender: UIButton, _ type: Gesture) {
         doneBtn.isHidden = true
 
         sender.self.setImage(#imageLiteral(resourceName: "done"), for: UIControlState.normal)
@@ -429,12 +434,13 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         drawPolygon = DrawPolygon(frame: frame)
         drawPolygon.setCurrentMap(mapView: mapView)
+        drawPolygon.setGesture(type)
         self.view.addSubview(drawPolygon)
         drawPolygon.canvasView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         self.view.bringSubview(toFront: drawStack)
         self.isDrawing = true
     }
-    func prepareToEndDrawing(_ sender: UIButton, _ type: Int, _ oriImage: UIImage) {
+    func prepareToEndDrawing(_ sender: UIButton, _ type: Gesture, _ oriImage: UIImage) {
         sender.self.setImage(oriImage, for: UIControlState.normal)
         sender.self.setTitle("Draw", for: UIControlState.normal)
         drawPolygon.removeFromSuperview()
@@ -443,18 +449,21 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         self.isDrawing = false
     }
     
-    func drawFinished(_ type: Int){
+    func drawFinished(_ type: Gesture){
         
         let coordinates: [HDMMapCoordinate] = drawPolygon.coordinates as! [HDMMapCoordinate]
         switch type {
-            case 1:
+            case .tap:
+                break
+            case .rect:
                 let polyPoint = drawPolygon.rectTwoPoint(coordinates)
                 prepareForNavigation(polyPoint!)
-            case 2:
+            case .line:
                 let polyPoint = drawPolygon.rectMaxSpan(coordinates)
                 prepareForNavigation(polyPoint!)
-            case 3:
+            case .poly:
                 let polyPoint = CoordinateHandler.getPointsForCoordinate(coordinates)
+                print(polyPoint)
                 prepareForNavigation(polyPoint)
             default:
                 let polyPoint = CoordinateHandler.getPointsForCoordinate(coordinates)

@@ -11,18 +11,21 @@ import CoreLocation
 
 class CoordinateHandler {
     
-    //var mapView: HDMMapView!
-    
+    // MARK:
     // single Point conversion
     static func getCoordinateForTouch(_ touch: UITouch,_ mapView: HDMMapView)->(HDMMapCoordinate)   {
         var location: CGPoint = touch.location(in: mapView)
         location.x *= mapView.contentScaleFactor
         location.y *= mapView.contentScaleFactor
         let mapLocation: HDMLocation = mapView.getLocationOnMap(from: Float(location.x), screenPointY: Float(location.y))
-        //let coordinate: CLLocationCoordinate2D = castToLatLong(coordXYZ: mapLocation.coordinate)
-        //let coordinate: CLLocationCoordinate2D? = coordinator.convert(location, toCoordinateFrom: coordinator)
         return mapLocation.coordinate
     }
+    
+//    // for apple map or google map
+//    static func getCoordinateForTouch(_ touch: UITouch, _ mapView: UIView)->(CLLocationCoordinate2D) {
+//        let coordinate: CLLocationCoordinate2D = .convert(touch, toCoordinateFrom: mapView)
+//        return coordinate
+//    }
     
     static func getCoordinateForTouches(_ touches: [UITouch],_ mapView: HDMMapView)->([HDMMapCoordinate])   {
         var coordinates = [HDMMapCoordinate]()
@@ -42,6 +45,7 @@ class CoordinateHandler {
         return points
     }
     
+    // MARK: Z value modifier
     static func getHighestZ(_ points: [HDMPoint]) -> Double{
         var highestZ: Double = (points.first?.coordinate.z)!
         for point in points{
@@ -62,6 +66,7 @@ class CoordinateHandler {
         return highestZ
     }
     
+    // MARK: Format caster
     static func castToLatLong(coordXYZ: HDMMapCoordinate) -> (CLLocationCoordinate2D, Double) {
         let coordXY = CLLocationCoordinate2DMake(coordXYZ.x, coordXYZ.y)
         let coordZ = coordXYZ.z
@@ -77,4 +82,5 @@ class CoordinateHandler {
         }
         return (pointsX, pointsY)
     }
+    
 }

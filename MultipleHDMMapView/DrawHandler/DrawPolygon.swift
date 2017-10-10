@@ -50,7 +50,6 @@ class DrawPolygon: UIView {
         initialize()
     }
     
-    
     func initialize() {
         isDrawing = false
         dragAreaBounds = CGRect(x: 0, y: 0, width: 0, height: 0)
@@ -61,7 +60,7 @@ class DrawPolygon: UIView {
         autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
-    // MARK: Compulsary Variable
+    // MARK: Compulsory Variable
     // Set mapViewInstance from calling class
     func setCurrentMap(mapView :HDMMapView) {
         self.mapView = mapView
@@ -72,9 +71,19 @@ class DrawPolygon: UIView {
         self.gestureType = type
     }
     
-    
-    
     // MARK: Point Processor
+    func pointSelector() -> [HDMPoint]{
+        let mapCoordinates: [HDMMapCoordinate] = self.coordinates as! [HDMMapCoordinate]
+        switch gestureType {
+        case .rect:
+            return rectTwoPoint(mapCoordinates)!
+        case .line:
+            return rectMaxSpan(mapCoordinates)!
+        default:
+            return CoordinateHandler.getPointsForCoordinate(mapCoordinates)
+        }
+    }
+    
     // No matter how many point the function only create geofence/rect from first and last point
     func rectTwoPoint(_ coordinates: [HDMMapCoordinate]) -> [HDMPoint]? {
         if (coordinates.count < 2) {
@@ -91,7 +100,6 @@ class DrawPolygon: UIView {
         points.append(contentsOf: CoordinateHandler.getPointsForCoordinate([coordinate1, coordinate2, coordinate3, coordinate4, coordinate5]))
         return points
     }
-    
     
     // prepare points for geofence/rect by taking max bounds
     func rectMaxSpan(_ coordinates: [HDMMapCoordinate]) -> [HDMPoint]? {
@@ -111,8 +119,6 @@ class DrawPolygon: UIView {
             if coordinate.y < bounds.minLatitude {bounds.minLatitude = coordinate.y}
             if coordinate.x > bounds.maxLongitude {bounds.maxLongitude = coordinate.x}
             if coordinate.y > bounds.maxLatitude {bounds.maxLatitude = coordinate.y}
-            print("polygon points")
-            print(coordinate)
         }
         
         var coords = [HDMMapCoordinate]()
@@ -121,16 +127,13 @@ class DrawPolygon: UIView {
         coords.append(HDMMapCoordinateMake(bounds.maxLongitude, bounds.maxLatitude, z))
         coords.append(HDMMapCoordinateMake(bounds.minLongitude, bounds.maxLatitude, z))
         coords.append(HDMMapCoordinateMake(bounds.minLongitude, bounds.minLatitude, z))
-        
-        print("final point")
-        print(coords)
+
         var points = [HDMPoint]()
         points.append(contentsOf: CoordinateHandler.getPointsForCoordinate(coords))
         return points
     }
     
     func createGeoFence(points: [HDMPoint]) -> (HDMPolygonFeature){
-        
         let poly: HDMPolygon = HDMPolygon(points: points)
         let z = CoordinateHandler.getHighestZ(points)
         print(z)
@@ -139,7 +142,6 @@ class DrawPolygon: UIView {
         print(polyFeature.featureId)
         return polyFeature
     }
-    
     
     // MARK: Touch gesture
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -328,6 +330,11 @@ class DrawPolygon: UIView {
         //print("final point")
         //print(coords)
         return coords
+    }
+    
+    func clear() {
+        canvasView.clear()
+        resetDrag()
     }
 }
 

@@ -34,6 +34,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     var drawPolygon: DrawPolygon!
     var modeSelected: Bool = false
     var isDrawing: Bool = false
+    var t: UIGestureRecognizer!
     var gestureType: Gesture = .tap
 
     // Draw Menu
@@ -342,7 +343,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     func addGestureListener(){
         //For gesture respond
         if mapView.tapEnabled == true {
-            let t = UITapGestureRecognizer(target: self, action: #selector(tapEffectHandler))
+            t = UITapGestureRecognizer(target: self, action: #selector(tapEffectHandler))
             view.addGestureRecognizer(t)
         }
     }
@@ -389,15 +390,23 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     }
     
     @IBAction func tapAction(_ sender: UIButton) {
+        let oriImage = #imageLiteral(resourceName: "tap")
         mapView.tapEnabled = true
         addGestureListener()
+        gestureType = .tap
         doneBtn.isHidden = false
         view.bringSubview(toFront: doneBtn)
+        if(self.isDrawing == false) {
+            prepareForDrawing(sender, gestureType)
+        } else if(checkPoints()){
+            prepareToEndDrawing(sender, gestureType, oriImage)
+        }
     }
     
     @IBAction func rectAction(_ sender: UIButton) {
         let oriImage = #imageLiteral(resourceName: "rect")
         mapView.tapEnabled = false
+        view.removeGestureRecognizer(t)
         gestureType = .rect
         if(self.isDrawing == false) {
             prepareForDrawing(sender, gestureType)
@@ -408,6 +417,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     @IBAction func lineAction(_ sender: UIButton) {
         let oriImage = #imageLiteral(resourceName: "line")
         mapView.tapEnabled = false
+        view.removeGestureRecognizer(t)
         gestureType = .line
         if(self.isDrawing == false) {
             prepareForDrawing(sender, gestureType)
@@ -418,6 +428,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     @IBAction func polyAction(_ sender: UIButton) {
         let oriImage = #imageLiteral(resourceName: "poly")
         mapView.tapEnabled = false
+        view.removeGestureRecognizer(t)
         gestureType = .poly
         if(self.isDrawing == false) {
             prepareForDrawing(sender, gestureType)
@@ -428,7 +439,6 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     
     func prepareForDrawing(_ sender: UIButton, _ type: Gesture) {
         doneBtn.isHidden = true
-
         sender.self.setImage(#imageLiteral(resourceName: "done"), for: UIControlState.normal)
         sender.self.setTitle("Done", for: UIControlState.normal)
         let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
@@ -444,53 +454,37 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         sender.self.setImage(oriImage, for: UIControlState.normal)
         sender.self.setTitle("Draw", for: UIControlState.normal)
         drawPolygon.removeFromSuperview()
-        drawFinished(type)
+        drawFinished()
         drawPolygon = nil
         self.isDrawing = false
     }
     
-    func drawFinished(_ type: Gesture){
-        
-        let coordinates: [HDMMapCoordinate] = drawPolygon.coordinates as! [HDMMapCoordinate]
-        switch type {
-            case .tap:
-                break
-            case .rect:
-                let polyPoint = drawPolygon.rectTwoPoint(coordinates)
-                prepareForNavigation(polyPoint!)
-            case .line:
-                let polyPoint = drawPolygon.rectMaxSpan(coordinates)
-                prepareForNavigation(polyPoint!)
-            case .poly:
-                let polyPoint = CoordinateHandler.getPointsForCoordinate(coordinates)
-                print(polyPoint)
-                prepareForNavigation(polyPoint)
-            default:
-                let polyPoint = CoordinateHandler.getPointsForCoordinate(coordinates)
-                prepareForNavigation(polyPoint)
-                createGeofence()
-        }
+    // Finish drawing saving values before navigation
+    func drawFinished(){
+        let polyPoint = drawPolygon.pointSelector()
+        prepareForNavigation(polyPoint)
     }
     
+    // MARK: Can be optimize
     func checkPoints() -> Bool{
         let coordinates: [HDMMapCoordinate] = drawPolygon.coordinates as! [HDMMapCoordinate]
-            if coordinates.count == 0 || coordinates.count == 1{
-                var message : String?
-                if coordinates.count == 0 {message = "Oh no! you need to draw something!"}
-                else if coordinates.count == 1 {message = "There is only one point on the map"}
-                let alertController = UIAlertController(title: "Not Enough Points Selected", message: message, preferredStyle: .alert)
-                
-                let confirmButton = UIAlertAction(title: "OK", style: .default) { (_) in
-                    // Add Action after complete
-                }
-                print("Not success")
-                alertController.addAction(confirmButton)
-                
-                if !(self.navigationController?.visibleViewController?.isKind(of: UIAlertController.self))! {
-                    self.present(alertController, animated: true, completion: nil)
-                }
-                return false
+        if coordinates.count == 0 || coordinates.count == 1{
+            var message : String?
+            if coordinates.count == 0 {message = "Oh no! you need to draw something!"}
+            else if coordinates.count == 1 {message = "There is only one point on the map"}
+            let alertController = UIAlertController(title: "Not Enough Points Selected", message: message, preferredStyle: .alert)
+            
+            let confirmButton = UIAlertAction(title: "OK", style: .default) { (_) in
+                self.drawPolygon.clear()
             }
+            print("Not success")
+            alertController.addAction(confirmButton)
+            
+            if !(self.navigationController?.visibleViewController?.isKind(of: UIAlertController.self))! {
+                self.present(alertController, animated: true, completion: nil)
+            }
+            return false
+        }
         return true
     }
     

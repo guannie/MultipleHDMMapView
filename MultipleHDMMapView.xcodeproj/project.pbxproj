@@ -27,6 +27,7 @@
 		8EA117A91F753F10009F409A /* GeofenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA117A81F753F10009F409A /* GeofenceController.swift */; };
 		8EA117AB1F755375009F409A /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA117AA1F755375009F409A /* TestViewController.swift */; };
 		8EDB10271F73B395005DF488 /* DeepMap.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8EDB10261F73B203005DF488 /* DeepMap.zip */; };
+		8EFDE8A51F8CDB10007CAFB5 /* DrawStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFDE8A41F8CDB10007CAFB5 /* DrawStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,6 +66,7 @@
 		8EA117A81F753F10009F409A /* GeofenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceController.swift; sourceTree = "<group>"; };
 		8EA117AA1F755375009F409A /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		8EDB10261F73B203005DF488 /* DeepMap.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = DeepMap.zip; sourceTree = "<group>"; };
+		8EFDE8A41F8CDB10007CAFB5 /* DrawStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 		8EDB103A1F73F2CF005DF488 /* DrawHandler */ = {
 			isa = PBXGroup;
 			children = (
+				8EFDE8A41F8CDB10007CAFB5 /* DrawStack.swift */,
 				8E08C7D31F86715700C1FDB0 /* CanvasView.swift */,
 				8E08C7D21F86714400C1FDB0 /* DrawPolygon.swift */,
 				8E41BAC81F87B2C8003EFE15 /* CoordinateHandler.swift */,
@@ -238,6 +241,7 @@
 				886BDFE71F75634300457B94 /* getPlace.swift in Sources */,
 				8EA117AB1F755375009F409A /* TestViewController.swift in Sources */,
 				8EA117A91F753F10009F409A /* GeofenceController.swift in Sources */,
+				8EFDE8A51F8CDB10007CAFB5 /* DrawStack.swift in Sources */,
 				8E41BAC11F87767A003EFE15 /* DrawPolygon.swift in Sources */,
 				88C832151F7BA6BA001F4657 /* MainViewController.swift in Sources */,
 				8E64A01E1F72C32B00F2844C /* AppDelegate.swift in Sources */,

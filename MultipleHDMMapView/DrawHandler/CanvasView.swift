@@ -67,7 +67,7 @@ class CanvasView: UIImageView {
             //print("Moving: last: \(firstPoint) now: \(currentPoint)" )
             // assign the current point as first point
             firstPoint = currentPoint
-            coordinates.append(touches.first)
+            coordinates.append(touches.first!)
         }
 
     }

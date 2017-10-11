@@ -112,6 +112,7 @@ class CanvasView: UIImageView {
     }
     
     func clear(){
+        self.removeFromSuperview()
         self.image = nil
         self.setNeedsDisplay()
     }

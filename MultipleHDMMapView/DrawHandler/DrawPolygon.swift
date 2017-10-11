@@ -259,7 +259,8 @@ class DrawPolygon: UIView {
     // MARK: Rendering Polygon Display
     func renderPoly() {
         // Make sure display is unavailable
-        canvasView.clear()
+        self.canvasView.image = nil
+        self.setNeedsDisplay()
         let renderPoints: [CGPoint] = renderCoordinates as! [CGPoint]
         var newPoints = [CGPoint]()
         switch gestureType {

@@ -58,7 +58,7 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
         task.resume()
     }
     
-    func getCoordinates(completionHandler: @escaping (beaconData?) -> Void) {
+    func getBeacon(completionHandler: @escaping (beaconData?) -> Void) {
         
         getPlaceId(){ (placeId) in
             
@@ -100,6 +100,7 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
                         }
                         
                         let coordinate = HDMMapCoordinateMake(longitude[0], latitude[0], 0)
+                        
                         var ring0 : [Any] = []
                         
                         for (x,y) in zip(longitude,latitude){
@@ -107,6 +108,7 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
                         }
                         
                         ring0.append(HDMPoint.init(longitude[0], y: latitude[0], z: 0))
+                        
                         let poly = HDMPolygon.init(points: ring0 as! [HDMPoint])
                         let myFeature: HDMFeature = HDMPolygonFeature.init(polygon: poly, featureType: "poly", zmin: 43, zmax: 44)
                         let annotation = HDMAnnotation(coordinate: coordinate)
@@ -135,41 +137,23 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
     }
     
     //MARK: Functions for Sending data to SERVER
-    func drawPolygon(_ x: [Double], _ y: [Double]) -> (feature: HDMFeature, points: [putPlace.Geofence.Points]){
+    func getPoints(_ x: [Double], _ y: [Double]) -> ([putPlace.Geofence.Points]){
         //For Beacon
         var points : [putPlace.Geofence.Points] = []
-        var ring0 = [Any] ()
         
         if x.count == 2 {
-                
                 points.append(putPlace.Geofence.Points(longitude: x[0], latitude: y[0]))
                 points.append(putPlace.Geofence.Points(longitude: x[1], latitude: y[0]))
                 points.append(putPlace.Geofence.Points(longitude: x[1], latitude: y[1]))
                 points.append(putPlace.Geofence.Points(longitude: x[0], latitude: y[1]))
-                ring0.append(HDMPoint.init(x[0], y: y[0], z:0))
-                ring0.append(HDMPoint.init(x[1], y: y[0], z:0))
-                ring0.append(HDMPoint.init(x[1], y: y[1], z:0))
-                ring0.append(HDMPoint.init(x[0], y: y[1], z:0))
-                
         }
         for (longitude,latitude) in zip(x,y){
-            
             points.append(putPlace.Geofence.Points(longitude: longitude, latitude: latitude))
-            ring0.append(HDMPoint.init(longitude, y:latitude, z:0))
-            
         }
-        
-        ring0.append(HDMPoint.init(x[0], y: y[0], z: 0))
-        
-        let poly = HDMPolygon.init(points: ring0 as! [HDMPoint])
-        let myFeature: HDMFeature = HDMPolygonFeature.init(polygon: poly, featureType: "osm.building", zmin: 43, zmax: 44)
-        
-        mapView.add(myFeature)
-        
-        return (myFeature,points)
+        return (points)
     }
     
-    func createPlace(_ create: putPlace){
+    func createPlace(_ create: putPlace, _ name: String){
         
         let postData = try! JSONEncoder().encode(create)
         
@@ -189,6 +173,16 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
             } else {
                 let httpResponse = response as? HTTPURLResponse
                 print(httpResponse!)
+                
+                //Call to confirmCreate only when upload is successful
+                if(httpResponse?.statusCode == 200){
+                    //sender to confirmCreate
+                    let data = ["name" : name]
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "confirmCreate"), object: nil, userInfo: data)
+                }else{
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "alertError"), object: nil, userInfo: nil)
+                }
             }
         })
         
@@ -217,6 +211,15 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
             } else {
                 let httpResponse = response as? HTTPURLResponse
                 print(httpResponse ?? "Fail to get response")
+                
+                //Call to confirmUpdate only when upload is successful
+                if(httpResponse?.statusCode == 200){
+                    let data = ["url" : url]
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "confirmUpdate"), object: nil, userInfo: data)
+                }else{
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "alertError"), object: nil, userInfo: nil)
+                }
             }
         })
         dataTask.resume()
@@ -228,7 +231,7 @@ class DataHandler : HDMMapViewController, HDMMapViewControllerDelegate {
         let data = ["name" : name]
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "deleteGeofence"), object: nil, userInfo: data)
-        print(url)
+      
         let request = NSMutableURLRequest(url: NSURL(string: "https://manager.gimbal.com/api/v2/places/" + String(url))! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)

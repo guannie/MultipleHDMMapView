@@ -15,27 +15,14 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
     var beaconIdArray = [String] ()
     var urlArray = [String] ()
     var status = false
+    
     @IBOutlet weak var addBtn: UIBarButtonItem!
     
-    @IBAction func cancel(_ sender: Any) {
-        //let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
-        //self.navigationController?.popViewController(animated: true)
-        
-        let isPresentingMode = presentingViewController is UINavigationController
-
-        if isPresentingMode {
-            dismiss(animated: true, completion: nil)
-
-        } else if let owningNavigationController = navigationController{
-            owningNavigationController.popViewController(animated: true)
-        }
-        else {
-            fatalError("The ViewController is not inside a navigation controller")
-        }
+    @IBAction func prepareForGeofence(segue: UIStoryboardSegue){
     }
     
-//    @IBAction func addBtn(_ sender: UIBarButtonItem) {
-//    }
+    @IBAction func cancel(_ sender: Any) {
+    }
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -144,7 +131,7 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         
         let testdata = DataHandler()
-        testdata.getCoordinates(){
+        testdata.getBeacon(){
             (place) in
             
             for name in self.nameArray{
@@ -174,7 +161,7 @@ class GeofenceController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         let testdata = DataHandler()
-        testdata.getCoordinates(){
+        testdata.getBeacon(){
             (place) in
             
             self.nameArray.append((place?.place?.name)!)

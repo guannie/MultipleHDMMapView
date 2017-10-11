@@ -84,6 +84,7 @@
 		886BDFE31F7562BD00457B94 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				886BDFEA1F7563FC00457B94 /* DataHandler.swift */,
 				886BDFE41F75633900457B94 /* Place.swift */,
 				886BDFE61F75634300457B94 /* getPlace.swift */,
 				886BDFE81F75635600457B94 /* putPlace.swift */,
@@ -117,7 +118,6 @@
 				8EDB103A1F73F2CF005DF488 /* DrawHandler */,
 				8EDB102A1F73BEDB005DF488 /* MapController */,
 				8E64A01D1F72C32B00F2844C /* AppDelegate.swift */,
-				886BDFEA1F7563FC00457B94 /* DataHandler.swift */,
 				8E64A0231F72C32B00F2844C /* Main.storyboard */,
 				8E64A0261F72C32B00F2844C /* Assets.xcassets */,
 				8EDB10261F73B203005DF488 /* DeepMap.zip */,
@@ -383,7 +383,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q578P3U8MM;
+				DEVELOPMENT_TEAM = Z93PPS7T54;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -391,7 +391,7 @@
 				INFOPLIST_FILE = MultipleHDMMapView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hdmi.MultipleHDMMapView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hdmi.MultipleHDMMapView123;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -403,7 +403,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q578P3U8MM;
+				DEVELOPMENT_TEAM = Z93PPS7T54;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -411,7 +411,7 @@
 				INFOPLIST_FILE = MultipleHDMMapView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hdmi.MultipleHDMMapView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hdmi.MultipleHDMMapView123;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

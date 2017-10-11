@@ -22,6 +22,7 @@ class CreateViewController: UIViewController {
     @IBOutlet weak var submitBtn: UIButton!
     
     var status : String?
+     var state : String?
     var points : [putPlace.Geofence.Points]? = nil
     
     let list = ["Bauhaus", "Küche", "B&B B", "Meetingraum Heidelberg", "Geo Dev" ,"Kicker" ,"Glashaus" ,"Matthi" ,"Eingang Entwicklung" ,"Tokio"]
@@ -30,10 +31,7 @@ class CreateViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
         setupView()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,40 +52,25 @@ class CreateViewController: UIViewController {
         self.pickerBeacon.isHidden = true
     }
     
+    //Pass data back to Main using segue unwind
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        status = state
+    }
+    
     //MARK: Button function
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
-    //  @IBAction func cancel(_ sender: Any) {
-    
-//        let isPresentingMode = presentingViewController is UINavigationController
-//
-//        if isPresentingMode {
- //           dismiss(animated: true, completion: nil)
-//
-//        } else if let owningNavigationController = navigationController{
-//            owningNavigationController.popViewController(animated: true)
-//        }
-//        else {
-//            fatalError("The ViewController is not inside a navigation controller")
-//        }
-    
-   // }
+
     @IBAction func addGeofence(_ sender: Any) {
         //Save the state while user navigate to another view
         saveStates()
-        
-        let naviController = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
-        
-        naviController?.status = "create"
-        
-        //self.navigationController?.popViewController(animated: false)
-        self.navigationController?.pushViewController(naviController!, animated: true)
+        state = "create" //tell Main to call create function
     }
     
     @IBAction func submitForm(_ sender: Any) {
-        
+        state = "" //declare state as nil
         if (nameTextField.text?.isEmpty)! || points == nil{
             self.nameValidationLabel.text = "Please fill in the name"
             self.geofenceValidationLabel.text = "Geofence has not been marked"
@@ -112,21 +95,19 @@ class CreateViewController: UIViewController {
             let create = putPlace(name: nameTextField.text, geofence: geofence, beacons: beacon)
             
             let data = DataHandler()
-            data.createPlace(create)
+            data.createPlace(create,nameTextField.text!)
             
             //after sending data, set points to nil
             points = nil
             
-            let time = DispatchTime.now() + 1.5
-            DispatchQueue.main.asyncAfter(deadline: time) {
-                
-                let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "GeofenceController") as? GeofenceController
-                //Fprint("pop")
-                //self.navigationController?.popViewController(animated: true)
-                // for the unpop mapview
-                self.navigationController?.pushViewController(naviController!, animated: true)
-                //self.navigationController?.present(naviController!, animated: true, completion: nil)
-            }
+            performSegue(withIdentifier: "GeofenceController", sender: nil)
+//            let time = DispatchTime.now() + 1.5
+//            DispatchQueue.main.asyncAfter(deadline: time) {
+//
+//                let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "GeofenceController") as? GeofenceController
+//
+//                self.navigationController?.pushViewController(naviController!, animated: true)
+//            }
         }
     }
 }

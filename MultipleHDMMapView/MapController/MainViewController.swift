@@ -9,11 +9,9 @@
 import UIKit
 import HDMMapCore
 
-
-
-
 class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
 
+    //variable to keep track of the geofence
     var feature : [HDMFeature] = []
     var emptyFeature = HDMFeature()
     var featureId : [UInt64] = []
@@ -22,16 +20,18 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     var nameArray = [String] ()
     var urlArray = [String] ()
     var beaconName : [String] = []
-    var url : String?
-    var urlIndex : Int?
+    
+    //variable for drawings and coordinates
     var coordinateX = [Double] ()
     var coordinateY = [Double] ()
     var tapLocation = [CGPoint] ()
-    var status : String?
-    
-    
     var canvasView: CanvasView!
     var drawPolygon: DrawPolygon!
+    
+    //standalone variables for specific usage
+    var status : String? //to obtain status of the app's flow
+    var url : String? //to obtain specific url from other classes
+    var urlIndex : Int? //to act as a specific index for the array
     var modeSelected: Bool = false
     var isDrawing: Bool = false
     var t: UIGestureRecognizer!
@@ -44,32 +44,42 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     @IBOutlet weak var lineBtn: UIButton!
     @IBOutlet weak var polyBtn: UIButton!
     
-    @IBOutlet weak var doneBtn: UIButton!
-    
     @IBOutlet weak var menuBtn: UIButton!
+    
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue){
+        if let origin = segue.source as? UpdateViewController {
+            status = origin.status
+            url = origin.urlMain
+        }
+        if let origin = segue.source as? CreateViewController {
+            status = origin.status
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Mainview Did Load")
         self.delegate = self
         self.mapView.tapEnabled = false
-        self.view.addSubview(self.doneBtn)
         self.view.addSubview(self.menuBtn)
-        self.doneBtn.isHidden = true
         self.drawStack.isHidden = true
         
         mapView.bringSubview(toFront: drawStack)
         
+        //observer of confirmCreate
+        NotificationCenter.default.addObserver(self, selector: #selector(self.confirmCreate(_:)), name: NSNotification.Name(rawValue: "confirmCreate"), object: nil)
+        //observer of confirmUpdate
+        NotificationCenter.default.addObserver(self, selector: #selector(self.confirmUpdate(_:)), name: NSNotification.Name(rawValue: "confirmUpdate"), object: nil)
+        //observer of deletegeofence
+        NotificationCenter.default.addObserver(self, selector: #selector(self.deleteGeofence(_:)), name: NSNotification.Name(rawValue: "deleteGeofence"), object: nil)
+        //observer of alertController
+        NotificationCenter.default.addObserver(self, selector: #selector(self.deleteGeofence(_:)), name: NSNotification.Name(rawValue: "alertError"), object: nil)
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        if status == "create" {createGeofence()}
+        //Import data from Gimbal Server
         let testdata = DataHandler()
-        testdata.getCoordinates(){
+        testdata.getBeacon(){
             place in
-        
+            
             if (place?.feature == nil) {
                 self.feature.append(self.emptyFeature)
                 self.annotation.append(nil)
@@ -106,13 +116,17 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
                 self.featureId.append((place?.feature?.featureId)!)
                 
             }
-            if self.status == "update" { self.updateGeofence()}
+            self.getData(self.urlArray)
         }
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        if status == "create" {createGeofence()}
+        if status == "update" {updateGeofence()}
         mapView.reloadInputViews()
         
-        //receiver of deletegeofence
-        NotificationCenter.default.addObserver(self, selector: #selector(self.deleteGeofence(_:)), name: NSNotification.Name(rawValue: "deleteGeofence"), object: nil)
         print("Mainview will Appear")
     }
     
@@ -126,6 +140,17 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         super.viewDidDisappear(animated)
         print("Mainview did Disappear")
         self.status = ""
+        self.mapView.tapEnabled = false
+        self.coordinateX.removeAll()
+        self.coordinateY.removeAll()
+        if self.canvasView != nil{
+            self.canvasView.removeFromSuperview()
+            self.canvasView.image = nil
+            self.canvasView = nil
+            self.tapLocation.removeAll()
+            self.view.removeGestureRecognizer(t)
+        }
+
     }
     
     func mapViewControllerDidStart(_ controller: HDMMapViewController, error: Error?) {
@@ -136,7 +161,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         
         coordinateX.append(coordinate.x)
         coordinateY.append(coordinate.y)
-    
+        
         print(coordinateX.count)
         
     }
@@ -145,9 +170,6 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         guard let f = features.first else {return}
         
         print("Selecting object with ID \(f.featureId)")
-        print(featureId)
-        print(features)
-        print(annotation)
         
         if let index = self.featureId.index(of: f.featureId ){
             
@@ -185,11 +207,21 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         let alertController = UIAlertController(title: "Add Geofence", message: "Tap Ok to start adding geofence", preferredStyle: .alert)
         
         let confirmAction = UIAlertAction(title: "Ok", style: .default) { (_) in
-            //allow user to draw geofence
-            self.mapView.tapEnabled = true
-            self.addGestureListener()
-            self.doneBtn.isHidden = false
+            //refresh tapCoordinates
+            self.coordinateX.removeAll()
+            self.coordinateY.removeAll()
+            if self.canvasView != nil{
+                self.canvasView.removeFromSuperview()
+                self.canvasView.image = nil
+                self.canvasView = nil
+                self.tapLocation.removeAll()
+            }
+            
             self.drawStack.isHidden = false
+            self.tapBtn.isHidden = false
+            self.rectBtn.isHidden = false
+            self.lineBtn.isHidden = false
+            self.polyBtn.isHidden = false
             self.menuBtn.isHidden = true
             
             
@@ -212,36 +244,103 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
           
                 urlIndex = index
                 //alert user
-                let alertController = UIAlertController(title: "Update Geofence", message: "Remove previous geofence to start update a new one?", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Update Geofence", message: "Start updating geofence?", preferredStyle: .alert)
                 
                 let confirmAction = UIAlertAction(title: "Yes", style: .default) { (_) in
-                    if !(self.annotation[index] == nil) {
+                    self.coordinateX.removeAll()
+                    self.coordinateY.removeAll()
+                    if self.canvasView != nil{
+                        self.canvasView.removeFromSuperview()
+                        self.canvasView.image = nil
+                        self.canvasView = nil
+                        self.tapLocation.removeAll()
+                    }
+                    
+                    DispatchQueue.main.async {
                         self.mapView.remove(self.annotation[index])
                         self.mapView.remove(self.feature[index])
-                    } else {
                     }
-                    self.feature.remove(at: index)
-                    //allow user to draw geofence
-                    self.mapView.tapEnabled = true
-                    self.doneBtn.isHidden = false
                     
+                    //allow user to draw geofence
+                    self.drawStack.isHidden = false
+                    self.tapBtn.isHidden = false
+                    self.rectBtn.isHidden = false
+                    self.lineBtn.isHidden = false
+                    self.polyBtn.isHidden = false
                     self.menuBtn.isHidden = true
-                    //self.navigationController?.navigationBar.isUserInteractionEnabled = false
-                }
-                
-                let cancelAction = UIAlertAction(title: "No", style: .cancel) { (_) in
-                   
                 }
                 
                 alertController.addAction(confirmAction)
-                alertController.addAction(cancelAction)
             
             //if statement to stop UIAlertcontroller from calling multiple times
             if !(self.navigationController?.visibleViewController?.isKind(of: UIAlertController.self))! {
                self.present(alertController, animated: true, completion: nil)
             }
-
+        }
+    }
+    
+    //receiver function - confirmCreate
+    @objc func confirmCreate(_ notification: NSNotification){
+        if let name = notification.userInfo?["name"] as? String{
+            
+            let getData = DataHandler()
+            getData.getBeacon(){
+                place in
+                if (name.isEqual(place?.place?.name)){
+                    self.feature.append((place?.feature)!)
+                    self.annotation.append((place?.annotation)!)
+                    self.nameArray.append((place?.place?.name)!)
+                    self.urlArray.append((place?.place?.url)!)
+                    
+                    if !((place?.place?.beacons?.isEmpty)!){
+                        for beacon in (place?.place?.beacons)! {
+                            self.beaconName.append(beacon.name!)
+                        }
+                    } else {
+                        self.beaconName.append("")
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.mapView.add(place?.annotation)
+                    }
+                    self.mapView.add((place?.feature)!)
+                    self.featureId.append((place?.feature?.featureId)!)
+                    self.printVar()
+                }
             }
+        }
+    }
+    
+    //receiver function - confirmUpdate
+    @objc func confirmUpdate(_ notification: NSNotification){
+        if let url = notification.userInfo?["url"] as? String{
+            if let index = urlArray.index(of: url){
+                
+                let getData = DataHandler()
+                getData.getBeacon(){
+                    place in
+                    
+                    if (url == place?.place?.url){
+                        self.nameArray[index] = (place?.place?.name)!
+                        self.feature[index] = (place?.feature)!
+                        self.annotation[index] = (place?.annotation)!
+                        if !((place?.place?.beacons?.isEmpty)!){
+                            for beacon in (place?.place?.beacons)! {
+                                self.beaconName[index] = beacon.name!
+                            }
+                        } else {
+                            self.beaconName[index] = ""
+                        }
+                        DispatchQueue.main.async {
+                            self.mapView.add(place?.annotation)
+                        }
+                        self.mapView.add((place?.feature)!)
+                        self.featureId[index] = (place?.feature?.featureId)!
+                        self.printVar()
+                    }
+                }
+            }
+        }
     }
     
     //receiver function - deletegeofence
@@ -251,7 +350,6 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
                 if !(self.annotation[index] == nil){
                     self.mapView.remove(self.annotation[index])
                     self.mapView.remove(self.feature[index])
-                    print(self.feature[index])
                 }
                 urlArray.remove(at: index)
                 nameArray.remove(at: index)
@@ -263,63 +361,33 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         }
     }
     
-    @IBAction func doneAction(_ sender: UIButton) {
-        var points : [putPlace.Geofence.Points] = []
-        var feat : HDMFeature
+    //receiver function - deletegeofence
+    @objc func alertError(_ notification: NSNotification){
+        let alertController = UIAlertController(title: "Error", message: "Error uploading to server, please try again.", preferredStyle: .alert)
         
-        if self.coordinateX.count == 0 || self.coordinateX.count == 1{
-            var message : String?
-            if self.coordinateX.count == 0 {message = "You have not mark any points on the map"}
-            else if self.coordinateX.count == 1 {message = "You have only selected one point on the map"}
-            let alertController = UIAlertController(title: "Not Enough Points Selected", message: message, preferredStyle: .alert)
-            
-            let confirmButton = UIAlertAction(title: "OK", style: .default) { (_) in
-                    self.coordinateX.removeAll()
-                    self.coordinateY.removeAll()
-                // making sure canvasView is empty
-                if self.canvasView != nil{
-                    self.canvasView.removeFromSuperview()
-                    self.canvasView = nil
-                }
-            }
-            
-            alertController.addAction(confirmButton)
-            
-            if !(self.navigationController?.visibleViewController?.isKind(of: UIAlertController.self))! {
-                self.present(alertController, animated: true, completion: nil)
-            }
-        } else {
-            //remember to assign new polygons to array
-            let data = DataHandler()
-            (feat,points) = data.drawPolygon(self.coordinateX,self.coordinateY)
-            
-            if status == "create"{
-                  self.doneBtn.isHidden = true
-                self.menuBtn.isHidden = false
-                //send points to CreateView
-                let naviController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CreateViewController") as? CreateViewController
-                
-                naviController?.points = points
-                naviController?.status = "load"
-                //self.navigationController?.popViewController(animated: false)
-                self.navigationController?.pushViewController(naviController!, animated: true)
-            }
-            else if status == "update" {
-            //assign new feature into feature array
-            self.feature.insert(feat, at: urlIndex!)
-                
-            self.doneBtn.isHidden = true
-                self.menuBtn.isHidden = false
-            //send points to UpdateView
-            let naviController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UpdateViewController") as? UpdateViewController
-            
-            naviController?.points = points
-            naviController?.url = url!
-            naviController?.status = "load"
-            //self.navigationController?.popViewController(animated: false)
-            self.navigationController?.pushViewController(naviController!, animated: true)
-            }
+        let confirmAction = UIAlertAction(title: "OK", style: .default) { (_) in}
+        
+        alertController.addAction(confirmAction)
+        
+        //if statement to stop UIAlertcontroller from calling multiple times
+        if !(self.navigationController?.visibleViewController?.isKind(of: UIAlertController.self))! {
+            self.present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    //get url from completion handler to be use in MAIN
+    func getData(_ url : [String]){
+        urlArray = url
+    }
+    
+    //Used for keeping track of array counts and checking behaviour of the datasets after each operation
+    func printVar(){
+        print("feature:\(self.feature.count)")
+        print("url:\(self.urlArray.count)")
+        print("annotation:\(self.annotation.count)")
+        print("beacon:\(self.beaconName.count)")
+        print("fid:\(self.featureId.count)")
+        print("name:\(self.nameArray.count)")
     }
     
     // Setup
@@ -328,9 +396,9 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         mapView.setFeatureStyle("poly", propertyName: "fill-color", value: "#e9bc00")
         mapView.reloadStyle()
         mapView.set3DMode(false, animated: false)
-        mapView.setRegion(HDMMapCoordinateRegionMake(49.418397, 8.675501, 0, 0.000213, 0.000213), animated: false)
+        //mapView.setRegion(HDMMapCoordinateRegionMake(49.418397, 8.675501, 0, 0.000213, 0.000213), animated: false)
         // Map is too small thus zoom region not big enough
-         //mapView.moveToFeature(withId: 19392, animated: false)
+         mapView.moveToFeature(withId: 19392, animated: false)
         
         // For user interaction
         mapView.rotateEnabled = false
@@ -347,6 +415,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
             view.addGestureRecognizer(t)
         }
     }
+    
     
 
     //    MARK:TAP effect
@@ -372,7 +441,6 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
             // initialize the canvasView
             canvasView = CanvasView(frame: self.mapView.frame)
             self.view.addSubview(canvasView)
-            print("Here")
             // drawing gesture feedback
             var prev = tapLocation.first
             for i in tapLocation {
@@ -381,32 +449,94 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
                 prev = i
             }
             canvasView.drawLineFrom(fromPoint: prev!, toPoint: tapLocation.first!)  //Enclose the polygon
-            self.view.bringSubview(toFront: doneBtn)
             } else {
                 mapView.tapEnabled = false
                 dismiss(animated: true, completion: nil)
             }
         }
     }
-    
+
     @IBAction func tapAction(_ sender: UIButton) {
         let oriImage = #imageLiteral(resourceName: "tap")
-        mapView.tapEnabled = true
-        addGestureListener()
-        gestureType = .tap
-        doneBtn.isHidden = false
-        view.bringSubview(toFront: doneBtn)
+        lineBtn.isHidden = true
+        rectBtn.isHidden = true
+        polyBtn.isHidden = true
+        if !(t == nil){view.removeGestureRecognizer(t)}
+        DispatchQueue.main.async {
+            self.mapView.tapEnabled = true
+            self.addGestureListener()
+            self.gestureType = .tap
+        }
+
         if(self.isDrawing == false) {
             prepareForDrawing(sender, gestureType)
-        } else if(checkPoints()){
-            prepareToEndDrawing(sender, gestureType, oriImage)
+        } else{
+            var points : [putPlace.Geofence.Points] = []
+            
+            if self.coordinateX.count == 0 || self.coordinateX.count == 1{
+                var message : String?
+                if self.coordinateX.count == 0 {message = "You have not mark any points on the map"}
+                else if self.coordinateX.count == 1 {message = "You have only selected one point on the map"}
+                let alertController = UIAlertController(title: "Not Enough Points Selected", message: message, preferredStyle: .alert)
+                
+                let confirmButton = UIAlertAction(title: "OK", style: .default) { (_) in
+                    self.coordinateX.removeAll()
+                    self.coordinateY.removeAll()
+                    // making sure canvasView is empty
+                    if self.canvasView != nil{
+                        self.canvasView.removeFromSuperview()
+                        self.canvasView.image = nil
+                        self.canvasView = nil
+                        self.tapLocation.removeAll()
+                    }
+                }
+                
+                alertController.addAction(confirmButton)
+                
+                if !(self.navigationController?.visibleViewController?.isKind(of: UIAlertController.self))! {
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            } else {
+                //remember to assign new polygons to array
+                let data = DataHandler()
+                (points) = data.getPoints(self.coordinateX,self.coordinateY)
+                
+                if status == "create"{
+                    prepareToEndDrawingTap(sender, gestureType, oriImage)
+                    self.menuBtn.isHidden = false
+                    
+                    //send points to CreateView
+                    let naviController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CreateViewController") as? CreateViewController
+                    
+                    naviController?.points = points
+                    naviController?.status = "load"
+                    
+                    self.navigationController?.pushViewController(naviController!, animated: true)
+                }
+                else if status == "update" {
+                    prepareToEndDrawingTap(sender, gestureType, oriImage)
+                    self.menuBtn.isHidden = false
+                    //send points to UpdateView
+                    let naviController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UpdateViewController") as? UpdateViewController
+                    
+                    naviController?.points = points
+                    naviController?.url = url!
+                    naviController?.status = "load"
+                    
+                    self.navigationController?.pushViewController(naviController!, animated: true)
+                    
+                }
+            }
         }
     }
     
     @IBAction func rectAction(_ sender: UIButton) {
         let oriImage = #imageLiteral(resourceName: "rect")
+        lineBtn.isHidden = true
+        tapBtn.isHidden = true
+        polyBtn.isHidden = true
         mapView.tapEnabled = false
-        view.removeGestureRecognizer(t)
+        if !(t == nil){view.removeGestureRecognizer(t)}
         gestureType = .rect
         if(self.isDrawing == false) {
             prepareForDrawing(sender, gestureType)
@@ -416,8 +546,11 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     }
     @IBAction func lineAction(_ sender: UIButton) {
         let oriImage = #imageLiteral(resourceName: "line")
+        tapBtn.isHidden = true
+        rectBtn.isHidden = true
+        polyBtn.isHidden = true
         mapView.tapEnabled = false
-        view.removeGestureRecognizer(t)
+        if !(t == nil){view.removeGestureRecognizer(t)}
         gestureType = .line
         if(self.isDrawing == false) {
             prepareForDrawing(sender, gestureType)
@@ -427,8 +560,11 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     }
     @IBAction func polyAction(_ sender: UIButton) {
         let oriImage = #imageLiteral(resourceName: "poly")
+        lineBtn.isHidden = true
+        rectBtn.isHidden = true
+        tapBtn.isHidden = true
         mapView.tapEnabled = false
-        view.removeGestureRecognizer(t)
+        if !(t == nil){view.removeGestureRecognizer(t)}
         gestureType = .poly
         if(self.isDrawing == false) {
             prepareForDrawing(sender, gestureType)
@@ -438,18 +574,21 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     }
     
     func prepareForDrawing(_ sender: UIButton, _ type: Gesture) {
-        doneBtn.isHidden = true
         sender.self.setImage(#imageLiteral(resourceName: "done"), for: UIControlState.normal)
         sender.self.setTitle("Done", for: UIControlState.normal)
         let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
-        drawPolygon = DrawPolygon(frame: frame)
-        drawPolygon.setCurrentMap(mapView: mapView)
-        drawPolygon.setGesture(type)
-        self.view.addSubview(drawPolygon)
-        drawPolygon.canvasView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        if ( type == .tap) {
+        }else{
+            drawPolygon = DrawPolygon(frame: frame)
+            drawPolygon.setCurrentMap(mapView: mapView)
+            drawPolygon.setGesture(type)
+            self.view.addSubview(drawPolygon)
+            drawPolygon.canvasView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        }
         self.view.bringSubview(toFront: drawStack)
         self.isDrawing = true
     }
+    
     func prepareToEndDrawing(_ sender: UIButton, _ type: Gesture, _ oriImage: UIImage) {
         sender.self.setImage(oriImage, for: UIControlState.normal)
         sender.self.setTitle("Draw", for: UIControlState.normal)
@@ -457,6 +596,13 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
         drawFinished()
         drawPolygon = nil
         self.isDrawing = false
+    }
+    
+    func prepareToEndDrawingTap(_ sender: UIButton, _ type: Gesture, _ oriImage: UIImage) {
+        sender.self.setImage(oriImage, for: UIControlState.normal)
+        sender.self.setTitle("Draw", for: UIControlState.normal)
+        self.isDrawing = false
+        self.drawStack.isHidden = true
     }
     
     // Finish drawing saving values before navigation
@@ -477,7 +623,7 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
             let confirmButton = UIAlertAction(title: "OK", style: .default) { (_) in
                 self.drawPolygon.clear()
             }
-            print("Not success")
+    
             alertController.addAction(confirmButton)
             
             if !(self.navigationController?.visibleViewController?.isKind(of: UIAlertController.self))! {
@@ -490,7 +636,6 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
     
     func prepareForNavigation(_ cPoints: [HDMPoint]){
         var points : [putPlace.Geofence.Points] = []
-        var feat : HDMFeature
         // Double Check
         if cPoints.count == 0 || cPoints.count == 1{
             var message : String?
@@ -510,9 +655,8 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
             //remember to assign new polygons to array
             let data = DataHandler()
             (self.coordinateX , self.coordinateY) = CoordinateHandler.castPointsToXY(pointsXY: cPoints)
-            (feat,points) = data.drawPolygon(self.coordinateX , self.coordinateY)
+            (points) = data.getPoints(self.coordinateX , self.coordinateY)
             if status == "create"{
-                self.doneBtn.isHidden = true
                 self.drawStack.isHidden = true
                 self.menuBtn.isHidden = false
                 //send points to CreateView
@@ -524,10 +668,6 @@ class MainViewController: HDMMapViewController, HDMMapViewControllerDelegate {
                 self.navigationController?.pushViewController(naviController!, animated: true)
             }
             else if status == "update" {
-                //assign new feature into feature array
-                self.feature.insert(feat, at: urlIndex!)
-                
-                self.doneBtn.isHidden = true
                 self.drawStack.isHidden = true
                 self.menuBtn.isHidden = false
                 //send points to UpdateView

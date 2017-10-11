@@ -25,6 +25,7 @@ class UpdateViewController: UIViewController {
     var name: String = ""
     var beaconId: String = ""
     var url: String = ""
+    var urlMain: String?
     var status: String?
     var points : [putPlace.Geofence.Points]? = nil
     let list = ["Bauhaus", "Küche", "B&B B", "Meetingraum Heidelberg", "Geo Dev" ,"Kicker" ,"Glashaus" ,"Matthi" ,"Eingang Entwicklung" ,"Tokio"]
@@ -64,19 +65,16 @@ class UpdateViewController: UIViewController {
         self.pickerBeacon.isHidden = true
     }
     
+    //passing data back to Main using segue unwind
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        status = "update"
+        urlMain = url
+    }
+    
     //MARK: Button functions
     @IBAction func editGeofence(_ sender: UIButton) {
-        
         //Save the state while user navigate to another view
         saveStates()
-        
-        //Navigate to MainViewController
-        let naviController = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
-    
-        naviController?.url = url
-        naviController?.status = "update"
-        
-        self.navigationController?.pushViewController(naviController!, animated: true)
     }
     
     @IBAction func updateForm(_ sender: Any) {
@@ -91,9 +89,8 @@ class UpdateViewController: UIViewController {
             let data = DataHandler()
             data.updatePlace(updates,url)
         
-            let naviController = UIStoryboard(name: "Main" , bundle: nil).instantiateViewController(withIdentifier: "GeofenceController") as? GeofenceController
+            performSegue(withIdentifier: "UpdatetoGeofence", sender: nil)
         
-            self.navigationController?.pushViewController(naviController!, animated: true)
     }
 }
 

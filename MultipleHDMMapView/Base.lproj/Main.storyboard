@@ -38,7 +38,7 @@
         <!--List View-->
         <scene sceneID="d74-Zc-2mW">
             <objects>
-                <viewController storyboardIdentifier="GeofenceController" title="List View" id="5sE-Bj-aC4" customClass="GeofenceController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GeofenceController" title="List View" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5sE-Bj-aC4" customClass="GeofenceController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8pC-d3-ORi">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -84,6 +84,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Map" id="cUH-bd-RjE">
                             <connections>
                                 <action selector="cancel:" destination="5sE-Bj-aC4" id="3iC-w1-8zw"/>
+                                <segue destination="93S-Z8-52e" kind="unwind" unwindAction="prepareForUnwindWithSegue:" id="w82-O6-LFb"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="sUK-4k-tTt">
@@ -99,8 +100,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Hb-O1-pOQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="93S-Z8-52e" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3238" y="1135"/>
+            <point key="canvasLocation" x="3016" y="403"/>
         </scene>
         <!--Update View Controller-->
         <scene sceneID="m6h-0V-DwL">
@@ -111,7 +113,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="WDu-9K-XyN">
-                                <rect key="frame" x="50" y="114" width="668" height="860"/>
+                                <rect key="frame" x="50" y="70" width="668" height="904"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update Geofence" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YTJ-iw-2v8">
                                         <rect key="frame" x="0.0" y="0.0" width="668" height="26.5"/>
@@ -120,7 +122,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="efa-Dz-dsW">
-                                        <rect key="frame" x="0.0" y="76.5" width="668" height="333"/>
+                                        <rect key="frame" x="0.0" y="76.5" width="668" height="377"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="ZKK-YP-XUZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="668" height="45"/>
@@ -146,7 +148,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Z4l-m2-pqJ">
-                                                <rect key="frame" x="0.0" y="65" width="668" height="268"/>
+                                                <rect key="frame" x="0.0" y="65" width="668" height="312"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select Beacon Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dyj-Tz-u6i">
                                                         <rect key="frame" x="0.0" y="0.0" width="668" height="25"/>
@@ -161,7 +163,7 @@
                                                         </connections>
                                                     </textField>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1P0-M6-1hT">
-                                                        <rect key="frame" x="0.0" y="31" width="668" height="237"/>
+                                                        <rect key="frame" x="0.0" y="31" width="668" height="281"/>
                                                         <connections>
                                                             <outlet property="dataSource" destination="yDp-QS-4gV" id="WDC-Fd-jiL"/>
                                                             <outlet property="delegate" destination="yDp-QS-4gV" id="p2g-jE-HJ8"/>
@@ -172,7 +174,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Zfe-gs-dy6">
-                                        <rect key="frame" x="0.0" y="459.5" width="668" height="55"/>
+                                        <rect key="frame" x="0.0" y="503.5" width="668" height="55"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpp-P5-CBw">
                                                 <rect key="frame" x="0.0" y="0.0" width="668" height="25"/>
@@ -182,6 +184,7 @@
                                                 <state key="normal" title="Click here to edit Geofence"/>
                                                 <connections>
                                                     <action selector="editGeofence:" destination="yDp-QS-4gV" eventType="touchUpInside" id="jgO-y0-IHW"/>
+                                                    <segue destination="VdU-gK-LG4" kind="unwind" unwindAction="prepareForUnwindWithSegue:" id="pv3-j6-Ny5"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tz4-lM-Ca7">
@@ -197,7 +200,7 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ge0-S3-FRO" userLabel="Filler">
-                                        <rect key="frame" x="0.0" y="564.5" width="668" height="295.5"/>
+                                        <rect key="frame" x="0.0" y="608.5" width="668" height="295.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
@@ -221,47 +224,22 @@
                         <outlet property="nameValidationLabel" destination="A1J-p3-sgx" id="Caj-8v-2C2"/>
                         <outlet property="pickerBeacon" destination="1P0-M6-1hT" id="NZW-ha-Fqe"/>
                         <outlet property="updateBtn" destination="Tz4-lM-Ca7" id="aG8-OF-R8E"/>
+                        <segue destination="5sE-Bj-aC4" kind="show" identifier="UpdatetoGeofence" id="ds0-Q5-hsi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4bH-Lc-vy1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="VdU-gK-LG4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5119.921875" y="624.81698389458268"/>
-        </scene>
-        <!--List View Navigate-->
-        <scene sceneID="3tH-yE-VyN">
-            <objects>
-                <navigationController title="List View Navigate" id="zej-iM-DE0" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zvl-WR-5Tw">
-                        <rect key="frame" x="0.0" y="20" width="768" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="5sE-Bj-aC4" kind="relationship" relationship="rootViewController" id="eIS-40-Ct2"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rZY-IQ-413" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3238" y="403"/>
+            <point key="canvasLocation" x="2991" y="-494"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="2lJ-MA-tI8">
             <objects>
-                <viewController storyboardIdentifier="MainViewController" id="nhw-M0-ZHF" customClass="MainViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nhw-M0-ZHF" customClass="MainViewController" customModule="MultipleHDMMapView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7ki-CU-Myd">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89P-ZN-8Gd">
-                                <rect key="frame" x="701" y="84" width="47" height="36"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="doneAction:" destination="nhw-M0-ZHF" eventType="touchUpInside" id="Cla-OE-CtJ"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEd-OQ-G4R">
                                 <rect key="frame" x="684" y="940" width="64" height="64"/>
                                 <constraints>
@@ -269,7 +247,7 @@
                                 </constraints>
                                 <state key="normal" image="icons8-Menu-64"/>
                                 <connections>
-                                    <segue destination="zej-iM-DE0" kind="presentation" id="8yR-RF-K0Z"/>
+                                    <segue destination="5sE-Bj-aC4" kind="show" id="zRQ-bU-gmj"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="cEF-xl-kDZ" userLabel="Draw Stack">
@@ -328,17 +306,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="GGv-ck-Rki" firstAttribute="trailing" secondItem="cEF-xl-kDZ" secondAttribute="trailing" constant="12" id="1yE-gd-T9b"/>
-                            <constraint firstItem="GGv-ck-Rki" firstAttribute="trailing" secondItem="89P-ZN-8Gd" secondAttribute="trailing" constant="20" id="2SI-RI-bPZ"/>
                             <constraint firstItem="GGv-ck-Rki" firstAttribute="trailing" secondItem="hEd-OQ-G4R" secondAttribute="trailing" constant="20" id="Lkd-hS-jLy"/>
                             <constraint firstItem="GGv-ck-Rki" firstAttribute="bottom" secondItem="hEd-OQ-G4R" secondAttribute="bottom" constant="20" id="YCG-e0-bKR"/>
-                            <constraint firstItem="89P-ZN-8Gd" firstAttribute="top" secondItem="GGv-ck-Rki" secondAttribute="top" constant="20" id="Z0S-Ss-Ur9"/>
                             <constraint firstItem="cEF-xl-kDZ" firstAttribute="centerY" secondItem="GGv-ck-Rki" secondAttribute="centerY" id="vre-Vm-lkf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GGv-ck-Rki"/>
                     </view>
                     <navigationItem key="navigationItem" id="nJo-UY-Cja"/>
                     <connections>
-                        <outlet property="doneBtn" destination="89P-ZN-8Gd" id="tWC-Gp-wTE"/>
                         <outlet property="drawStack" destination="cEF-xl-kDZ" id="BYw-wE-TD3"/>
                         <outlet property="lineBtn" destination="Oxb-G5-pfL" id="xa9-6Z-YkN"/>
                         <outlet property="menuBtn" destination="hEd-OQ-G4R" id="Zvp-AQ-gDi"/>
@@ -350,24 +325,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l6B-pd-bdR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2017" y="403"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="fRP-i2-tYu">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vfu-M3-PjK" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3NB-a3-QhH">
-                        <rect key="frame" x="0.0" y="20" width="768" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="yDp-QS-4gV" kind="relationship" relationship="rootViewController" id="51U-LP-I3h"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wqj-of-zOu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4247" y="1155"/>
         </scene>
         <!--Create View Controller-->
         <scene sceneID="jgZ-3m-G5X">
@@ -449,6 +406,7 @@
                                                 <state key="normal" title="Click here to add Geofence"/>
                                                 <connections>
                                                     <action selector="addGeofence:" destination="SFr-mm-4Ah" eventType="touchUpInside" id="3qg-8W-hqg"/>
+                                                    <segue destination="cdy-2P-P8P" kind="unwind" unwindAction="prepareForUnwindWithSegue:" id="mBv-5W-3gl"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="geofenceValidation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PO9-7A-SYD">
@@ -490,6 +448,7 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="z7c-jL-KcF">
                             <connections>
                                 <action selector="cancel:" destination="SFr-mm-4Ah" id="LRL-9h-XGi"/>
+                                <segue destination="cdy-2P-P8P" kind="unwind" unwindAction="prepareForGeofenceWithSegue:" id="mJx-4x-1Cp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -501,29 +460,13 @@
                         <outlet property="nameValidationLabel" destination="xo4-53-G63" id="0Mv-0I-axP"/>
                         <outlet property="pickerBeacon" destination="zkF-eo-xmp" id="gMQ-PK-vUj"/>
                         <outlet property="submitBtn" destination="FfO-yT-gQF" id="VXp-ge-Nis"/>
+                        <segue destination="5sE-Bj-aC4" kind="show" identifier="GeofenceController" id="SRl-qS-P9s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YXl-Dc-wut" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="cdy-2P-P8P" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5119.53125" y="-51.5625"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="mTp-yq-CrM">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tY5-ig-8h9" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7KQ-7p-z5i">
-                        <rect key="frame" x="0.0" y="20" width="768" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="SFr-mm-4Ah" kind="relationship" relationship="rootViewController" id="VYd-AU-mcB"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ifH-8o-X7H" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4154" y="-178"/>
+            <point key="canvasLocation" x="3928" y="-290"/>
         </scene>
     </scenes>
     <resources>
@@ -534,6 +477,6 @@
         <image name="tap" width="40" height="40"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WVv-57-YDW"/>
+        <segue reference="zRQ-bU-gmj"/>
     </inferredMetricsTieBreakers>
 </document>
